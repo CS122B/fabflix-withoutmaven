@@ -49,8 +49,8 @@
 
 
   <servlet-mapping>
-    <servlet-name>TomcatSearchServlet</servlet-name>
-    <url-pattern>/servlet/SearchForm</url-pattern>
+    <servlet-name>LoginFormServlet</servlet-name>
+    <url-pattern>/servlet/LoginForm</url-pattern>
   </servlet-mapping>
 
   
