@@ -55,15 +55,16 @@ public class LoginForm extends HttpServlet
 			  statement.setString(2, password);
 			  
               ResultSet rs = statement.executeQuery();
+			  String firstName;
+			  HttpSession session = request.getSession(true); 
 			  
 			  while (rs.next()) {
-				  String firstName = rs.getString("first_name");
+				  firstName = rs.getString("first_name");
 				  out.println("<p>Welcome, " + firstName + "</p>");
+				  session.setAttribute("userFirstName", firstName);
 			  }
               out.println("</BODY>");
 			  
-			  HttpSession session = request.getSession(true); 
-			  session.setAttribute("userFirstName", firstName);
 
               rs.close();
               statement.close();
