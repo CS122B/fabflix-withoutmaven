@@ -52,8 +52,28 @@
     <servlet-name>LoginFormServlet</servlet-name>
     <url-pattern>/servlet/LoginForm</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>HomePageServlet</servlet-name>
+    <servlet-class>HomePage</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HomePageServlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
 
   
+  <servlet>
+    <servlet-name>LogoutPageServlet</servlet-name>
+    <servlet-class>LogoutPage</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LogoutPageServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
   
   
 </web-app>
