@@ -21,14 +21,22 @@ public class LoginForm extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException
     {
+	    HttpSession session = request.getSession(false);
+        // Output stream to STDOUT
+        PrintWriter out = response.getWriter();
+
+		if (session != null) {
+			out.println("you're already logged in, log out first");
+			out.close();
+			return;
+		}
+		
         String loginUser = "testuser";
         String loginPasswd = "testpassword";
         String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
         response.setContentType("text/html");    // Response mime type
 
-        // Output stream to STDOUT
-        PrintWriter out = response.getWriter();
 
         out.println("<HTML><HEAD><TITLE>MovieDB</TITLE></HEAD>");
         out.println("<BODY><H1>MovieDB</H1>");
@@ -56,7 +64,7 @@ public class LoginForm extends HttpServlet
 			  
               ResultSet rs = statement.executeQuery();
 			  String firstName;
-			  HttpSession session = request.getSession(true); 
+			  session = request.getSession(); 
 			  
 			  while (rs.next()) {
 				  firstName = rs.getString("first_name");
