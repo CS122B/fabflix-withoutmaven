@@ -43,8 +43,8 @@
 
   
   <servlet>
-    <servlet-name>LoginFormServlet</servlet-name>
-    <servlet-class>LoginForm</servlet-class>
+    <servlet-name>TomcatSearchServlet</servlet-name>
+    <servlet-class>SearchForm</servlet-class>
   </servlet>
 
 
