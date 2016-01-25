@@ -1,24 +1,5 @@
-<%@page
-  import="
-    java.sql.*,
-    javax.sql.*,
-    java.io.IOException,
-    javax.servlet.http.*,
-    javax.servlet.*"
-%>
+<%@ include file="common/header.jspf" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="the sickest movie listing ever made. bless up">
-
-  <title>Fabflix - Login</title>
-  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="static/css/index.css">
-</head>
 <body class="login-page">
   <div class="container">
     <form
@@ -63,4 +44,5 @@
     </form>
   </div>
 </body>
-</html>
+
+<%@ include file="common/footer.jspf" %>
