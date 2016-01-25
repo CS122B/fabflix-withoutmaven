@@ -47,7 +47,7 @@
   
   <servlet>
     <servlet-name>SearchServlet</servlet-name>
-    <jsp-file>/search.jsp</jsp-file>
+    <jsp-file>/WEB-INF/pages/search.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchServlet</servlet-name>
@@ -57,7 +57,7 @@
 
   <servlet>
     <servlet-name>LoginPageServlet</servlet-name>
-    <jsp-file>/login.jsp</jsp-file>
+    <jsp-file>/WEB-INF/pages/login.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginPageServlet</servlet-name>
