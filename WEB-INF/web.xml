@@ -43,11 +43,20 @@
 
   
   <servlet>
-    <servlet-name>TomcatSearchServlet</servlet-name>
-    <servlet-class>SearchForm</servlet-class>
+    <servlet-name>SearchServlet</servlet-name>
+    <jsp-file>/search.jsp</jsp-file>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
 
 
+
+  <servlet>
+    <servlet-name>LoginFormServlet</servlet-name>
+    <servlet-class>LoginForm</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>LoginFormServlet</servlet-name>
     <url-pattern>/servlet/LoginForm</url-pattern>
