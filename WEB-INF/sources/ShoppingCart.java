@@ -9,15 +9,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class LogoutPage extends HttpServlet
+public class ShoppingCart extends HttpServlet
 {
-    public String getServletInfo()
-    {
-       return "Servlet connects to MySQL database and displays result of a SELECT";
-    }
-
-    // Use http GET
-
     public void doGet(HttpServletRequest request, HttpServletResponse response)
         throws IOException, ServletException
     {
@@ -25,19 +18,13 @@ public class LogoutPage extends HttpServlet
         PrintWriter out = response.getWriter();
 		
 		if (session == null) {
-			out.println("not logged in anyway");
+			String redirectURL = "?redirect=" + request.getRequestURI();
+			response.sendRedirect("/login" + redirectURL);
 		} else {
 			String firstName = (String)session.getAttribute("userFirstName");
-			out.println(firstName + ", you have been logged out");
-			session.invalidate();
+			out.println(firstName + ", here is your shopping cart");
 		}
 		
          out.close();
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException
-    {
-	doGet(request, response);
     }
 }
