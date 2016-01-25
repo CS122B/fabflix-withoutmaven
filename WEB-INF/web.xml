@@ -28,7 +28,10 @@
 
 
   <!-- Define servlets that are included in the example application -->
-
+  <servlet-mapping>
+      <servlet-name>default</servlet-name>
+      <url-pattern>/static/*</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>TomcatFormServlet</servlet-name>
@@ -51,13 +54,23 @@
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
 
+
   <servlet>
-    <servlet-name>LoginFormServlet</servlet-name>
-    <servlet-class>LoginForm</servlet-class>
+    <servlet-name>LoginPageServlet</servlet-name>
+    <jsp-file>/login.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LoginFormServlet</servlet-name>
-    <url-pattern>/servlet/LoginForm</url-pattern>
+    <servlet-name>LoginPageServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LoginAuthenticationServlet</servlet-name>
+    <servlet-class>LoginAuthentication</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginAuthenticationServlet</servlet-name>
+    <url-pattern>/servlet/authenticateLogin</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -77,7 +90,7 @@
 
   <servlet-mapping>
     <servlet-name>HomePageServlet</servlet-name>
-    <url-pattern>/home</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 
   

@@ -19,7 +19,7 @@ public class ShoppingCart extends HttpServlet
 		
 		if (session == null) {
 			String redirectURL = "?redirect=" + request.getRequestURI();
-			response.sendRedirect("/login" + redirectURL);
+			response.sendRedirect("/TomcatForm/login" + redirectURL);
 		} else {
 			String firstName = (String)session.getAttribute("userFirstName");
 			out.println(firstName + ", here is your shopping cart");
