@@ -85,7 +85,7 @@
   
   <servlet>
     <servlet-name>HomePageServlet</servlet-name>
-    <servlet-class>HomePage</servlet-class>
+    <jsp-file>/WEB-INF/pages/home.jsp</jsp-file>
   </servlet>
 
   <servlet-mapping>

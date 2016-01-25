@@ -1,18 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/imports.jspf" %>
 
-<%@page import="java.sql.*,
- javax.sql.*,
- java.io.IOException,
- javax.servlet.http.*,
- javax.servlet.*"
-%>
-<HTML>
-<HEAD>
-  <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
-  <TITLE>Fabflix Search</TITLE>
-</HEAD>
-
-<BODY>
+<body>
+  <%@ include file="common/navbar.jspf" %>
   
 <FORM ACTION="search"
       METHOD="GET">
@@ -112,5 +102,6 @@
   }
 %>
 
-</BODY>
-</HTML>
+</body>
+
+<%@ include file="common/footer.jspf" %>
