@@ -1,13 +1,15 @@
 <%@ include file="common/header.jspf" %>
 
 <body class="login-page">
+  <%@ include file="common/navbar.jspf" %>
+
   <div class="container">
     <form
       class="form-signin"
       method="GET"
       action="servlet/authenticateLogin"
     >
-      <h2 class="form-signin-heading">Fabflix Login</h2>
+      <h2 class="form-signin-heading">Login</h2>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         id="inputEmail"
