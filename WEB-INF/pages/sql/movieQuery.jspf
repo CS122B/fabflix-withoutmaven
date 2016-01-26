@@ -23,9 +23,19 @@
       String year = rs.getString("year");
       String banner = rs.getString("banner_url");
 
-      out.println("<h3>Title: " + title + "</h3>");
-      out.println("<h3>Year: " + year + "</h3>");
-      out.println("<img src='" + banner + "'>");
+      out.println(
+        "<h3>Title: " + title + "</h3>" +
+        "<h3>Year: " + year + "</h3>" +
+        "<img src='" + banner + "'>" +
+        "<button " +
+          "id=\"movie-add-cart\"" +
+          "data-movie-id=\"" + movieId + "\"" +
+          "class=\"btn btn-primary\"" +
+          "type=\"button\"" +
+        ">" +
+        "Add to Cart" +
+        "</button>"
+      );
     }
 
     rs.close();

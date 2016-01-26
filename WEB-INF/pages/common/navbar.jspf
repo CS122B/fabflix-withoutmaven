@@ -49,10 +49,10 @@
         } else {
           out.println(
             "<li>" +
-            "  <a href=\"" + rootPath + "/logout\">Logout</a>" +
+            "  <a href=\"" + rootPath + "/cart\">Shopping Cart</a>" +
             "</li>" +
             "<li>" +
-            "  <a href=\"" + rootPath + "/cart\">Shopping Cart</a>" +
+            "  <a href=\"" + rootPath + "/logout\">Logout</a>" +
             "</li>"
           );
         }
