@@ -9,28 +9,41 @@
     String searchCriteria = request.getParameter("criteria");
     String searchPage = request.getParameter("pageNum");
     String searchLimit = request.getParameter("numResults");
+	
+	String searchTitle = request.getParameter("title");
+	String searchYear = request.getParameter("year");
+	String searchDirector = request.getParameter("director");
+	String searchStar = request.getParameter("star");
   %>
 
   <div class="container">
     <div class="form-group">
       <form action="search" method="GET">
 		<div>
-			Title:<input class="form-control" type="text" name="title" placeholder="e.g. Blade Runner">
+			<b>Title:</b><input class="form-control" type="text" name="title" placeholder="e.g. Blade Runner">
 		</div>
 		<div>
-			Release Year:<input class="form-control" type="text" name="year" placeholder="e.g. 1982">
+			<b>Release Year:</b><input class="form-control" type="text" name="year" placeholder="e.g. 1982">
 		</div>
 		<div>
-			Director:<input class="form-control" type="text" name="director" placeholder="e.g. Ridley Scott">
+			<b>Director:</b><input class="form-control" type="text" name="director" placeholder="e.g. Ridley Scott">
 		</div>
 		<div>
-			Star:<input class="form-control" type="text" name="star" placeholder="e.g. Harrison Ford">
+			<b>Star:</b><input class="form-control" type="text" name="star" placeholder="e.g. Harrison Ford">
 		</div>
-        <input name="numResults" value="20" hidden>
+		<div>
+			<b>Display Options:</b><br>
+			Display: <select name="numResults">
+				<option>25 per page</option>
+				<option>50 per page</option>
+			</select>
+			sorted by <select></select>
+		</div>
         <input name="pageNum" value="1" hidden>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
+	
 
     <%
       if (
@@ -43,11 +56,13 @@
           || "year".equals(searchCriteria)
         )
         && searchPage != null
-        && searchLimit != null) {
+        && searchLimit != null
+		
+		) {
     %>
       <%@ include file="sql/searchQuery.jspf" %>
     <% } %>
-
+	
   </div>
 </body>
 
