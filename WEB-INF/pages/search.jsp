@@ -34,8 +34,8 @@
 		<div>
 			<b>Display Options:</b><br>
 			Display: <select name="numResults">
-				<option>25 per page</option>
-				<option>50 per page</option>
+				<option>25</option>
+				<option>50</option>
 			</select>
 			sorted by <select></select>
 		</div>
@@ -46,7 +46,7 @@
 	
 
     <%
-      if (
+	if (
         searchInput != null
         && !"".equals(searchInput)
         && searchCriteria != null
@@ -57,11 +57,21 @@
         )
         && searchPage != null
         && searchLimit != null
-		
-		) {
+	) {
     %>
       <%@ include file="sql/searchQuery.jspf" %>
     <% } %>
+	
+	<%
+	if (
+		(searchTitle != null && !"".equals(searchTitle))
+		|| (searchYear != null && !"".equals(searchYear))
+		|| (searchDirector != null && !"".equals(searchDirector))
+		|| (searchStar != null && !"".equals(searchStar))
+	) {
+	%>
+		<%@ include file="sql/advancedSearchQuery.jspf" %>
+	<% } %>
 	
   </div>
 </body>
