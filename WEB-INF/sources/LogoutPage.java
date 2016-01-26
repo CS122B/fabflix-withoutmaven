@@ -1,6 +1,3 @@
-
-/* A servlet to display the contents of the MySQL movieDB database */
-
 import java.io.*;
 import java.net.*;
 import java.sql.*;
@@ -11,33 +8,16 @@ import javax.servlet.http.*;
 
 public class LogoutPage extends HttpServlet
 {
-    public String getServletInfo()
-    {
-       return "Servlet connects to MySQL database and displays result of a SELECT";
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws IOException, ServletException
+  {
+    HttpSession session = request.getSession(false);
+
+    if (session != null) {
+      session.invalidate();
     }
 
-    // Use http GET
-
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException
-    {
-		HttpSession session = request.getSession(false);
-        PrintWriter out = response.getWriter();
-		
-		if (session == null) {
-			out.println("not logged in anyway");
-		} else {
-			String firstName = (String)session.getAttribute("userFirstName");
-			out.println(firstName + ", you have been logged out");
-			session.invalidate();
-		}
-		
-         out.close();
-    }
-
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws IOException, ServletException
-    {
-	doGet(request, response);
-    }
+    String loginPage = request.getContextPath() + "/login";
+    response.sendRedirect(loginPage);
+  }
 }

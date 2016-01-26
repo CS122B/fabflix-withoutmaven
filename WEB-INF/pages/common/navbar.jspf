@@ -40,7 +40,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
       <%
-        if (session == null) {
+        if (session == null || session.getAttribute("userFirstName") == null) {
           out.println(
             "<li>" +
             "  <a href=\"" + rootPath + "/login\">Login</a>" +
