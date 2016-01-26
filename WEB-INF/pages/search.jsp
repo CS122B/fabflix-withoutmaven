@@ -44,7 +44,7 @@
         && searchPage != null
         && searchLimit != null) {
     %>
-      <%@ include file="common/searchResults.jspf" %>
+      <%@ include file="sql/searchQuery.jspf" %>
     <% } %>
 
   </div>

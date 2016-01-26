@@ -1,0 +1,43 @@
+<%
+  String loginUser = "testuser";
+  String loginPasswd = "testpassword";
+  String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
+  try {
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+    String query = (
+      "SELECT * " +
+      "FROM movies " +
+      "WHERE id = ?"
+    );
+
+    PreparedStatement statement = dbcon.prepareStatement(query);
+    statement.setInt(1, movieId);
+
+    ResultSet rs = statement.executeQuery();
+
+    while (rs.next()) {
+      String title = rs.getString("title");
+      String year = rs.getString("year");
+      String banner = rs.getString("banner_url");
+
+      out.println("<h3>Title: " + title + "</h3>");
+      out.println("<h3>Year: " + year + "</h3>");
+      out.println("<img src='" + banner + "'>");
+    }
+
+    rs.close();
+    statement.close();
+    dbcon.close();
+
+  } catch (SQLException ex) {
+    while (ex != null) {
+      System.out.println ("SQL Exception: " + ex.getMessage());
+      ex = ex.getNextException();
+    }
+  } catch (java.lang.Exception ex) {
+    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  }
+%>
