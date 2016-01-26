@@ -14,17 +14,18 @@
   <div class="container">
     <div class="form-group">
       <form action="search" method="GET">
-        <input
-          class="form-control"
-          type="text"
-          name="input"
-          placeholder="Search for movies"
-        >
-        <select name="criteria">
-          <option value="title">Title</option>
-          <option value="director">Director</option>
-          <option value="year">Year</option>
-        </select>
+		<div>
+			Title:<input class="form-control" type="text" name="title" placeholder="e.g. Blade Runner">
+		</div>
+		<div>
+			Release Year:<input class="form-control" type="text" name="year" placeholder="e.g. 1982">
+		</div>
+		<div>
+			Director:<input class="form-control" type="text" name="director" placeholder="e.g. Ridley Scott">
+		</div>
+		<div>
+			Star:<input class="form-control" type="text" name="star" placeholder="e.g. Harrison Ford">
+		</div>
         <input name="numResults" value="20" hidden>
         <input name="pageNum" value="1" hidden>
         <button type="submit" class="btn btn-primary">Search</button>
