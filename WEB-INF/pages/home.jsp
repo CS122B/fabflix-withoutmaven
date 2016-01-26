@@ -5,10 +5,11 @@
 
   <div class="container">
     <%
-    if (session == null) {
+    String firstName = (String)session.getAttribute("userFirstName");
+
+    if (session == null || firstName == null) {
       out.println("not logged in");
     } else {
-      String firstName = (String)session.getAttribute("userFirstName");
       out.println("logged in as: " + firstName);
     }
     %>

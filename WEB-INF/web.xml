@@ -26,6 +26,11 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     Test Tomcat Connection to mySQL DB
   </description>
 
+  <filter>
+    <filter-name>LoginFilterServlet</filter-name>
+    <filter-class>LoginFilter</filter-class>
+  </filter>
+
   <servlet>
     <servlet-name>HomePageServlet</servlet-name>
     <jsp-file>/WEB-INF/pages/home.jsp</jsp-file>
@@ -55,10 +60,20 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-class>LogoutPage</servlet-class>
   </servlet>
 
+  <!-- FILTERS -->
+  <filter-mapping>
+    <filter-name>LoginFilterServlet</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
   <!-- PAGE ROUTES -->
   <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>/static/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginPageServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>HomePageServlet</servlet-name>
@@ -71,10 +86,6 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>MovieDetailServlet</servlet-name>
     <url-pattern>/movies/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>LoginPageServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ShoppingCartServlet</servlet-name>
