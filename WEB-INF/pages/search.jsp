@@ -6,6 +6,7 @@
   <%@ include file="common/navbar.jspf" %>
 
   <%
+	String searchType = request.getParameter("search");
     String searchInput = request.getParameter("input");
     String searchCriteria = request.getParameter("criteria");
     String searchPage = request.getParameter("pageNum");
@@ -40,6 +41,7 @@
 			</select>
 			sorted by <select></select>
 		</div>
+		<input name="search" value="1" hidden>
         <input name="pageNum" value="1" hidden>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>

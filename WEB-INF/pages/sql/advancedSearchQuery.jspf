@@ -17,16 +17,55 @@
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
     int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
+	
+	String countQuery = (
+	  "SELECT count(*) " +
+      "FROM movies " +
+      "WHERE " + 
+	  "title LIKE ? AND " +
+	  "year LIKE ? AND " +
+	  "director LIKE ? " 
+    );
+	PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
+    countStatement.setString(1, "%" + searchTitle + "%");
+	countStatement.setString(2, "%" + searchYear + "%");
+	countStatement.setString(3, "%" + searchDirector + "%");
+	ResultSet count = countStatement.executeQuery();
+	int numResults = 0;
+	while (count.next()) {
+	  numResults = Integer.parseInt(count.getString("count(*)"));
+	}
+	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
+	
+	out.println("<ul class='pagination'>");
+	for (int i = 1;  i <= numPages; i++) {
+		String href = "http://localhost:8080/TomcatForm/search";
+		href += "?title=" + searchTitle 
+			 + "&year=" + searchYear
+			 + "&director=" + searchDirector
+			 + "&star=" + searchStar
+		     + "&numResults=" + searchLimit
+		     + "&search=1"
+		     + "&pageNum=" + i;
+		if (i == Integer.parseInt(searchPage))
+			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
+		else
+			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
+	}
+	out.println("</ul>");
+	
+	count.close();
+    countStatement.close();
+	
     String query = (
-      "SELECT * " +
+	  "SELECT * " +
       "FROM movies " +
       "WHERE " + 
 	  "title LIKE ? AND " +
 	  "year LIKE ? AND " +
 	  "director LIKE ? " + 
 	  "LIMIT ? OFFSET ?"
-    );
-	
+	);	
 	PreparedStatement statement = dbcon.prepareStatement(query);
     statement.setString(1, "%" + searchTitle + "%");
 	statement.setString(2, "%" + searchYear + "%");
@@ -38,24 +77,25 @@
 	
     out.println("<table border>");
     while (rs.next()) {
-      String id = rs.getString("id");
-      String title = rs.getString("title");
-      String year = rs.getString("year");
-      String banner = rs.getString("banner_url");
+		String id = rs.getString("id");
+		String title = rs.getString("title");
+		String year = rs.getString("year");
+		String banner = rs.getString("banner_url");
 
-      out.println(
-        "<tr>" +
-        "  <td><a href=movies/" + id + ">" + title + "</a></td>" +
-        "  <td>" + year + "</td>" +
-        "  <td><img src='" + banner + "'></td>" +
-        "</tr>"
-      );
-    }
+		out.println(
+		"<tr>" +
+		"  <td><a href=movies/" + id + ">" + title + "</a></td>" +
+		"  <td>" + year + "</td>" +
+		"  <td><img src='" + banner + "'></td>" +
+		"</tr>"
+		);
+	}
     out.println("</table>");
 
     rs.close();
     statement.close();
     dbcon.close();
+	
 
   } catch (SQLException ex) {
     while (ex != null) {
