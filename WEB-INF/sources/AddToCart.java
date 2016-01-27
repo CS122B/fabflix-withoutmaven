@@ -20,21 +20,6 @@ public class AddToCart extends HttpServlet
     return shoppingCart;
   }
 
-  private Map<Integer, Integer> putIntoShoppingCart(ResultSet rs, Map<Integer, Integer> shoppingCart, int quantity)
-    throws SQLException
-  {
-    rs.next();
-
-    int id = rs.getInt("id");
-    String title = rs.getString("title");
-    String year = rs.getString("year");
-    String director = rs.getString("director");
-    String bannerUrl = rs.getString("banner_url");
-    shoppingCart.put(id, quantity);
-
-    return shoppingCart;
-  }
-
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
@@ -73,11 +58,12 @@ public class AddToCart extends HttpServlet
 
       Map<Integer, Integer> shoppingCart = getShoppingCart(session);
       int quantity = Integer.parseInt(request.getParameter("quantity"));
+      int intMovieId = Integer.parseInt(movieId);
 
-      shoppingCart = putIntoShoppingCart(rs, shoppingCart, quantity);
+      shoppingCart.put(intMovieId, quantity);
       session.setAttribute("shoppingCart", shoppingCart);
 
-      out.print(movieId);
+      out.print(quantity);
       rs.close();
       statement.close();
       dbcon.close();
