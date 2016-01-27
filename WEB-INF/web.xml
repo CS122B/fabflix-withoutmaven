@@ -59,6 +59,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>LogoutPageServlet</servlet-name>
     <servlet-class>LogoutPage</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddToCartServlet</servlet-name>
+    <servlet-class>AddToCart</servlet-class>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -100,6 +104,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>LoginAuthenticationServlet</servlet-name>
     <url-pattern>/servlet/authenticateLogin</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddToCartServlet</servlet-name>
+    <url-pattern>/servlet/user/addToCart</url-pattern>
   </servlet-mapping>
 
 </web-app>

@@ -28,7 +28,7 @@
         "<h3>Year: " + year + "</h3>" +
         "<img src='" + banner + "'>" +
         "<button " +
-          "id=\"movie-add-cart\"" +
+          "id=\"button-add-movie\"" +
           "data-movie-id=\"" + movieId + "\"" +
           "class=\"btn btn-primary\"" +
           "type=\"button\"" +

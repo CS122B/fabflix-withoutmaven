@@ -17,12 +17,6 @@ public class LoginAuthentication extends HttpServlet
     HttpSession session = request.getSession();
     PrintWriter out = response.getWriter();
 
-    // if (session != null) {
-    //   out.println("you're already logged in, log out first");
-    //   out.close();
-    //   return;
-    // }
-
     String loginUser = "testuser";
     String loginPasswd = "testpassword";
     String loginUrl = "jdbc:mysql://localhost:3306/moviedb";

@@ -1,3 +1,4 @@
+<%@ include file="common/variables.jspf" %>
 <%@ include file="common/header.jspf" %>
 <%@ include file="common/imports.jspf" %>
 
