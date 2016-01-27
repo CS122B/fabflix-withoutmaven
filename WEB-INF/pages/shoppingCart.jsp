@@ -21,6 +21,7 @@
         </tr>
         <%@ include file="sql/shoppingCartQuery.jspf" %>
       </table>
+      <a class="btn btn-primary" href="<% out.println(rootPath); %>/checkout">Checkout</a>
     <%
     } else {
       out.println("Nothing in Cart");

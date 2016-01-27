@@ -63,6 +63,14 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>AddToCartServlet</servlet-name>
     <servlet-class>AddToCart</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>checkoutServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/checkout.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>orderConfirmationServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/orderConfirmation.jsp</jsp-file>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -98,6 +106,14 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>LogoutPageServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>checkoutServlet</servlet-name>
+    <url-pattern>/checkout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>orderConfirmationServlet</servlet-name>
+    <url-pattern>/confirm</url-pattern>
   </servlet-mapping>
 
   <!-- API ROUTES -->

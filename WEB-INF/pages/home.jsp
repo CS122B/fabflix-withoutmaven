@@ -5,15 +5,10 @@
   <%@ include file="common/navbar.jspf" %>
 
   <div class="container">
-    <%
+  <%
     String firstName = (String)session.getAttribute("userFirstName");
-
-    if (session == null || firstName == null) {
-      out.println("not logged in");
-    } else {
-      out.println("logged in as: " + firstName);
-    }
-    %>
+    out.println("logged in as: " + firstName);
+  %>
   </div>
 </body>
 
