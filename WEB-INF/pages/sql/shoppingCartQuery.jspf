@@ -1,0 +1,90 @@
+<%
+  String loginUser = "testuser";
+  String loginPasswd = "testpassword";
+  String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
+  final int SINGLE_BATCH = 1;
+  final int SMALL_BATCH = 4;
+  final int MEDIUM_BATCH = 11;
+  final int LARGE_BATCH = 51;
+
+  try {
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+    Set<Integer> cartKeys = shoppingCart.keySet();
+    Integer[] shoppingCartMovies = cartKeys.toArray(new Integer[cartKeys.size()]);
+
+    int remainingMovies = shoppingCart.size();
+    while (remainingMovies > 0) {
+
+      int batchSize = SINGLE_BATCH;
+
+      if (remainingMovies >= LARGE_BATCH) {
+        batchSize = LARGE_BATCH;
+      } else if (remainingMovies >= MEDIUM_BATCH) {
+        batchSize = MEDIUM_BATCH;
+      } else if (remainingMovies >= SMALL_BATCH) {
+        batchSize = SMALL_BATCH;
+      }
+      remainingMovies -= batchSize;
+
+      StringBuilder inClause = new StringBuilder();
+      boolean isFirstValue = true;
+      for (int i = 0; i < batchSize; ++i) {
+        if (isFirstValue) {
+          isFirstValue = false;
+        } else {
+          inClause.append(',');
+        }
+
+        inClause.append('?');
+      }
+
+      PreparedStatement statement = dbcon.prepareStatement(
+        "SELECT * " +
+        "FROM movies " +
+        "WHERE id in (" + inClause.toString() + ")"
+      );
+
+      int insertCount = 1;
+      for (int i = remainingMovies; i < remainingMovies + batchSize; ++i) {
+        statement.setInt(insertCount, shoppingCartMovies[i]);
+        ++insertCount;
+      }
+
+      ResultSet rs = statement.executeQuery();
+
+      insertCount = remainingMovies;
+      while (rs.next()) {
+        String title = rs.getString("title");
+        String year = rs.getString("year");
+        String banner = rs.getString("banner_url");
+
+        out.println(
+          "<tr>" +
+          "  <td>" + year + "</td>" +
+          "  <td>" + title + "</td>" +
+          "  <td>" + shoppingCart.get(shoppingCartMovies[insertCount]) + "</td>" +
+          "</tr>"
+        );
+
+        ++insertCount;
+      }
+
+      statement.close();
+      rs.close();
+    }
+
+    dbcon.close();
+
+  } catch (SQLException ex) {
+    while (ex != null) {
+      out.println ("SQL Exception: " + ex.getMessage());
+      ex = ex.getNextException();
+    }
+  } catch (java.lang.Exception ex) {
+    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  }
+%>
+ 

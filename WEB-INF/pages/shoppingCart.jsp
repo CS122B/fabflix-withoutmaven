@@ -1,24 +1,29 @@
 <%@ include file="common/variables.jspf" %>
 <%@ include file="common/header.jspf" %>
-<%@ page import="java.util.*" %>
+<%@ include file="common/imports.jspf" %>
 
 <body>
   <%@ include file="common/navbar.jspf" %>
 
   <div class="container">
   <%
-    String firstName = (String)session.getAttribute("userFirstName");
 
     @SuppressWarnings (value="unchecked")
     Map<Integer, Integer> shoppingCart = (Map<Integer, Integer>)session.getAttribute("shoppingCart");
 
-    out.println("my dawg " + firstName + ", here's your shopping cart: ");
-    if (shoppingCart == null) {
-      out.println("its empty dawg");
+    if (shoppingCart != null) {
+    %>
+      <table class="table table-bordered">
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Quantity</th>
+        </tr>
+        <%@ include file="sql/shoppingCartQuery.jspf" %>
+      </table>
+    <%
     } else {
-      for (int key : shoppingCart.keySet()) {
-        out.println(key + ", " + shoppingCart.get(key));
-      }
+      out.println("Nothing in Cart");
     }
 
   %>
