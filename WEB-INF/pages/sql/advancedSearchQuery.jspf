@@ -17,6 +17,8 @@
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
     int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
+	String orderColumn = searchOrder.split(" ")[0];
+	String orderDirection = searchOrder.split(" ")[1];
 	
 	String countQuery = (
 	  "SELECT count(*) " +
@@ -45,6 +47,7 @@
 			 + "&director=" + searchDirector
 			 + "&star=" + searchStar
 		     + "&numResults=" + searchLimit
+			 + "&orderBy=" + searchOrder
 		     + "&search=1"
 		     + "&pageNum=" + i;
 		if (i == Integer.parseInt(searchPage))
@@ -58,13 +61,21 @@
     countStatement.close();
 	
     String query = (
-	  "SELECT * " +
-      "FROM movies " +
-      "WHERE " + 
-	  "title LIKE ? AND " +
-	  "year LIKE ? AND " +
-	  "director LIKE ? " + 
-	  "LIMIT ? OFFSET ?"
+	  "SELECT * FROM movies as a " + 
+	  
+	  "inner join " + 
+	  "(select * from stars_in_movies " + 
+	  "inner join stars on stars_in_movies.star_id = stars.id " +
+	  "where stars.first_name like '%%' " +
+	  "and stars.last_name like '%%') as b " +
+	  "on a.id = b.movie_id " +
+	  
+	  "WHERE " + 
+	  "a.title LIKE ? AND " +
+	  "a.year LIKE ? AND " +
+	  "a.director LIKE ? " +
+	  "ORDER BY " + searchOrder +
+	  " LIMIT ? OFFSET ?"
 	);	
 	PreparedStatement statement = dbcon.prepareStatement(query);
     statement.setString(1, "%" + searchTitle + "%");
@@ -72,6 +83,8 @@
 	statement.setString(3, "%" + searchDirector + "%");
     statement.setInt(4, Integer.parseInt(searchLimit));
     statement.setInt(5, searchOffset);
+		
+	out.println("<h2>" + statement + "</h2>");
 	
 	ResultSet rs = statement.executeQuery();
 	

@@ -15,6 +15,7 @@
 	String searchYear = request.getParameter("year");
 	String searchDirector = request.getParameter("director");
 	String searchStar = request.getParameter("star");
+	String searchOrder = request.getParameter("orderBy");
   %>
 
   <div class="container">
@@ -34,11 +35,18 @@
 		</div>
 		<div>
 			<b>Display Options:</b><br>
-			Display: <select name="numResults">
+			Display: 
+			<select name="numResults">
 				<option>25</option>
 				<option>50</option>
 			</select>
-			sorted by <select></select>
+			sorted by 
+			<select name="orderBy">
+			  <option value="title asc">Title: A-Z</option>
+			  <option value="title desc">Title: Z-A</option>
+			  <option value="year asc">Year: Ascending</option>
+			  <option value="year desc">Year: Descending</option>
+			</select>
 		</div>
 		<input name="search" value="1" hidden>
         <input name="pageNum" value="1" hidden>
@@ -74,6 +82,7 @@
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>
 	<% } %>
+	
 	
   </div>
 </body>
