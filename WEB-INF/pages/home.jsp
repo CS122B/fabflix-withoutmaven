@@ -10,6 +10,8 @@
     out.println("logged in as: " + firstName);
   %>
   </div>
+
+  <%@ include file="common/scripts.jspf" %>
 </body>
 
 <%@ include file="common/footer.jspf" %>

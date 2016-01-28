@@ -60,6 +60,8 @@
 
   %>
   </div>
+
+  <%@ include file="common/scripts.jspf" %>
 </body>
 
 <%@ include file="common/footer.jspf" %>

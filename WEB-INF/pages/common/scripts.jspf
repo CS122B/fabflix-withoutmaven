@@ -1,0 +1,2 @@
+<script src="<% out.println(rootPath); %>/static/vendor/jquery-2.2.0.min.js"></script>
+<script src="<% out.println(rootPath); %>/static/vendor/bootstrap.min.js"></script>
