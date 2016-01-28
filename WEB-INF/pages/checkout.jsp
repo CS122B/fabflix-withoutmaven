@@ -15,7 +15,7 @@
 
     %>
       <div class="form-group">
-        <form action="servlet/checkout" method="POST">
+        <form action="servlet/processOrder" method="POST">
           <div>
             <h4>First Name</h4>
             <input

@@ -71,6 +71,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>orderConfirmationServlet</servlet-name>
     <jsp-file>/WEB-INF/pages/orderConfirmation.jsp</jsp-file>
   </servlet>
+  <servlet>
+    <servlet-name>ProcessOrderServlet</servlet-name>
+    <servlet-class>ProcessOrder</servlet-class>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -124,6 +128,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>AddToCartServlet</servlet-name>
     <url-pattern>/servlet/user/addToCart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ProcessOrderServlet</servlet-name>
+    <url-pattern>/servlet/processOrder</url-pattern>
   </servlet-mapping>
 
 </web-app>

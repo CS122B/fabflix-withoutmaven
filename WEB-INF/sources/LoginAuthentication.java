@@ -11,7 +11,7 @@ import javax.servlet.http.*;
 
 public class LoginAuthentication extends HttpServlet
 {
-  public void doGet(HttpServletRequest request, HttpServletResponse response)
+  public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
     HttpSession session = request.getSession();
@@ -27,7 +27,7 @@ public class LoginAuthentication extends HttpServlet
       String email = request.getParameter("email");
       String password = request.getParameter("password");
       String query = (
-        "SELECT first_name " +
+        "SELECT * " +
         "FROM customers " +
         "WHERE email = ? AND password = ?"
       );
@@ -38,12 +38,14 @@ public class LoginAuthentication extends HttpServlet
 
       ResultSet rs = statement.executeQuery();
       String firstName;
+      String userId;
       session = request.getSession(); 
 
       while (rs.next()) {
         firstName = rs.getString("first_name");
-        out.println(firstName);
+        userId = rs.getString("id");
         session.setAttribute("userFirstName", firstName);
+        session.setAttribute("userId", userId);
       }
 
       rs.close();
@@ -51,8 +53,8 @@ public class LoginAuthentication extends HttpServlet
       dbcon.close();
 
       String redirectURL = request.getParameter("redirect") == null
-      ? "/TomcatForm"
-      : request.getParameter("redirect");
+        ? "/TomcatForm"
+        : request.getParameter("redirect");
 
       response.sendRedirect(redirectURL);
     }

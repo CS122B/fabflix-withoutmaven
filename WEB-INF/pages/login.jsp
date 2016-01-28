@@ -7,7 +7,7 @@
   <div class="container">
     <form
       class="form-signin"
-      method="GET"
+      method="POST"
       action="servlet/authenticateLogin"
     >
       <h2 class="form-signin-heading">Login</h2>
