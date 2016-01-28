@@ -15,9 +15,10 @@
     %>
       <table class="table table-bordered">
         <tr>
-          <th>ID</th>
+          <th>Banner</th>
           <th>Title</th>
           <th>Quantity</th>
+          <th></th>
         </tr>
         <%@ include file="sql/shoppingCartQuery.jspf" %>
       </table>

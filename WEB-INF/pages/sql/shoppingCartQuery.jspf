@@ -57,15 +57,23 @@
 
       insertCount = remainingMovies;
       while (rs.next()) {
-        String title = rs.getString("title");
+        String movieId = rs.getString("id");
         String year = rs.getString("year");
         String banner = rs.getString("banner_url");
+        String title = rs.getString("title");
 
         out.println(
           "<tr>" +
-          "  <td>" + year + "</td>" +
+          "  <td><img src=\"" + banner + "\" /></td>" +
           "  <td>" + title + "</td>" +
           "  <td>" + shoppingCart.get(shoppingCartMovies[insertCount]) + "</td>" +
+          "  <td>" +
+          "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
+          "      <input name=\"method\" value=\"DELETE\" hidden>" +
+          "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
+          "      <button type=\"submit\" class=\"btn btn-danger\">Delete</td>" +
+          "    </form>" +
+          "  </td>" +
           "</tr>"
         );
 

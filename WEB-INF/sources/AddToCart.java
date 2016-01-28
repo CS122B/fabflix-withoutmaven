@@ -23,6 +23,11 @@ public class AddToCart extends HttpServlet
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
+    if ("DELETE".equals(request.getParameter("method"))) {
+      doDelete(request, response);
+      return;
+    }
+
     HttpSession session = request.getSession(false);
     PrintWriter out = response.getWriter();
 
@@ -63,7 +68,6 @@ public class AddToCart extends HttpServlet
       shoppingCart.put(intMovieId, quantity);
       session.setAttribute("shoppingCart", shoppingCart);
 
-      out.print(quantity);
       rs.close();
       statement.close();
       dbcon.close();
@@ -75,5 +79,36 @@ public class AddToCart extends HttpServlet
     }
 
     out.close();
+  }
+
+  public void doDelete(HttpServletRequest request, HttpServletResponse response)
+    throws IOException, ServletException
+  {
+    HttpSession session = request.getSession(false);
+
+    try {
+      if (session == null || session.getAttribute("userFirstName") == null) {
+        throw new Exception();
+      }
+
+      Integer movieId = Integer.parseInt(request.getParameter("movieId"));
+      Map<Integer, Integer> shoppingCart = getShoppingCart(session);
+
+      if (shoppingCart.containsKey(movieId)) {
+        shoppingCart.remove(movieId);
+      }
+
+      session.setAttribute("shoppingCart", shoppingCart);
+
+      String contextPath = request.getContextPath();
+      response.sendRedirect(contextPath + "/cart");
+
+    } catch (SQLException ex) {
+      response.sendError(400, "No results");
+    } catch(java.lang.Exception ex) {
+      response.sendError(401, "Not validated");
+    }
+
+    response.setStatus(200);
   }
 }
