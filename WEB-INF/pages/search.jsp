@@ -5,18 +5,19 @@
 <body>
   <%@ include file="common/navbar.jspf" %>
 
-<%
-  String searchType = request.getParameter("search");
-  String searchInput = request.getParameter("input");
-  String searchCriteria = request.getParameter("criteria");
-  String searchPage = request.getParameter("pageNum");
-  String searchLimit = request.getParameter("numResults");
-
-  String searchTitle = request.getParameter("title");
-  String searchYear = request.getParameter("year");
-  String searchDirector = request.getParameter("director");
-  String searchStar = request.getParameter("star");
-%>
+  <%
+	String searchType = request.getParameter("search");
+    String searchInput = request.getParameter("input");
+    String searchCriteria = request.getParameter("criteria");
+    String searchPage = request.getParameter("pageNum");
+    String searchLimit = request.getParameter("numResults");
+	
+	String searchTitle = request.getParameter("title");
+	String searchYear = request.getParameter("year");
+	String searchDirector = request.getParameter("director");
+	String searchStar = request.getParameter("star");
+	String searchOrder = request.getParameter("orderBy");
+  %>
 
   <div class="container">
     <div class="form-group">
@@ -65,7 +66,12 @@
             <option>50</option>
           </select>
           <h5>Sorted by:</h5>
-          <select></select>
+          <select name="orderBy">
+			  <option value="title asc">Title: A-Z</option>
+			  <option value="title desc">Title: Z-A</option>
+			  <option value="year asc">Year: Ascending</option>
+			  <option value="year desc">Year: Descending</option>
+			</select>
         </div>
         <input name="search" value="1" hidden>
         <input name="pageNum" value="1" hidden>
@@ -86,18 +92,20 @@
   ) {
 %>
       <%@ include file="sql/searchQuery.jspf" %>
-<% } %>
 
-<%
-  if (
-    (searchTitle != null && !"".equals(searchTitle))
-    || (searchYear != null && !"".equals(searchYear))
-    || (searchDirector != null && !"".equals(searchDirector))
-    || (searchStar != null && !"".equals(searchStar))
-  ) {
-%>
-  <%@ include file="sql/advancedSearchQuery.jspf" %>
-<% } %>
+    <% } %>
+	
+	<%
+	if (
+		(searchTitle != null && !"".equals(searchTitle))
+		|| (searchYear != null && !"".equals(searchYear))
+		|| (searchDirector != null && !"".equals(searchDirector))
+		|| (searchStar != null && !"".equals(searchStar))
+	) {
+	%>
+		<%@ include file="sql/advancedSearchQuery.jspf" %>
+	<% } %>
+	
 
   </div>
 </body>
