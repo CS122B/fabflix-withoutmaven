@@ -44,6 +44,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <jsp-file>/WEB-INF/pages/movieDetail.jsp</jsp-file>
   </servlet>
   <servlet>
+    <servlet-name>StarDetailServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/starDetail.jsp</jsp-file>
+  </servlet>
+  <servlet>
     <servlet-name>LoginPageServlet</servlet-name>
     <jsp-file>/WEB-INF/pages/login.jsp</jsp-file>
   </servlet>
@@ -102,6 +106,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>MovieDetailServlet</servlet-name>
     <url-pattern>/movies/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>StarDetailServlet</servlet-name>
+    <url-pattern>/stars/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ShoppingCartServlet</servlet-name>

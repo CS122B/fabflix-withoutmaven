@@ -1,0 +1,54 @@
+<%
+  try {
+    String loginUser = "testuser";
+    String loginPasswd = "testpassword";
+    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+    String query = (
+      "SELECT * " +
+      "FROM stars " +
+      "WHERE id = ?"
+    );
+
+    PreparedStatement statement = dbcon.prepareStatement(query);
+    statement.setInt(1, starId);
+
+    ResultSet rs = statement.executeQuery();
+
+    if (!rs.isBeforeFirst()) {
+      throw new Exception("Invalid Movie");
+    }
+
+    rs.next();
+    String firstName = rs.getString("first_name");
+    String lastName = rs.getString("last_name");
+    String starDOB = rs.getString("dob");
+    String starPhoto = rs.getString("photo_url");
+    DateFormat starDOBDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    DateFormat starDOBStringFormat = new SimpleDateFormat("MMMM dd, yyyy");
+    java.util.Date starDOBDate = starDOBDateFormat.parse(starDOB);
+    String starDOBString = starDOBStringFormat.format(starDOBDate);
+
+    out.println(
+      "<h3 id=\"star-id\">" + starId + "</h3>" +
+      "<h3 id=\"star-name\">" + firstName + " " + lastName + "</h3>" +
+      "<h3 id=\"star-dob\">" + starDOBString + "</h3>" +
+      "<img id=\"star-photo\" src='" + starPhoto + "'>"
+    );
+
+    rs.close();
+    statement.close();
+    dbcon.close();
+
+  } catch (SQLException ex) {
+    while (ex != null) {
+      System.out.println ("SQL Exception: " + ex.getMessage());
+      ex = ex.getNextException();
+    }
+  } catch (java.lang.Exception ex) {
+    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  }
+%>
