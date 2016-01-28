@@ -13,6 +13,8 @@
       int movieId = Integer.parseInt(movieIdPath);
   %>
       <%@ include file="sql/movieQuery.jspf" %>
+      <%@ include file="sql/movieDetailGenres.jspf" %>
+      <%@ include file="sql/movieDetailStars.jspf" %>
       <%@ include file="common/movieDetailContent.jspf" %>
   <%
     } catch (Exception ex) {

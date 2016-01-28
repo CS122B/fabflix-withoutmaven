@@ -1,9 +1,9 @@
 <%
-  String loginUser = "testuser";
-  String loginPasswd = "testpassword";
-  String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-
   try {
+    String loginUser = "testuser";
+    String loginPasswd = "testpassword";
+    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
@@ -18,25 +18,38 @@
 
     ResultSet rs = statement.executeQuery();
 
-    while (rs.next()) {
-      String title = rs.getString("title");
-      String year = rs.getString("year");
-      String banner = rs.getString("banner_url");
-
-      out.println(
-        "<h3 id=\"movie-title\">" + title + "</h3>" +
-        "<h3 id=\"movie-year\">" + year + "</h3>" +
-        "<img id=\"movie-image\" src='" + banner + "'>" +
-        "<button " +
-          "id=\"button-add-movie\"" +
-          "data-movie-id=\"" + movieId + "\"" +
-          "class=\"btn btn-primary\"" +
-          "type=\"button\"" +
-        ">" +
-        "Add to Cart" +
-        "</button>"
-      );
+    if (!rs.isBeforeFirst()) {
+      throw new Exception("Invalid Movie");
     }
+
+    rs.next();
+    String title = rs.getString("title");
+    String year = rs.getString("year");
+    String director = rs.getString("director");
+    String banner = rs.getString("banner_url");
+    String trailer = rs.getString("trailer_url");
+
+    out.println(
+      "<h3 id=\"movie-id\">" + movieId + "</h3>" +
+      "<h3 id=\"movie-title\">" + title + "</h3>" +
+      "<h3 id=\"movie-year\">" + year + "</h3>" +
+      "<h3 id=\"movie-director\">" + director + "</h3>" +
+      "<img id=\"movie-image\" src='" + banner + "'>" +
+      "<a " +
+        "id=\"movie-trailer\" " +
+        "class=\"btn btn-primary\" " +
+        "href=\"" + trailer + "\" " +
+        "target=\"_blank\" " +
+      ">Link to Trailer</a>" +
+      "<button " +
+        "id=\"button-add-movie\"" +
+        "data-movie-id=\"" + movieId + "\"" +
+        "class=\"btn btn-primary\"" +
+        "type=\"button\"" +
+      ">" +
+      "Add to Cart" +
+      "</button>"
+    );
 
     rs.close();
     statement.close();

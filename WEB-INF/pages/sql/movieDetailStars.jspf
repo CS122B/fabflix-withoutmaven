@@ -1,0 +1,44 @@
+<%
+  try {
+    String loginUser = "testuser";
+    String loginPasswd = "testpassword";
+    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+
+    Class.forName("com.mysql.jdbc.Driver").newInstance();
+    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+
+    String query = (
+      "SELECT first_name, last_name, s.id " +
+      "FROM stars_in_movies sin " +
+      "INNER JOIN movies g " +
+      "  ON sin.movie_id = g.id " +
+      "  AND sin.movie_id = ? " +
+      "INNER JOIN stars s " +
+      "  ON sin.star_id = s.id"
+    );
+
+    PreparedStatement statement = dbcon.prepareStatement(query);
+    statement.setInt(1, movieId);
+
+    ResultSet rs = statement.executeQuery();
+
+    while (rs.next()) {
+      String firstName = rs.getString("first_name");
+      String lastName = rs.getString("last_name");
+      String starId = rs.getString("id");
+      out.println("<a href=\"" + rootPath + "/stars/" + starId + "\">" + firstName + " " + lastName + "</a>");
+    }
+
+    rs.close();
+    statement.close();
+    dbcon.close();
+
+  } catch (SQLException ex) {
+    while (ex != null) {
+      System.out.println ("SQL Exception: " + ex.getMessage());
+      ex = ex.getNextException();
+    }
+  } catch (java.lang.Exception ex) {
+    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  }
+%>
