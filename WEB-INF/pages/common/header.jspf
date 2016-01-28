@@ -8,6 +8,6 @@
 
   <title>Fabflix - Login</title>
 
-  <link rel="stylesheet" type="text/css" href="/TomcatForm/static/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/TomcatForm/static/css/index.css">
+  <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/vendor/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/css/index.css">
 </head>

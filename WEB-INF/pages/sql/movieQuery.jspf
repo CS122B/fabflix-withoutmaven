@@ -24,11 +24,11 @@
       String banner = rs.getString("banner_url");
 
       out.println(
-        "<h3>Title: " + title + "</h3>" +
-        "<h3>Year: " + year + "</h3>" +
-        "<img src='" + banner + "'>" +
+        "<h3 id=\"movie-title\">" + title + "</h3>" +
+        "<h3 id=\"movie-year\">" + year + "</h3>" +
+        "<img id=\"movie-image\" src='" + banner + "'>" +
         "<button " +
-          "id=\"movie-add-cart\"" +
+          "id=\"button-add-movie\"" +
           "data-movie-id=\"" + movieId + "\"" +
           "class=\"btn btn-primary\"" +
           "type=\"button\"" +
