@@ -19,8 +19,12 @@ $(document).ready(function () {
       .prop('disabled', true)
       .html('Add to Cart');
 
+    var movieId = $buttonAddMovie
+      .attr('data-movie-id')
+      .replace(/\s/g, '');
+
     var postData = {
-      movieId: $buttonAddMovie.attr('data-movie-id'),
+      movieId: movieId,
       quantity: movieQuantity
     };
 

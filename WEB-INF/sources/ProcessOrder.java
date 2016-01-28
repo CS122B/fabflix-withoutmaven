@@ -104,12 +104,12 @@ public class ProcessOrder extends HttpServlet
       statement.close();
       dbcon.close();
 
-      response.sendRedirect(contextPath + "/confirm");
+      response.sendRedirect(contextPath + "/confirm&status=success");
 
     } catch (SQLException ex) {
-      response.sendRedirect(contextPath + "/checkout?error=400&message=" + ex.getMessage());
+      response.sendRedirect(contextPath + "/confirm&status=error&message=" + ex.getMessage());
     } catch(Exception ex) {
-      response.sendRedirect(contextPath + "/checkout?error=401&message=" + ex.getMessage());
+      response.sendRedirect(contextPath + "/confirm&status=error&message=" + ex.getMessage());
     }
 
     out.close();

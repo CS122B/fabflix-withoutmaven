@@ -1,4 +1,10 @@
 <%
+    String title = "";
+    String year = "";
+    String director = "";
+    String banner = "";
+    String trailer = "";
+
   try {
     String loginUser = "testuser";
     String loginPasswd = "testpassword";
@@ -23,44 +29,19 @@
     }
 
     rs.next();
-    String title = rs.getString("title");
-    String year = rs.getString("year");
-    String director = rs.getString("director");
-    String banner = rs.getString("banner_url");
-    String trailer = rs.getString("trailer_url");
-
-    out.println(
-      "<h3 id=\"movie-id\">" + movieId + "</h3>" +
-      "<h3 id=\"movie-title\">" + title + "</h3>" +
-      "<h3 id=\"movie-year\">" + year + "</h3>" +
-      "<h3 id=\"movie-director\">" + director + "</h3>" +
-      "<img id=\"movie-image\" src='" + banner + "'>" +
-      "<a " +
-        "id=\"movie-trailer\" " +
-        "class=\"btn btn-primary\" " +
-        "href=\"" + trailer + "\" " +
-        "target=\"_blank\" " +
-      ">Link to Trailer</a>" +
-      "<button " +
-        "id=\"button-add-movie\"" +
-        "data-movie-id=\"" + movieId + "\"" +
-        "class=\"btn btn-primary\"" +
-        "type=\"button\"" +
-      ">" +
-      "Add to Cart" +
-      "</button>"
-    );
+    title = rs.getString("title");
+    year = rs.getString("year");
+    director = rs.getString("director");
+    banner = rs.getString("banner_url");
+    trailer = rs.getString("trailer_url");
 
     rs.close();
     statement.close();
     dbcon.close();
 
   } catch (SQLException ex) {
-    while (ex != null) {
-      System.out.println ("SQL Exception: " + ex.getMessage());
-      ex = ex.getNextException();
-    }
+    out.println("<p>Could not find a movie with that ID.</p>");
   } catch (java.lang.Exception ex) {
-    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+    out.println("<p>Could not find a movie with that ID.</p>");
   }
 %>
