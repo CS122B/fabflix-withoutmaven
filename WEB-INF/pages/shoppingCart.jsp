@@ -19,6 +19,7 @@
           <th>Title</th>
           <th>Quantity</th>
           <th></th>
+          <th></th>
         </tr>
         <%@ include file="sql/shoppingCartQuery.jspf" %>
       </table>

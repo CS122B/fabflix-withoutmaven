@@ -71,6 +71,12 @@ public class AddToCart extends HttpServlet
       rs.close();
       statement.close();
       dbcon.close();
+
+      String hasRedirect = request.getParameter("redirect");
+      if (hasRedirect != null) {
+        response.sendRedirect(request.getContextPath() + "/" + hasRedirect);
+      }
+
     }
     catch (SQLException ex) {
       response.sendError(400, "No results");

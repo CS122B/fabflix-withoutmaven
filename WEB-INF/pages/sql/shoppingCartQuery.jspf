@@ -69,6 +69,20 @@
           "  <td>" + shoppingCart.get(shoppingCartMovies[insertCount]) + "</td>" +
           "  <td>" +
           "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
+          "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
+          "      <input name=\"redirect\" value=\"cart\" hidden>" +
+          "      <select name=\"quantity\">" +
+          "        <option value=\"1\">One</option>" +
+          "        <option value=\"2\">Two</option>" +
+          "        <option value=\"3\">Three</option>" +
+          "        <option value=\"4\">Four</option>" +
+          "        <option value=\"5\">Five</option>" +
+          "      </select>" +
+          "      <button type=\"submit\" class=\"btn btn-primary\">Update Quantity</td>" +
+          "    </form>" +
+          "  </td>" +
+          "  <td>" +
+          "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
           "      <input name=\"method\" value=\"DELETE\" hidden>" +
           "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
           "      <button type=\"submit\" class=\"btn btn-danger\">Delete</td>" +
