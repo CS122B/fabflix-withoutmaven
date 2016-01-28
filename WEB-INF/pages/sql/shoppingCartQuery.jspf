@@ -65,7 +65,7 @@
         out.println(
           "<tr>" +
           "  <td><img src=\"" + banner + "\" /></td>" +
-          "  <td>" + title + "</td>" +
+          "  <td><a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a></td>" +
           "  <td>" + shoppingCart.get(shoppingCartMovies[insertCount]) + "</td>" +
           "  <td>" +
           "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
