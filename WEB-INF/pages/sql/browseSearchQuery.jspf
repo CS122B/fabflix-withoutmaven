@@ -11,35 +11,50 @@
 	String orderDirection = searchOrder.split(" ")[1];
 	out.println("<h2>Search results for:</h2>");
 	String query = "";
+	PreparedStatement statement = null;
 	if (searchTitle != null && !"".equals(searchTitle)) {
 		out.println("<h2>Letter: " + searchTitle + "</h2>");		
 				
 		query +=
 			"SELECT * from movies as a " +
-			"WHERE title like ? ";
+			"WHERE title like ? " +
+			"ORDER BY " + searchOrder +
+			" LIMIT ? OFFSET ?";
+			
+		statement = dbcon.prepareStatement(query);
+	
+		statement.setString(1, searchTitle + "%");
+		statement.setInt(2, Integer.parseInt(searchLimit));
+		statement.setInt(3, searchOffset);
+		out.println("<h2>" + statement + "</h2>");
 	}
-	else if (searchGenre != null && !"".equals(searchGenre)) {
+	else if (searchGenre != null) {
+		String [] genreIDs = searchGenre.split(" ");
 		out.println("<h2>Genre: " + searchGenre + "</h2>");	
 				
 		query +=
-			"select * from movies as a " + 
-			"inner join " +
-			"(select distinct movie_id from genres_in_movies " +
-			"where genres_in_movies.genre_id = ?) as b " + 
-			"on a.id = b.movie_id ";
+			"SELECT * from movies as a " + 
+			"INNER JOIN " +
+			"(SELECT DISTINCT movie_id from genres_in_movies " +
+			"WHERE genres_in_movies.genre_id = ? ";
 		
-	}
-	query += "ORDER BY " + searchOrder +
+		for (int i = 1; i < genreIDs.length; i++) {
+			query += " OR genres_in_movies.genre_id = ?";
+		}
+		
+		query += ") as b on a.id = b.movie_id " + 
+			"ORDER BY " + searchOrder +
 			" LIMIT ? OFFSET ?";
-	PreparedStatement statement = dbcon.prepareStatement(query);
-	
-	if (searchTitle != null) statement.setString(1, searchTitle + "%");
-	else statement.setString(1, searchGenre);
-	
-	statement.setInt(2, Integer.parseInt(searchLimit));
-	statement.setInt(3, searchOffset);
-	
-	out.println("<h2>" + statement + "</h2>");
+		
+		statement = dbcon.prepareStatement(query);
+		
+		for (int i = 0; i < genreIDs.length; i++) {
+			out.println("<h2>" + genreIDs[i] + "</h2>");
+			statement.setString((i + 1), genreIDs[i]);
+		}
+		statement.setInt(genreIDs.length + 1, Integer.parseInt(searchLimit));
+		statement.setInt(genreIDs.length + 2, searchOffset);
+	}
 	
 	ResultSet rs = statement.executeQuery();
 	
