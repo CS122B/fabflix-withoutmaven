@@ -10,16 +10,17 @@
 
     <%
   	String searchType = request.getParameter("search");
-      String searchInput = request.getParameter("input");
-      String searchCriteria = request.getParameter("criteria");
-      String searchPage = request.getParameter("pageNum");
-      String searchLimit = request.getParameter("numResults");
+    String searchInput = request.getParameter("input");
+    String searchCriteria = request.getParameter("criteria");
+    String searchPage = request.getParameter("pageNum");
+    String searchLimit = request.getParameter("numResults");
   	
   	String searchTitle = request.getParameter("title");
   	String searchYear = request.getParameter("year");
   	String searchDirector = request.getParameter("director");
   	String searchStar = request.getParameter("star");
   	String searchOrder = request.getParameter("orderBy");
+	String searchGenre = request.getParameter("genre");
     %>
 
   <div class="container">
