@@ -1,0 +1,13 @@
+<div class="row featured-genres">
+  <h3>Genres</h3>
+  <a href="#" class="btn btn-primary btn-lg btn-block">which</a>
+  <a href="#" class="btn btn-primary btn-lg btn-block">genre</a>
+  <a href="#" class="btn btn-primary btn-lg btn-block">group</a>
+  <a href="#" class="btn btn-primary btn-lg btn-block">looks</a>
+  <ul>
+    <li><a href="#">better?</a></li>
+    <li><a href="#">hihi</a></li>
+    <li><a href="#">hihi</a></li>
+    <li><a href="#">hihi</a></li>
+  </ul>
+</div>

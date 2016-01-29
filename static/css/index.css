@@ -1,11 +1,109 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #e7e7e7;
+}
+
+.container {
+  background-color: white;
+}
+
+.navbar {
+  margin-bottom: 0;
+  border-bottom: 1px solid #bbb;
+}
+
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -25px;
+}
+
+.page-wrap:after {
+  content: '';
+  display: block;
+}
+
+.site-footer, .page-wrap:after {
+  height: 25px;
+}
+
+.site-footer {
+  background-color: #F8F8F8;
+  border-top: 1px solid #bbb;
+  text-align: center;
+}
+
+/*
+ * HOME
+ */
+
+.home-main-content {
+  border-right: 3px solid #999;
+}
+
+.featured-genres ul {
+  padding-left: 0;
+}
+
+.featured-genres li {
+  font-size: 18px;
+  list-style-type: none;
+  width: 100%;
+  background-color: #e7e7e7;
+  border: 1px solid black;
+  padding: 20px 0;
+}
+
+.featured-genres li:hover {
+  background-color: #66ffff;
+}
+
+.featured-genres li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.featured-genres,
+.star-list-horizontal {
+  text-align: center;
+}
+
+.star-list-horizontal div {
+  display: inline-block;
+  width: 19%;
+}
+
+.star-list-horizontal div:first-child {
+  padding-left: 0;
+}
+
+.star-list-horizontal div:last-child {
+  padding-right: 0;
+}
+
+/*
+ * LOGIN
+ */
+
 .login-page {
   background-color: #eee;
+}
+
+.login-page .container {
+  background-color: inherit;
 }
 
 .form-signin {
   max-width: 330px;
   padding: 15px;
-  margin: 0 auto;
+  margin: 100px auto 0 auto;
   background-color: #fff;
 }
 
@@ -46,4 +144,24 @@
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+/*
+ * STAR/MOVIE DETAIL
+ */
+
+.detail-main-content > .row {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.detail-main-content > .row:last-child {
+  border-bottom: 0;
+}
+
+#movie-image,
+#star-image {
+  height: auto;
+  width: 100%;
+  padding: 10px;
 }

@@ -1,25 +1,26 @@
 <%@ include file="common/variables.jspf" %>
-<%@ include file="common/header.jspf" %>
 <%@ include file="common/imports.jspf" %>
 
+<!DOCTYPE html>
+<html lang="en">
+<%@ include file="common/header.jspf" %>
 <body>
-  <%@ include file="common/navbar.jspf" %>
+  <div class="page-wrap">
+    <%@ include file="common/navbar.jspf" %>
 
-  <%
-	String searchType = request.getParameter("search");
-    String searchInput = request.getParameter("input");
-    String searchCriteria = request.getParameter("criteria");
-    String searchPage = request.getParameter("pageNum");
-    String searchLimit = request.getParameter("numResults");
-	
-	String searchTitle = request.getParameter("title");
-	String searchYear = request.getParameter("year");
-	String searchDirector = request.getParameter("director");
-	String searchStar = request.getParameter("star");
-	String searchGenre = request.getParameter("genre");
-	String searchOrder = request.getParameter("orderBy");
-
-  %>
+    <%
+  	String searchType = request.getParameter("search");
+      String searchInput = request.getParameter("input");
+      String searchCriteria = request.getParameter("criteria");
+      String searchPage = request.getParameter("pageNum");
+      String searchLimit = request.getParameter("numResults");
+  	
+  	String searchTitle = request.getParameter("title");
+  	String searchYear = request.getParameter("year");
+  	String searchDirector = request.getParameter("director");
+  	String searchStar = request.getParameter("star");
+  	String searchOrder = request.getParameter("orderBy");
+    %>
 
   <div class="container">
     <div class="form-group">
@@ -118,11 +119,11 @@
 	%>
 		<%@ include file="sql/browseSearchQuery.jspf" %>
 	<% } %>
-	
 
+    </div>
   </div>
 
+  <%@ include file="common/footer.jspf" %>
   <%@ include file="common/scripts.jspf" %>
 </body>
-
-<%@ include file="common/footer.jspf" %>
+</html>

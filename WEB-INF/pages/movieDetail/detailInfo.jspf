@@ -1,0 +1,63 @@
+<div class="col-sm-12 col-md-3">
+    <img id="movie-image" src="<% out.println(banner); %>">
+</div>
+<div class="col-sm-12 col-md-9 detail-main-content">
+  <div class="row">
+    <h3 id="movie-title"><% out.println(title); %>
+      <span id="movie-year"><% out.println("(" + year + ")"); %></span>
+    </h3>
+    <div>
+      <span>Genres: </span>
+      <%@ include file="movieDetailGenresSQL.jspf" %>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <span>ID: </span>
+      <span id="movie-id"><% out.println(movieId); %></span> 
+    </div>
+    <div>
+      <span>Director: </span>
+      <span id="movie-director"><% out.println(director); %></span>
+    </div>
+    <div>
+      <span>Stars: </span>
+      <%@ include file="movieDetailStarsSQL.jspf" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <input
+            id="movie-quantity"
+            class="form-control"
+            type="number"
+          />
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <button
+            id="button-add-movie"
+            data-movie-id="<% out.println(movieId); %>"
+            class="btn btn-primary"
+            type="button"
+          >
+          Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <a
+      id="movie-trailer"
+      class="btn btn-primary"
+      href="<% out.println(trailer); %>"
+      target="_blank"
+    >
+      Link to Trailer
+    </a>
+    <%@ include file="movieDetailModal.jspf" %>
+  </div>
+
+</div>

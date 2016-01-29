@@ -26,7 +26,8 @@
       String firstName = rs.getString("first_name");
       String lastName = rs.getString("last_name");
       String starId = rs.getString("id");
-      out.println("<a href=\"" + rootPath + "/stars/" + starId + "\">" + firstName + " " + lastName + "</a>");
+      String hasComma = rs.isLast() ? "" : ",";
+      out.println("<a href=\"" + rootPath + "/stars/" + starId + "\">" + firstName + " " + lastName + "</a>" + hasComma);
     }
 
     rs.close();
