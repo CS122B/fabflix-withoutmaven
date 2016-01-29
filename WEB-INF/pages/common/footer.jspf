@@ -1,1 +1,6 @@
-</html>
+<footer class="site-footer">
+  <div>
+    <span>Fabflix &copy 2016 | </span>
+    <a target="_blank" href="https://github.com/CS122B/fabflix-withoutmaven">Github</a>
+  </div>
+</footer>

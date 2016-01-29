@@ -1,0 +1,25 @@
+<div class="featured-stars row">
+  <h3>Featured Movie Stars</h3>
+  <div class="star-list-horizontal">
+    <div>
+      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
+      <a href="#"><h5>Will Ferrell</h5></a>
+    </div>
+    <div>
+      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
+      <a href="#"><h5>Will Ferrell</h5></a>
+    </div>
+    <div>
+      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
+      <a href="#"><h5>Will Ferrell</h5></a>
+    </div>
+    <div>
+      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
+      <a href="#"><h5>Will Ferrell</h5></a>
+    </div>
+    <div>
+      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
+      <a href="#"><h5>Will Ferrell</h5></a>
+    </div>
+  </div>
+</div>
