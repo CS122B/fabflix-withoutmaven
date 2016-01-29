@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   var $modalAddMovie = $('#modal-add-movie');
-  var $modalMovieBody = $('#modal-movie-body');
+  var $modalQuantityAdded = $('#modal-quantity-added');
   var $buttonAddMovie = $('#button-add-movie');
   var $selectMovieQuantity = $('#movie-quantity');
   var $movieTitle = $('#movie-title');
@@ -12,6 +12,7 @@ $(document).ready(function () {
 
   $selectMovieQuantity.change(function (/* e */) {
     movieQuantity = $selectMovieQuantity.val();
+    $buttonAddMovie.prop('disabled', false);
   });
 
   $buttonAddMovie.click(function (/* e */) {
@@ -30,8 +31,8 @@ $(document).ready(function () {
 
     $.post('/TomcatForm/servlet/user/addToCart', postData)
       .done(function (data) {
-        copyNum = (+movieQuantity > 1) ? ' copies of ' : ' copy of ';
-        $modalMovieBody.html('You have added ' + movieQuantity + copyNum + $movieTitle.html() + ' (' + $movieYear.html() + ').');
+        copyNum = (+movieQuantity > 1) ? ' copies ' : ' copy ';
+        $modalQuantityAdded.html(movieQuantity + copyNum);
         $modalAddMovie.modal('show');
       })
       .fail(function (err) {

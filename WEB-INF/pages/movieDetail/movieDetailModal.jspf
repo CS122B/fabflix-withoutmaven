@@ -20,7 +20,11 @@
         </button>
         <h4 class="modal-title">Successfully Added to Cart</h4>
       </div>
-      <div id="modal-movie-body" class="modal-body"></div>
+      <div id="modal-movie-body" class="modal-body">
+        <span>You have added </span>
+        <span id="modal-quantity-added"></span>
+        <span><% out.println("of " + title + " (" + year + ")."); %></span>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <a href="<% out.println(rootPath); %>/cart" class="btn btn-primary">Go to Shopping Cart</a>
