@@ -33,7 +33,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
 
   <servlet>
     <servlet-name>HomePageServlet</servlet-name>
-    <jsp-file>/WEB-INF/pages/home.jsp</jsp-file>
+    <jsp-file>/WEB-INF/pages/home/home.jsp</jsp-file>
   </servlet>
   <servlet>
     <servlet-name>SearchServlet</servlet-name>
