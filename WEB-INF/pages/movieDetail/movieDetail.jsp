@@ -1,12 +1,12 @@
-<%@ include file="../common/variables.jspf" %>
-<%@ include file="../common/imports.jspf" %>
+<%@ include file="../_common/variables.jspf" %>
+<%@ include file="../_common/imports.jspf" %>
 
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="../common/header.jspf" %>
+<%@ include file="../_common/header.jspf" %>
 <body>
   <div class="page-wrap">
-    <%@ include file="../common/navbar.jspf" %>
+    <%@ include file="../_common/navbar.jspf" %>
 
     <div class="container">
     <%
@@ -30,8 +30,8 @@
     </div>
   </div>
 
-  <%@ include file="../common/footer.jspf" %>
-  <%@ include file="../common/scripts.jspf" %>
+  <%@ include file="../_common/footer.jspf" %>
+  <%@ include file="../_common/scripts.jspf" %>
   <script src="<% out.println(rootPath); %>/static/js/movieDetail.js"></script>
 </body>
 

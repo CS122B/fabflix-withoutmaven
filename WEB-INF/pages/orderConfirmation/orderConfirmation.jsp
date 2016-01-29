@@ -1,11 +1,11 @@
-<%@ include file="../common/variables.jspf" %>
+<%@ include file="../_common/variables.jspf" %>
 
 <!DOCTYPE html>
 <html lang="en">
-<%@ include file="../common/header.jspf" %>
+<%@ include file="../_common/header.jspf" %>
 <body>
   <div class="page-wrap">
-    <%@ include file="../common/navbar.jspf" %>
+    <%@ include file="../_common/navbar.jspf" %>
 
     <div class="container">
     <%
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <%@ include file="../common/footer.jspf" %>
-  <%@ include file="../common/scripts.jspf" %>
+  <%@ include file="../_common/footer.jspf" %>
+  <%@ include file="../_common/scripts.jspf" %>
 </body>
 </html>
