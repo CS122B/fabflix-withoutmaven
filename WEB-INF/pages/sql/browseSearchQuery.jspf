@@ -49,7 +49,6 @@
 		statement = dbcon.prepareStatement(query);
 		
 		for (int i = 0; i < genreIDs.length; i++) {
-			out.println("<h2>" + genreIDs[i] + "</h2>");
 			statement.setString((i + 1), genreIDs[i]);
 		}
 		statement.setInt(genreIDs.length + 1, Integer.parseInt(searchLimit));

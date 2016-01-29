@@ -9,7 +9,7 @@
     <%@ include file="common/navbar.jspf" %>
 
     <%
-  	String searchType = request.getParameter("search");
+	String searchType = request.getParameter("search");
     String searchInput = request.getParameter("input");
     String searchCriteria = request.getParameter("criteria");
     String searchPage = request.getParameter("pageNum");
@@ -83,8 +83,7 @@
       </form>
     </div>
 	<%
-	out.println("<h4>" + searchType + "</h4>");
-	if (searchType.equals("basic")
+	if (searchType != null && searchType.equals("basic")
 	  && searchInput != null
 	  && !"".equals(searchInput)
 	  && searchCriteria != null
@@ -102,7 +101,7 @@
     <% } %>
 	
 	<%
-	if ( searchType.equals("advanced") && 
+	if (searchType != null && searchType.equals("advanced") && 
 		((searchTitle != null && !"".equals(searchTitle))
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
@@ -113,7 +112,7 @@
 	<% } %>
 	
 	<%
-	if ( searchType.equals("browse") && 
+	if (searchType != null && searchType.equals("browse") && 
 		((searchTitle != null && !"".equals(searchTitle))
 		|| (searchGenre != null && !"".equals(searchGenre)))
 	) {
