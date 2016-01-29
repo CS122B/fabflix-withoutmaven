@@ -8,11 +8,13 @@
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
     String query = (
-      "SELECT name " +
-      "FROM genres_in_movies gin " +
-      "INNER JOIN genres g " +
-      "  ON gin.genre_id = g.id " +
-      "  AND gin.movie_id = ?"
+      "SELECT first_name, last_name, s.id " +
+      "FROM stars_in_movies sin " +
+      "INNER JOIN movies g " +
+      "  ON sin.movie_id = g.id " +
+      "  AND sin.movie_id = ? " +
+      "INNER JOIN stars s " +
+      "  ON sin.star_id = s.id"
     );
 
     PreparedStatement statement = dbcon.prepareStatement(query);
@@ -21,8 +23,11 @@
     ResultSet rs = statement.executeQuery();
 
     while (rs.next()) {
-      String genre = rs.getString("name");
-      out.println("<a href=\"" + rootPath + "/browse?genre=" + genre + "\">" + genre + "</a>");
+      String firstName = rs.getString("first_name");
+      String lastName = rs.getString("last_name");
+      String starId = rs.getString("id");
+      String hasComma = rs.isLast() ? "" : ",";
+      out.println("<a href=\"" + rootPath + "/stars/" + starId + "\">" + firstName + " " + lastName + "</a>" + hasComma);
     }
 
     rs.close();

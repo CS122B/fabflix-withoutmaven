@@ -39,6 +39,10 @@ body {
   text-align: center;
 }
 
+/*
+ * HOME
+ */
+
 .home-main-content {
   border-right: 3px solid #999;
 }
@@ -83,6 +87,10 @@ body {
 .star-list-horizontal div:last-child {
   padding-right: 0;
 }
+
+/*
+ * LOGIN
+ */
 
 .login-page {
   background-color: #eee;
@@ -136,4 +144,23 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+/*
+ * MOVIE DETAIL
+ */
+
+.movie-detail-main-content > .row {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.movie-detail-main-content > .row:last-child {
+  border-bottom: 0;
+}
+
+#movie-image {
+  height: auto;
+  width: 100%;
+  padding: 10px;
 }
