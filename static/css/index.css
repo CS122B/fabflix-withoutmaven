@@ -14,6 +14,10 @@ body {
   background-color: white;
 }
 
+.page-wrap > .container {
+  padding-bottom: 50px;
+}
+
 .navbar {
   margin-bottom: 0;
   border-bottom: 1px solid #bbb;
@@ -164,4 +168,12 @@ body {
   height: auto;
   width: 100%;
   padding: 10px;
+}
+
+/*
+ * SHOPPING CART
+ */
+
+.shopping-cart-table button {
+  text-align: center;
 }

@@ -1,0 +1,60 @@
+<h3>Credit Card Details</h3>
+<form
+  class="form-horizontal"
+  action="servlet/processOrder"
+  method="POST"
+>
+  <div class="form-group">
+    <label for="checkout-first-name" class="col-sm-2 control-label">First Name</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        type="text"
+        name="firstName"
+        id="checkout-first-name"
+        placeholder="i.e. Terry"
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="checkout-last-name" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        type="text"
+        name="lastName"
+        id="checkout-last-name"
+        placeholder="i.e. Mitchell"
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="checkout-exp" class="col-sm-2 control-label">Expiration Date</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        type="date"
+        name="expirationDate"
+        id="checkout-exp"
+        placeholder="i.e. 2008-06-12"
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="checkout-cc" class="col-sm-2 control-label">Credit Card Number</label>
+    <div class="col-sm-10">
+      <input
+        class="form-control"
+        type="text"
+        name="creditCardNumber"
+        id="checkout-cc"
+        placeholder="i.e. 107001"
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Checkout</button>
+    </div>
+  </div>
+</form>

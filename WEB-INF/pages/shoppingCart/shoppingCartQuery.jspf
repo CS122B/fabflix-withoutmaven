@@ -61,17 +61,21 @@
         String year = rs.getString("year");
         String banner = rs.getString("banner_url");
         String title = rs.getString("title");
+        Integer quantity = shoppingCart.get(shoppingCartMovies[insertCount]);
 
         out.println(
           "<tr>" +
           "  <td><img src=\"" + banner + "\" /></td>" +
-          "  <td><a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a></td>" +
-          "  <td>" + shoppingCart.get(shoppingCartMovies[insertCount]) + "</td>" +
+          "  <td>" +
+          "    <a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a>" +
+          "    <span>(" + year + ")</span>" +
+          "    <h5># " + movieId + "</h5>" +
+          "  </td>" +
           "  <td>" +
           "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
           "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
           "      <input name=\"redirect\" value=\"cart\" hidden>" +
-          "      <input name=\"quantity\" type=\"number\" value=\"1\" />" +
+          "      <input name=\"quantity\" type=\"number\" value=\"" + quantity + "\" />" +
           "      <button type=\"submit\" class=\"btn btn-primary\">Update Quantity</td>" +
           "    </form>" +
           "  </td>" +
