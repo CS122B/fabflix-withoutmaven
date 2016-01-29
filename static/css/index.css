@@ -147,19 +147,20 @@ body {
 }
 
 /*
- * MOVIE DETAIL
+ * STAR/MOVIE DETAIL
  */
 
-.movie-detail-main-content > .row {
+.detail-main-content > .row {
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
 }
 
-.movie-detail-main-content > .row:last-child {
+.detail-main-content > .row:last-child {
   border-bottom: 0;
 }
 
-#movie-image {
+#movie-image,
+#star-image {
   height: auto;
   width: 100%;
   padding: 10px;

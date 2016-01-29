@@ -1,7 +1,7 @@
-<div class="col-sm-12 col-md-4">
+<div class="col-sm-12 col-md-3">
     <img id="movie-image" src="<% out.println(banner); %>">
 </div>
-<div class="col-sm-12 col-md-8 movie-detail-main-content">
+<div class="col-sm-12 col-md-9 detail-main-content">
   <div class="row">
     <h3 id="movie-title"><% out.println(title); %>
       <span id="movie-year"><% out.println("(" + year + ")"); %></span>

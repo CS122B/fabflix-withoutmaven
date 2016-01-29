@@ -1,4 +1,9 @@
 <%
+  String firstName = "";
+  String lastName = "";
+  String starDOBString = "";
+  String starPhoto = "";
+
   try {
     String loginUser = "testuser";
     String loginPasswd = "testpassword";
@@ -23,21 +28,14 @@
     }
 
     rs.next();
-    String firstName = rs.getString("first_name");
-    String lastName = rs.getString("last_name");
+    firstName = rs.getString("first_name");
+    lastName = rs.getString("last_name");
     String starDOB = rs.getString("dob");
-    String starPhoto = rs.getString("photo_url");
+    starPhoto = rs.getString("photo_url");
     DateFormat starDOBDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     DateFormat starDOBStringFormat = new SimpleDateFormat("MMMM dd, yyyy");
     java.util.Date starDOBDate = starDOBDateFormat.parse(starDOB);
-    String starDOBString = starDOBStringFormat.format(starDOBDate);
-
-    out.println(
-      "<h3 id=\"star-id\">" + starId + "</h3>" +
-      "<h3 id=\"star-name\">" + firstName + " " + lastName + "</h3>" +
-      "<h3 id=\"star-dob\">" + starDOBString + "</h3>" +
-      "<img id=\"star-photo\" src='" + starPhoto + "'>"
-    );
+    starDOBString = starDOBStringFormat.format(starDOBDate);
 
     rs.close();
     statement.close();

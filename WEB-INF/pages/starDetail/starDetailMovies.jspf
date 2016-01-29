@@ -25,7 +25,8 @@
     while (rs.next()) {
       String movieId = rs.getString("id");
       String movieTitle = rs.getString("title");
-      out.println("<a href=\"" + rootPath + "/movies/" + movieId + "\">" + movieTitle + "</a>");
+      String hasComma = rs.isLast() ? "" : ",";
+      out.println("<a href=\"" + rootPath + "/movies/" + movieId + "\">" + movieTitle + "</a>" + hasComma);
     }
 
     rs.close();

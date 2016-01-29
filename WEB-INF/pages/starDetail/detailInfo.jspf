@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-12 col-md-3">
+      <img id="star-image" src="<% out.println(starPhoto); %>">
+  </div>
+  <div class="col-sm-12 col-md-9 detail-main-content">
+    <div class="row">
+      <h3 id="star-name"><% out.println(firstName + " " + lastName); %>
+      </h3>
+    </div>
+    <div class="row">
+      <div>
+        <span>ID: </span>
+        <span id="movie-id"><% out.println(starId); %></span> 
+      </div>
+      <div>
+        <span>Date of Birth: </span>
+        <span id="star-dob"><% out.println(starDOBString); %></span> 
+      </div>
+      <div>
+        <span>Movies: </span>
+        <%@ include file="starDetailMovies.jspf" %>
+      </div>
+    </div>
+  </div>
+</div>
