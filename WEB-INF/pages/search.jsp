@@ -16,7 +16,9 @@
 	String searchYear = request.getParameter("year");
 	String searchDirector = request.getParameter("director");
 	String searchStar = request.getParameter("star");
+	String searchGenre = request.getParameter("genre");
 	String searchOrder = request.getParameter("orderBy");
+
   %>
 
   <div class="container">
@@ -73,37 +75,48 @@
 			  <option value="year desc">Year: Descending</option>
 			</select>
         </div>
-        <input name="search" value="1" hidden>
+        <input name="search" value="advanced" hidden>
         <input name="pageNum" value="1" hidden>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
-<%
-  if (searchInput != null
-      && !"".equals(searchInput)
-      && searchCriteria != null
-      && (
-        "title".equals(searchCriteria)
-        || "director".equals(searchCriteria)
-        || "year".equals(searchCriteria)
-      )
-      && searchPage != null
-      && searchLimit != null
-  ) {
-%>
+	<%
+	out.println("<h4>" + searchType + "</h4>");
+	if (searchType.equals("basic")
+	  && searchInput != null
+	  && !"".equals(searchInput)
+	  && searchCriteria != null
+	  && (
+		"title".equals(searchCriteria)
+		|| "director".equals(searchCriteria)
+		|| "year".equals(searchCriteria)
+	  )
+	  && searchPage != null
+	  && searchLimit != null
+	) {
+	%>
       <%@ include file="sql/searchQuery.jspf" %>
 
     <% } %>
 	
 	<%
-	if (
-		(searchTitle != null && !"".equals(searchTitle))
+	if ( searchType.equals("advanced") && 
+		((searchTitle != null && !"".equals(searchTitle))
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
-		|| (searchStar != null && !"".equals(searchStar))
+		|| (searchStar != null && !"".equals(searchStar)))
 	) {
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>
+	<% } %>
+	
+	<%
+	if ( searchType.equals("browse") && 
+		((searchTitle != null && !"".equals(searchTitle))
+		|| (searchGenre != null && !"".equals(searchGenre)))
+	) {
+	%>
+		<%@ include file="sql/browseSearchQuery.jspf" %>
 	<% } %>
 	
 
