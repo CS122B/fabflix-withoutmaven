@@ -8,7 +8,7 @@
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
     String query = (
-      "SELECT name " +
+      "SELECT id, name " +
       "FROM genres_in_movies gin " +
       "INNER JOIN genres g " +
       "  ON gin.genre_id = g.id " +
@@ -21,9 +21,14 @@
     ResultSet rs = statement.executeQuery();
 
     while (rs.next()) {
+      String genreId = rs.getString("id");
       String genre = rs.getString("name");
       String hasComma = rs.isLast() ? "" : ",";
-      out.println("<a href=\"" + rootPath + "/browse?genre=" + genre + "\">" + genre + "</a>" + hasComma);
+      out.println(
+        "<a href=\"" + rootPath + "/search?genre=" + genreId +
+        "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">"+
+        genre + "</a>" + hasComma
+      );
     }
 
     rs.close();
