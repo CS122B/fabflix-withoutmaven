@@ -16,7 +16,7 @@
         @SuppressWarnings (value="unchecked")
         Map<Integer, Integer> shoppingCart = (Map<Integer, Integer>)session.getAttribute("shoppingCart");
 
-        if (shoppingCart != null) {
+        if (shoppingCart != null && !shoppingCart.isEmpty()) {
         %>
           <table class="table table-striped shopping-cart-table">
             <tr>

@@ -1,0 +1,40 @@
+<div class="col-sm-12 col-md-6">
+  <h3>Browse Movie by Genre</h3>
+  <%
+  Map<Integer, String> genreMap = new HashMap<Integer, String>();
+  genreMap.put(907000, "Action");
+  genreMap.put(48008, "Adventure");
+  genreMap.put(764003, "Animation");
+  genreMap.put(48001, "Classic");
+  genreMap.put(907003, "Comedy");
+  genreMap.put(150005, "Coming-Of-Age Drama");
+  genreMap.put(855203, "Crime / Gangster");
+  genreMap.put(788009, "Documentary");
+  genreMap.put(907002, "Drama");
+  genreMap.put(872006, "Epics / Historical");
+  genreMap.put(872012, "Family");
+  genreMap.put(907009, "Fantasy");
+  genreMap.put(907006, "Foreign");
+  genreMap.put(907004, "Horror");
+  genreMap.put(422610, "Indie");
+  genreMap.put(525210, "James Bond");
+  genreMap.put(48013, "Musical");
+  genreMap.put(764014, "Mystery");
+  genreMap.put(631003, "Romance");
+  genreMap.put(907007, "Sci-Fi");
+  genreMap.put(525208, "Spy");
+  genreMap.put(422607, "Suspense");
+  genreMap.put(907005, "Thriller");
+  genreMap.put(872010, "War");
+
+  Set<Map.Entry<Integer, String>> genreSet = genreMap.entrySet();
+  for (Map.Entry<Integer, String> genreEntry : genreSet) {
+    out.println(
+      "<div class=\"col-sm-12 col-md-4\">" +
+      "<a href=\"search?genre=" + genreEntry.getKey() +
+      "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">" + genreEntry.getValue() + "</a>" +
+      "</div>"
+    );
+  }
+  %>
+</div>
