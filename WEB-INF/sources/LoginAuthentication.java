@@ -53,7 +53,7 @@ public class LoginAuthentication extends HttpServlet
       dbcon.close();
 
       String redirectURL = request.getParameter("redirect") == null
-        ? request.getContextPath();
+        ? request.getContextPath()
         : request.getParameter("redirect");
 
       response.sendRedirect(redirectURL);
