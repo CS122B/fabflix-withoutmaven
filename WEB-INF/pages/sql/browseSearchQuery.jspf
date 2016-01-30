@@ -4,6 +4,25 @@
   String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
   try {
+  
+  	String sortResults = "";
+	if (searchTitle!= null) sortResults += "search?title=" + searchTitle;
+	else sortResults += "search?genre=" + searchGenre;
+		 
+	out.println(
+		"SORT BY: "+
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=title+asc&search=browse&pageNum=" + searchPage + "'>TITLE ASCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=title+desc&search=browse&pageNum=" + searchPage + "'>TITLE DESCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=year+asc&search=browse&pageNum=" + searchPage + "'>YEAR ASCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=year+desc&search=browse&pageNum=" + searchPage + "'>YEAR DESCENDING</a>");
+	
+	String changeNumResults = "";
+	out.println(
+		"RESULTS PER PAGE: " +
+		" <a href='" + sortResults + "&numResults=25&orderBy=title+asc&search=browse&pageNum=1'>25</a>" +
+		" <a href='" + sortResults + "&numResults=50&orderBy=title+asc&search=browse&pageNum=1'>50</a>" +
+		" <a href='" + sortResults + "&numResults=100&orderBy=title+asc&search=browse&pageNum=1'>100</a>");
+		
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
     int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
