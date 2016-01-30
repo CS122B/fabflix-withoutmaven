@@ -1,59 +1,118 @@
-<div class="form-group">
-  <form action="search" method="GET">
-    <div>
-      <h4>Title:</h4>
-      <input
-        class="form-control"
-        type="text"
-        name="title"
-        placeholder="e.g. Blade Runner"
-      >
+<div class="row">
+  <form class="form-horizontal" action="search" method="GET">
+    <h3>Advanced Search</h3>
+    <div class="col-sm-12 col-md-6">
+      <h4>Queries</h4>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Title</label>
+        <div class="col-sm-10">
+          <input
+            class="form-control"
+            type="text"
+            name="title"
+            placeholder="e.g. Blade Runner"
+            value="<% out.println(searchTitle); %>"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Release Year</label>
+        <div class="col-sm-10">
+          <input
+            class="form-control"
+            type="text"
+            name="year"
+            placeholder="e.g. 1982"
+            value="<% out.println(searchYear); %>"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Director</label>
+        <div class="col-sm-10">
+          <input
+            class="form-control"
+            type="text"
+            name="director"
+            placeholder="e.g. Ridley Scott"
+            value="<% out.println(searchDirector); %>"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Star</label>
+        <div class="col-sm-10">
+          <input
+            class="form-control"
+            type="text"
+            name="star"
+            placeholder="e.g. Harrison Ford"
+            value="<% out.println(searchStar); %>"
+          >
+        </div>
+      </div>
     </div>
-    <div>
-      <h4>Release Year:</h4>
-      <input
-        class="form-control"
-        type="text"
-        name="year"
-        placeholder="e.g. 1982"
-      >
+
+    <div class="col-sm-12 col-md-6">
+      <h4>Options</h4>
+      <div class="form-group">
+        <label class="control-label col-sm-2">Display</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="numResults">
+            <%
+            String[] numToDisplayValues = {
+              "10",
+              "25",
+              "50",
+              "100"
+            };
+            for (int i = 0; i < numToDisplayValues.length; ++i) {
+              String displayValue = numToDisplayValues[i];
+              String selectedOrder = displayValue.equals(searchLimit) ? "selected" : "";
+
+              out.println(
+                "<option " + selectedOrder + ">" + displayValue + "</option>"
+              );
+            }
+            %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="control-label col-sm-2">Sort By</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="orderBy">
+            <%
+            String[] orderValues = {
+              "title asc",
+              "title desc",
+              "year asc",
+              "year desc"
+            };
+            String[] orderNames = {
+              "Title: A-Z",
+              "Title: Z-A",
+              "Year: Ascending",
+              "Year: Descending"
+            };
+            for (int i = 0; i < orderValues.length; ++i) {
+              String orderValue = orderValues[i];
+              String selectedOrder = orderValue.equals(searchOrder) ? "selected" : "";
+
+              out.println(
+                "<option value=\"" + orderValue + "\" "+
+                selectedOrder + ">" + orderNames[i] + "</option>"
+              );
+            }
+            %>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
     </div>
-    <div>
-      <h4>Director:</h4>
-      <input
-        class="form-control"
-        type="text"
-        name="director"
-        placeholder="e.g. Ridley Scott"
-      >
-    </div>
-    <div>
-      <h4>Star:</h4>
-      <input
-        class="form-control"
-        type="text"
-        name="star"
-        placeholder="e.g. Harrison Ford"
-      >
-    </div>
-    <div>
-      <h4>Display Options:</h4>
-      <h5>Display:</h5>
-      <select name="numResults">
-        <option>25</option>
-        <option>50</option>
-        <option>100</option>
-      </select>
-      <h5>Sorted by:</h5>
-      <select name="orderBy">
-        <option value="title asc">Title: A-Z</option>
-        <option value="title desc">Title: Z-A</option>
-        <option value="year asc">Year: Ascending</option>
-        <option value="year desc">Year: Descending</option>
-      </select>
-    </div>
+
     <input name="search" value="advanced" hidden>
     <input name="pageNum" value="1" hidden>
-    <button type="submit" class="btn btn-primary">Search</button>
   </form>
 </div>

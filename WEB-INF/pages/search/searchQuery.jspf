@@ -4,8 +4,6 @@
   String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
   try {
-    out.println("<h2>Search results for: " + searchInput  + "</h2>");
-
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
