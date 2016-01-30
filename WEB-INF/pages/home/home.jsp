@@ -7,7 +7,7 @@
   <div class="page-wrap">
     <%@ include file="../_common/navbar.jspf" %>
 
-    <div class="container">
+    <div class="container home-container">
       <div class="home-main-content col-sm-12 col-md-9">
         <%@ include file="carousel.jspf" %>
         <%@ include file="featuredStars.jspf" %>

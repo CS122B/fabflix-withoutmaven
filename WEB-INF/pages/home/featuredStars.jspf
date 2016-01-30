@@ -1,25 +1,35 @@
 <div class="featured-stars row">
   <h3>Featured Movie Stars</h3>
+
   <div class="star-list-horizontal">
-    <div>
-      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
-      <a href="#"><h5>Will Ferrell</h5></a>
-    </div>
-    <div>
-      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
-      <a href="#"><h5>Will Ferrell</h5></a>
-    </div>
-    <div>
-      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
-      <a href="#"><h5>Will Ferrell</h5></a>
-    </div>
-    <div>
-      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
-      <a href="#"><h5>Will Ferrell</h5></a>
-    </div>
-    <div>
-      <a href="#"><img src="http://ia.imdb.com/media/imdb/01/I/12/47/26m.jpg" /></a>
-      <a href="#"><h5>Will Ferrell</h5></a>
-    </div>
+  <%
+    String[] starPhotos = {
+      "http://www.kidzworld.com/img/upload/article/a957i0_bradpittAw.jpg",
+      "http://ia.imdb.com/media/imdb/01/I/66/33/48m.jpg",
+      "http://ia.imdb.com/media/imdb/01/I/24/65/38m.jpg",
+      "http://ia.imdb.com/media/imdb/01/I/17/05/12m.jpg",
+      "http://ia.imdb.com/media/imdb/01/I/83/17/38m.jpg"
+    };
+    String[] starNames = {
+      "Brad Pitt",
+      "Cate Blanchett",
+      "Colin Ferrell",
+      "Jodie Foster",
+      "Adam Sandler"
+    };
+    String[] starIds = {
+      "855106",
+      "693105",
+      "217022",
+      "631003",
+      "764009"
+    };
+
+    for (int i = 0; i < starIds.length; ++i) { %>
+      <div>
+        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><img src="<% out.println(starPhotos[i]); %>" /></a>
+        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><h5><% out.println(starNames[i]); %></h5></a>
+      </div>
+    <% } %>
   </div>
 </div>
