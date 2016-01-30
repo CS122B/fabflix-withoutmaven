@@ -189,9 +189,9 @@
 	for (int i = 1;  i <= numPages; i++) {
 		String newHref = href + "&pageNum=" + i;
 		if (i == currentPage)
-			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
+			out.println("<li class='active'><a href='" + newHref + "'>" + i + "</a></li>");
 		else
-			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
+			out.println("<li><a href='" + newHref + "'>" + i + "</a></li>");
 	}
 	if (currentPage < numPages) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage + 1) + "'>&raquo;</a></li>");
 	out.println("</ul>");
