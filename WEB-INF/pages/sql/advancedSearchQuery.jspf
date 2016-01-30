@@ -12,6 +12,18 @@
 	if (searchDirector != null && !"".equals(searchDirector))
 		out.println("<h2>Director: " + searchDirector + "</h2>");
 		
+	out.println(
+		"SORT BY: "+
+		" <a href=''>TITLE ASCENDING</a>" +
+		" <a href=''>TITLE DESCENDING</a>" +
+		" <a href=''>YEAR ASCENDING</a>" +
+		" <a href=''>YEAR DESCENDING</a>");
+	
+	out.println(
+		"RESULTS PER PAGE: " +
+		" <a href=''>25</a>" +
+		" <a href=''>50</a>" +
+		" <a href=''>100</a>");
 
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
@@ -19,46 +31,6 @@
     int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
 	String orderColumn = searchOrder.split(" ")[0];
 	String orderDirection = searchOrder.split(" ")[1];
-	
-	String countQuery = (
-	  "SELECT count(*) " +
-      "FROM movies " +
-      "WHERE " + 
-	  "title LIKE ? AND " +
-	  "year LIKE ? AND " +
-	  "director LIKE ? " 
-    );
-	PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
-    countStatement.setString(1, "%" + searchTitle + "%");
-	countStatement.setString(2, "%" + searchYear + "%");
-	countStatement.setString(3, "%" + searchDirector + "%");
-	ResultSet count = countStatement.executeQuery();
-	int numResults = 0;
-	while (count.next()) {
-	  numResults = Integer.parseInt(count.getString("count(*)"));
-	}
-	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
-	
-	out.println("<ul class='pagination'>");
-	for (int i = 1;  i <= numPages; i++) {
-		String href = "http://localhost:8080/TomcatForm/search";
-		href += "?title=" + searchTitle 
-			 + "&year=" + searchYear
-			 + "&director=" + searchDirector
-			 + "&star=" + searchStar
-		     + "&numResults=" + searchLimit
-			 + "&orderBy=" + searchOrder
-		     + "&search=advanced"
-		     + "&pageNum=" + i;
-		if (i == Integer.parseInt(searchPage))
-			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
-		else
-			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
-	}
-	out.println("</ul>");
-	
-	count.close();
-    countStatement.close();
 	
 	String searchStarQuery = "";
 	String[] starInputs = searchStar.trim().split(" ");
@@ -165,6 +137,46 @@
 
     rs.close();
     statement.close();
+	
+		String countQuery = (
+	  "SELECT count(*) " +
+      "FROM movies " +
+      "WHERE " + 
+	  "title LIKE ? AND " +
+	  "year LIKE ? AND " +
+	  "director LIKE ? " 
+    );
+	PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
+    countStatement.setString(1, "%" + searchTitle + "%");
+	countStatement.setString(2, "%" + searchYear + "%");
+	countStatement.setString(3, "%" + searchDirector + "%");
+	ResultSet count = countStatement.executeQuery();
+	int numResults = 0;
+	while (count.next()) {
+	  numResults = Integer.parseInt(count.getString("count(*)"));
+	}
+	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
+	
+	out.println("<ul class='pagination'>");
+	for (int i = 1;  i <= numPages; i++) {
+		String href = "http://localhost:8080/TomcatForm/search";
+		href += "?title=" + searchTitle 
+			 + "&year=" + searchYear
+			 + "&director=" + searchDirector
+			 + "&star=" + searchStar
+		     + "&numResults=" + searchLimit
+			 + "&orderBy=" + searchOrder
+		     + "&search=advanced"
+		     + "&pageNum=" + i;
+		if (i == Integer.parseInt(searchPage))
+			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
+		else
+			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
+	}
+	out.println("</ul>");
+	
+	count.close();
+    countStatement.close();
     dbcon.close();
 	
 

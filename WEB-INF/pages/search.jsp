@@ -68,6 +68,7 @@
           <select name="numResults">
             <option>25</option>
             <option>50</option>
+			<option>100</option>
           </select>
           <h5>Sorted by:</h5>
           <select name="orderBy">
