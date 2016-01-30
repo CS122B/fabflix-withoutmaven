@@ -171,19 +171,29 @@
 	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
 
 	out.println("<ul class='pagination'>");
-	for (int i = 1;  i <= numPages; i++) {
-		String href = "search";
-		if (searchTitle != null && !"".equals(searchTitle)) href += "?title=" + searchTitle;
-		else href += "?genre=" + searchGenre;
-		href += "&numResults=" + searchLimit
+	String href = "search";
+	if (searchTitle != null && !"".equals(searchTitle)) { 
+		href += "?title=" + searchTitle 
+			 + "&numResults=" + searchLimit
 			 + "&orderBy=" + searchOrder
-		     + "&search=browse"
-		     + "&pageNum=" + i;
-		if (i == Integer.parseInt(searchPage))
+		     + "&search=browse";
+	 }
+	else { 
+		href += "?genre=" + searchGenre
+			 + "&numResults=" + searchLimit
+			 + "&orderBy=" + searchOrder
+		     + "&search=browse";
+	}
+	int currentPage = Integer.parseInt(searchPage);
+	if (currentPage > 1) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage - 1) + "'>&laquo;</a></li>");
+	for (int i = 1;  i <= numPages; i++) {
+		String newHref = href + "&pageNum=" + i;
+		if (i == currentPage)
 			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
 		else
 			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
 	}
+	if (currentPage < numPages) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage + 1) + "'>&raquo;</a></li>");
 	out.println("</ul>");
 	
 	count.close();

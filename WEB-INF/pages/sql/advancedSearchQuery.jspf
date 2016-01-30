@@ -144,7 +144,7 @@
     rs.close();
     statement.close();
 	
-		String countQuery = (
+	String countQuery = (
 	  "SELECT count(*) " +
       "FROM movies " +
       "WHERE " + 
@@ -163,22 +163,25 @@
 	}
 	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
 	
+	String href = "search";
+	href += "?title=" + searchTitle 
+		 + "&year=" + searchYear
+		 + "&director=" + searchDirector
+		 + "&star=" + searchStar
+		 + "&numResults=" + searchLimit
+		 + "&orderBy=" + searchOrder
+		 + "&search=advanced";
 	out.println("<ul class='pagination'>");
+	int currentPage = Integer.parseInt(searchPage);
+	if (currentPage > 1) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage - 1) + "'>&laquo;</a></li>");
 	for (int i = 1;  i <= numPages; i++) {
-		String href = "search";
-		href += "?title=" + searchTitle 
-			 + "&year=" + searchYear
-			 + "&director=" + searchDirector
-			 + "&star=" + searchStar
-		     + "&numResults=" + searchLimit
-			 + "&orderBy=" + searchOrder
-		     + "&search=advanced"
-		     + "&pageNum=" + i;
-		if (i == Integer.parseInt(searchPage))
-			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
+		String newHref = href + "&pageNum=" + i;
+		if (i == currentPage)
+			out.println("<li class='active'><a href='" + newHref + "'>" + i + "</a></li>");
 		else
-			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
+			out.println("<li><a href='" + newHref + "'>" + i + "</a></li>");
 	}
+	if (currentPage < numPages) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage + 1) + "'>&raquo;</a></li>");
 	out.println("</ul>");
 	
 	count.close();
