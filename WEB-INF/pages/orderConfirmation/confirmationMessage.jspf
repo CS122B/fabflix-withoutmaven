@@ -1,0 +1,23 @@
+<%
+  String confirmationStatus = request.getParameter("status");
+
+  if ("success".equals(confirmationStatus)) {
+    String firstName = (String)session.getAttribute("userFirstName");
+    out.println(
+      "<p>" + firstName + ", your order has been confirmed. " +
+      "Thank you for ordering from Fabflix!</p>"
+    );
+    out.println(
+      "<a class=\"btn btn-primary\" href=\"" + rootPath + "\">Return to Home</a>"
+    );
+  } else { // error
+    String errMessage = request.getParameter("message");
+    out.println(
+      "<p>Your order could not be completed: " +
+      errMessage + "</p>"
+    );
+    out.println(
+      "<a class=\"btn btn-primary\" href=\"" + rootPath + "/cart\">Back to Shopping Cart</a>"
+    );
+  }
+%>

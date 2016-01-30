@@ -7,18 +7,8 @@
   <div class="page-wrap">
     <%@ include file="../_common/navbar.jspf" %>
 
-    <div class="container">
-    <%
-      String orderNumber = request.getParameter("orderNumber");
-
-      if (orderNumber != null) {
-        String firstName = (String)session.getAttribute("userFirstName");
-        out.println(
-          firstName + ", your order number is: " + orderNumber + ". " +
-          "Thank you for ordering from Fabflix!"
-        );
-      }
-    %>
+    <div class="container confirmation-container">
+      <%@ include file="confirmationMessage.jspf" %>
     </div>
   </div>
 
