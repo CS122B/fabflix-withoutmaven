@@ -45,7 +45,6 @@
 		statement.setString(1, searchTitle + "%");
 		statement.setInt(2, Integer.parseInt(searchLimit));
 		statement.setInt(3, searchOffset);
-		out.println("<h2>" + statement + "</h2>");
 	}
 	else if (searchGenre != null) {
 		String [] genreIDs = searchGenre.split(" ");
@@ -137,8 +136,59 @@
 
     rs.close();
     statement.close();
-    dbcon.close();
 	
+	String countQuery = "";
+	PreparedStatement countStatement = null;
+	if (searchTitle != null && !"".equals(searchTitle)) {
+	  countQuery += "SELECT count(*) from movies WHERE title like ? ";
+	  countStatement = dbcon.prepareStatement(countQuery);
+      countStatement.setString(1, "%" + searchTitle + "%");
+    }
+	else {
+	  String [] genreIDs = searchGenre.split(" ");
+	  countQuery += 
+	  "SELECT count(*) from movies as a " + 
+	  "INNER JOIN " +
+	  "(SELECT DISTINCT movie_id from genres_in_movies " +
+	  "WHERE genres_in_movies.genre_id = ? ";
+		
+	  for (int i = 1; i < genreIDs.length; i++) {
+	  	countQuery += " OR genres_in_movies.genre_id = ?";
+	  }
+		
+	  countQuery += ") as b on a.id = b.movie_id ";
+      countStatement = dbcon.prepareStatement(countQuery);
+		
+	  for (int i = 0; i < genreIDs.length; i++) {
+	  	countStatement.setString((i + 1), genreIDs[i]);
+	  }
+	}
+	ResultSet count = countStatement.executeQuery();
+	int numResults = 0;
+	while (count.next()) {
+	  numResults = Integer.parseInt(count.getString("count(*)"));
+	}
+	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
+
+	out.println("<ul class='pagination'>");
+	for (int i = 1;  i <= numPages; i++) {
+		String href = "search";
+		if (searchTitle != null && !"".equals(searchTitle)) href += "?title=" + searchTitle;
+		else href += "?genre=" + searchGenre;
+		href += "&numResults=" + searchLimit
+			 + "&orderBy=" + searchOrder
+		     + "&search=browse"
+		     + "&pageNum=" + i;
+		if (i == Integer.parseInt(searchPage))
+			out.println("<li class='active'><a href='" + href + "'>" + i + "</a></li>");
+		else
+			out.println("<li><a href='" + href + "'>" + i + "</a></li>");
+	}
+	out.println("</ul>");
+	
+	count.close();
+    countStatement.close();
+    dbcon.close();
 
   } catch (SQLException ex) {
     while (ex != null) {
