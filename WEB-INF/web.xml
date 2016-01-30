@@ -37,7 +37,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   </servlet>
   <servlet>
     <servlet-name>SearchServlet</servlet-name>
-    <jsp-file>/WEB-INF/pages/search.jsp</jsp-file>
+    <jsp-file>/WEB-INF/pages/search/search.jsp</jsp-file>
   </servlet>
   <servlet>
     <servlet-name>BrowseServlet</servlet-name>
