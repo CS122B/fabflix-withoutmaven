@@ -11,14 +11,21 @@
 		out.println("<h2>Year: " + searchYear + "</h2>");
 	if (searchDirector != null && !"".equals(searchDirector))
 		out.println("<h2>Director: " + searchDirector + "</h2>");
-		
+	
+	String sortResults = "search?title=" + searchTitle 
+		 + "&year=" + searchYear
+		 + "&director=" + searchDirector
+		 + "&star=" + searchStar
+		 + "&numResults=" + searchLimit;
+		 
 	out.println(
 		"SORT BY: "+
-		" <a href=''>TITLE ASCENDING</a>" +
+		" <a href='" + sortResults + "&orderBy=title+asc" + "&search=advanced&pageNum=" + searchPage + "'>TITLE ASCENDING</a>" +
 		" <a href=''>TITLE DESCENDING</a>" +
 		" <a href=''>YEAR ASCENDING</a>" +
 		" <a href=''>YEAR DESCENDING</a>");
 	
+	String changeNumResults = "";
 	out.println(
 		"RESULTS PER PAGE: " +
 		" <a href=''>25</a>" +
@@ -159,7 +166,7 @@
 	
 	out.println("<ul class='pagination'>");
 	for (int i = 1;  i <= numPages; i++) {
-		String href = "http://localhost:8080/TomcatForm/search";
+		String href = "search";
 		href += "?title=" + searchTitle 
 			 + "&year=" + searchYear
 			 + "&director=" + searchDirector
