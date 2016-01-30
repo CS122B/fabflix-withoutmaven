@@ -64,11 +64,40 @@
 		String year = rs.getString("year");
 		String banner = rs.getString("banner_url");
 
+		String genreQuery = "SELECT * FROM genres " +
+		"INNER JOIN genres_in_movies " + 
+		"ON genres.id = genres_in_movies.genre_id " + 
+		"WHERE genres_in_movies.movie_id = ?";
+		PreparedStatement genreStatement = dbcon.prepareStatement(genreQuery);
+		genreStatement.setString(1, id);
+		ResultSet gs = genreStatement.executeQuery();
+		ArrayList<String> movieGenres = new ArrayList<String>();
+		while (gs.next()) {
+			String genreName = gs.getString("name");
+			movieGenres.add(genreName);
+		}
+		
+		String starQuery = "SELECT * FROM stars " +
+		"INNER JOIN stars_in_movies " + 
+		"ON stars.id = stars_in_movies.star_id " + 
+		"WHERE stars_in_movies.movie_id = ?";
+		PreparedStatement starStatement = dbcon.prepareStatement(starQuery);
+		starStatement.setString(1, id);
+		ResultSet stars = starStatement.executeQuery();
+		HashMap<String, String > starsInMovie = new HashMap<String, String>();
+		while (stars.next()) {
+			String starID = stars.getString("id");
+			String starFN = stars.getString("first_name");
+			String starLN = stars.getString("last_name");
+			starsInMovie.put(starID, starFN + starLN);
+		}
+		
 		out.println(
 		"<tr>" +
-		"  <td><a href=movies/" + id + ">" + title + "</a></td>" +
-		"  <td>" + year + "</td>" +
+		"  <td><a href=movies/" + id + ">" + title + " (" + year + ")</a></td>" +
 		"  <td><img src='" + banner + "'></td>" +
+		"  <td>" + movieGenres + "</td>" +
+		"  <td>" + starsInMovie + "</td>" +
 		"</tr>"
 		);
 	}

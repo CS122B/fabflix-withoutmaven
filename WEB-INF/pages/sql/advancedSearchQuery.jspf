@@ -105,7 +105,6 @@
 	ResultSet rs = statement.executeQuery();
 	
     out.println("<table border>");
-	List<String> addedFilms = new ArrayList<String>();
     while (rs.next()) {
 		String id = rs.getString("id");
 		String title = rs.getString("title");
@@ -140,14 +139,26 @@
 			starsInMovie.put(starID, starFN + starLN);
 		}
 		
-		out.println(
-		"<tr>" +
+		String htmlRow = "<tr>" +
 		"  <td><a href=movies/" + id + ">" + title + " (" + year + ")</a></td>" +
-		"  <td><img src='" + banner + "'></td>" +
-		"  <td>" + movieGenres + "</td>" +
-		"  <td>" + starsInMovie + "</td>" +
-		"</tr>"
-		);
+		"  <td><img src='" + banner + "'></td>";
+		
+		htmlRow += "<td>";
+		for (int i = 0; i < movieGenres.size(); i++) {
+			htmlRow += "<a>" + movieGenres.get(i) + "</a> ";
+		}
+		htmlRow += "</td>";
+		
+		htmlRow += "<td>";
+		for (Map.Entry<String, String> entry : starsInMovie.entrySet()) {
+			String starID = entry.getKey();
+			String starName = entry.getValue();
+			htmlRow += "<a>" + starName + "</a> ";
+		}
+		htmlRow += "</td>";
+		
+		htmlRow += "</tr>";
+		out.println(htmlRow);
 	}
     out.println("</table>");
 
