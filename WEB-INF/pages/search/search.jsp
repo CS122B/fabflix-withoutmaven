@@ -1,5 +1,6 @@
 <%@ include file="../_common/variables.jspf" %>
 <%@ include file="../_common/imports.jspf" %>
+<%@ include file="_functions.jspf" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,117 +10,59 @@
     <%@ include file="../_common/navbar.jspf" %>
 
     <%
-  String searchType = request.getParameter("search");
-    String searchInput = request.getParameter("input");
-    String searchCriteria = request.getParameter("criteria");
-    String searchPage = request.getParameter("pageNum");
-    String searchLimit = request.getParameter("numResults");
-    
-    String searchTitle = request.getParameter("title");
-    String searchYear = request.getParameter("year");
-    String searchDirector = request.getParameter("director");
-    String searchStar = request.getParameter("star");
-    String searchOrder = request.getParameter("orderBy");
-  String searchGenre = request.getParameter("genre");
+    String searchType = getSearchParam(request, "search");
+    String searchInput = getSearchParam(request, "input");
+    String searchCriteria = getSearchParam(request, "criteria");
+    String searchPage = getSearchParam(request, "pageNum");
+    String searchLimit = getSearchParam(request, "numResults");
+
+    String searchTitle = getSearchParam(request, "title");
+    String searchYear = getSearchParam(request, "year");
+    String searchDirector = getSearchParam(request, "director");
+    String searchStar = getSearchParam(request, "star");
+    String searchOrder = getSearchParam(request, "orderBy");
+    String searchGenre = getSearchParam(request, "genre");
     %>
 
-  <div class="container">
-    <div class="form-group">
-      <form action="search" method="GET">
-        <div>
-          <h4>Title:</h4>
-          <input
-            class="form-control"
-            type="text"
-            name="title"
-            placeholder="e.g. Blade Runner"
-          >
-        </div>
-        <div>
-          <h4>Release Year:</h4>
-          <input
-            class="form-control"
-            type="text"
-            name="year"
-            placeholder="e.g. 1982"
-          >
-        </div>
-        <div>
-          <h4>Director:</h4>
-          <input
-            class="form-control"
-            type="text"
-            name="director"
-            placeholder="e.g. Ridley Scott"
-          >
-        </div>
-        <div>
-          <h4>Star:</h4>
-          <input
-            class="form-control"
-            type="text"
-            name="star"
-            placeholder="e.g. Harrison Ford"
-          >
-        </div>
-        <div>
-          <h4>Display Options:</h4>
-          <h5>Display:</h5>
-          <select name="numResults">
-            <option>25</option>
-            <option>50</option>
-      <option>100</option>
-          </select>
-          <h5>Sorted by:</h5>
-          <select name="orderBy">
-        <option value="title asc">Title: A-Z</option>
-        <option value="title desc">Title: Z-A</option>
-        <option value="year asc">Year: Ascending</option>
-        <option value="year desc">Year: Descending</option>
-      </select>
-        </div>
-        <input name="search" value="advanced" hidden>
-        <input name="pageNum" value="1" hidden>
-        <button type="submit" class="btn btn-primary">Search</button>
-      </form>
-    </div>
-  <%
-  if (searchType != null && searchType.equals("basic")
-    && searchInput != null
-    && !"".equals(searchInput)
-    && searchCriteria != null
-    && (
-    "title".equals(searchCriteria)
-    || "director".equals(searchCriteria)
-    || "year".equals(searchCriteria)
-    )
-    && searchPage != null
-    && searchLimit != null
-  ) {
-  %>
-      <%@ include file="searchQuery.jspf" %>
+    <div class="container">
+      <%@ include file="searchForm.jspf" %>
 
-    <% } %>
-  
-  <%
-  if (searchType != null && searchType.equals("advanced") && 
-    ((searchTitle != null && !"".equals(searchTitle))
-    || (searchYear != null && !"".equals(searchYear))
-    || (searchDirector != null && !"".equals(searchDirector))
-    || (searchStar != null && !"".equals(searchStar)))
-  ) {
-  %>
-    <%@ include file="advancedSearchQuery.jspf" %>
-  <% } %>
-  
-  <%
-  if (searchType != null && searchType.equals("browse") && 
-    ((searchTitle != null && !"".equals(searchTitle))
-    || (searchGenre != null && !"".equals(searchGenre)))
-  ) {
-  %>
-    <%@ include file="browseSearchQuery.jspf" %>
-  <% } %>
+      <%
+      if (searchType != null && searchType.equals("basic")
+        && searchInput != null
+        && !"".equals(searchInput)
+        && searchCriteria != null
+        && (
+          "title".equals(searchCriteria)
+          || "director".equals(searchCriteria)
+          || "year".equals(searchCriteria)
+        )
+        && searchPage != null
+        && searchLimit != null
+      ) {
+      %>
+        <%@ include file="searchQuery.jspf" %>
+      <% } %>
+
+      <%
+      if (searchType != null && searchType.equals("advanced")
+        && ((searchTitle != null && !"".equals(searchTitle))
+        || (searchYear != null && !"".equals(searchYear))
+        || (searchDirector != null && !"".equals(searchDirector))
+        || (searchStar != null && !"".equals(searchStar)))
+      ) {
+      %>
+        <%@ include file="advancedSearchQuery.jspf" %>
+      <% } %>
+
+      <%
+      if (searchType != null && searchType.equals("browse")
+        && ((searchTitle != null && !"".equals(searchTitle))
+        || (searchGenre != null && !"".equals(searchGenre)))
+      ) {
+      %>
+        <%@ include file="browseSearchQuery.jspf" %>
+      <% } %>
 
     </div>
   </div>

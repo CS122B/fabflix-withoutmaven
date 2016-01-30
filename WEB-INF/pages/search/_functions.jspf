@@ -1,0 +1,6 @@
+<%!
+public String getSearchParam(HttpServletRequest request, String param) {
+  String paramValue = request.getParameter(param);
+  return paramValue == null ? "" : paramValue;
+}
+%>
