@@ -212,3 +212,13 @@ body {
 .shopping-cart-table img {
   height: 200px;
 }
+
+/*
+ * CONFIRMATION
+ */
+
+.confirmation-container {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 20px;
+}

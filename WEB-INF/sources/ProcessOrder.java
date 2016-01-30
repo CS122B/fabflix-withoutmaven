@@ -23,7 +23,7 @@ public class ProcessOrder extends HttpServlet
 
     try {
       if (session == null || session.getAttribute("userFirstName") == null) {
-        throw new Exception("nologin");
+        throw new Exception("Not logged in.");
       }
 
       String loginUser = "testuser";
@@ -60,8 +60,7 @@ public class ProcessOrder extends HttpServlet
 
 
       if (!rs.isBeforeFirst()) {
-        throw new Exception("hey");
-        // throw new Exception("Could not find account with those credentials.");
+        throw new Exception("Could not find account with those credentials.");
       }
 
       String userId = (String)session.getAttribute("userId");
@@ -71,7 +70,7 @@ public class ProcessOrder extends HttpServlet
       @SuppressWarnings (value="unchecked")
       Map<Integer, Integer> shoppingCart = (Map<Integer, Integer>)session.getAttribute("shoppingCart");
       if (shoppingCart == null || shoppingCart.isEmpty()) {
-        throw new Exception("ho");
+        throw new Exception("No movies in shopping cart.");
       }
 
 
@@ -104,12 +103,12 @@ public class ProcessOrder extends HttpServlet
       statement.close();
       dbcon.close();
 
-      response.sendRedirect(contextPath + "/confirm&status=success");
+      response.sendRedirect(contextPath + "/confirm?status=success");
 
     } catch (SQLException ex) {
-      response.sendRedirect(contextPath + "/confirm&status=error&message=" + ex.getMessage());
+      response.sendRedirect(contextPath + "/confirm?status=error&message=" + ex.getMessage());
     } catch(Exception ex) {
-      response.sendRedirect(contextPath + "/confirm&status=error&message=" + ex.getMessage());
+      response.sendRedirect(contextPath + "/confirm?status=error&message=" + ex.getMessage());
     }
 
     out.close();
