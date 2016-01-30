@@ -118,10 +118,11 @@
 		PreparedStatement genreStatement = dbcon.prepareStatement(genreQuery);
 		genreStatement.setString(1, id);
 		ResultSet gs = genreStatement.executeQuery();
-		ArrayList<String> movieGenres = new ArrayList<String>();
+		HashMap<String, String > movieGenres = new HashMap<String, String>();
 		while (gs.next()) {
+			String genreID = gs.getString("id");
 			String genreName = gs.getString("name");
-			movieGenres.add(genreName);
+			movieGenres.put(genreID, genreName);
 		}
 		
 		String starQuery = "SELECT * FROM stars " +
@@ -144,16 +145,16 @@
 		"  <td><img src='" + banner + "'></td>";
 		
 		htmlRow += "<td>";
-		for (int i = 0; i < movieGenres.size(); i++) {
-			htmlRow += "<a>" + movieGenres.get(i) + "</a> ";
+		for (Map.Entry<String, String> genreEntry : movieGenres.entrySet()) {
+			htmlRow += 		
+			  "<a href='search?genre=" + genreEntry.getKey() +
+			  "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\'>" + genreEntry.getValue() + "</a> ";
 		}
 		htmlRow += "</td>";
 		
 		htmlRow += "<td>";
 		for (Map.Entry<String, String> entry : starsInMovie.entrySet()) {
-			String starID = entry.getKey();
-			String starName = entry.getValue();
-			htmlRow += "<a>" + starName + "</a> ";
+			htmlRow += "<a href='stars/" + entry.getKey() + "'>" + entry.getValue() + "</a> ";
 		}
 		htmlRow += "</td>";
 		
