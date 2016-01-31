@@ -6,10 +6,11 @@ String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 try {
   Class.forName("com.mysql.jdbc.Driver").newInstance();
   Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
-  
+
   int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
   String orderColumn = searchOrder.split(" ")[0];
   String orderDirection = searchOrder.split(" ")[1];
+  out.println("here");
 
   String searchStarQuery = "";
   String[] starInputs = searchStar.trim().split(" ");
@@ -24,12 +25,12 @@ try {
     starFirstName = starInputs[0];
     starLastName = starInputs[1];
   }
-  
+
   String searchGenreQuery = 
-		"INNER JOIN " +
-		"(SELECT DISTINCT movie_id from genres_in_movies " +
-		"WHERE genres_in_movies.genre_id LIKE ? ) AS movie_genres " + 
-		"ON movie_genres.movie_id = a.id ";
+    "INNER JOIN " +
+    "(SELECT DISTINCT movie_id from genres_in_movies " +
+    "WHERE genres_in_movies.genre_id LIKE ? ) AS movie_genres " + 
+    "ON movie_genres.movie_id = a.id ";
 
   String query = (
     "SELECT * " +
@@ -40,12 +41,12 @@ try {
     "  INNER JOIN stars ON stars_in_movies.star_id = stars.id " +
     "  WHERE stars.first_name LIKE ? " +
     searchStarQuery +
-	searchGenreQuery +
+    searchGenreQuery +
     "WHERE a.title LIKE ? " +
     "AND a.year LIKE ? " +
-    "AND a.director LIKE ? ");
-	
-  
+    "AND a.director LIKE ? "
+  );
+
   String queryWithOrder = query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
   PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
   statement.setString(1, "%" + starFirstName + "%");

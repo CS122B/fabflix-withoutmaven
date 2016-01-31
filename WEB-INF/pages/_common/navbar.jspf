@@ -33,7 +33,7 @@
           <select
             id="navbar-search-select"
             class="form-control"
-            name="searchCriteria"
+            name="criteria"
           >
             <option value="title">Title</option>
             <option value="year">Year</option>
@@ -44,8 +44,6 @@
             <button class="btn btn-primary" type="submit">Search</button>
           </span>
         </div>
-        <input name="search" value="basic" hidden>
-        <input name="pageNum" value="1" hidden>
       </form>
       <ul class="nav navbar-nav navbar-right">
       <%
