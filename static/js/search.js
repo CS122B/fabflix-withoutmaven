@@ -34,7 +34,7 @@ $(document).ready(function () {
       quantity: 1
     };
 
-    $.post('/TomcatForm/servlet/user/addToCart', postData)
+    $.post('/fabflix/servlet/user/addToCart', postData)
       .done(function (data) {
         $modalMovieMessage.html(
           '1 copy of ' + movieTitle +

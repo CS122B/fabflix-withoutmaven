@@ -1,16 +1,11 @@
 <%
-  String loginUser = "testuser";
-  String loginPasswd = "testpassword";
-  String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-
   final int SINGLE_BATCH = 1;
   final int SMALL_BATCH = 4;
   final int MEDIUM_BATCH = 11;
   final int LARGE_BATCH = 51;
 
   try {
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
-    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+    Connection dbcon = ds.getConnection();
 
     Set<Integer> cartKeys = shoppingCart.keySet();
     Integer[] shoppingCartMovies = cartKeys.toArray(new Integer[cartKeys.size()]);

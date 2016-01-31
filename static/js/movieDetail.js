@@ -29,7 +29,7 @@ $(document).ready(function () {
       quantity: movieQuantity
     };
 
-    $.post('/TomcatForm/servlet/user/addToCart', postData)
+    $.post('/fabflix/servlet/user/addToCart', postData)
       .done(function (data) {
         copyNum = (+movieQuantity > 1) ? ' copies ' : ' copy ';
         $modalQuantityAdded.html(movieQuantity + copyNum);

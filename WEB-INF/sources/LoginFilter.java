@@ -25,12 +25,13 @@ public class LoginFilter implements Filter {
     String URI = request.getRequestURI();
     String contextPath = request.getContextPath();
 
+    boolean isHomePage = URI.equals(contextPath);
     boolean isLoginPath = (contextPath + "/login").equals(URI);
     boolean isServletPath = URI.startsWith("/servlet/", contextPath.length());
     boolean isStaticDir = URI.startsWith("/static/", contextPath.length());
     boolean isLoggedIn = (session != null && session.getAttribute("userFirstName") != null);
 
-    if (isStaticDir || isServletPath || isLoginPath || isLoggedIn) {
+    if (isHomePage || isStaticDir || isServletPath || isLoginPath || isLoggedIn) {
       chain.doFilter(req, res);
     } else {
       String redirectURL = contextPath + "/login?redirect=" + URI;

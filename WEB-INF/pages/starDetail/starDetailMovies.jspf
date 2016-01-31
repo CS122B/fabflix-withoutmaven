@@ -1,11 +1,6 @@
 <%
   try {
-    String loginUser = "testuser";
-    String loginPasswd = "testpassword";
-    String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
-    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+    Connection dbcon = ds.getConnection();
 
     String query = (
       "SELECT m.id, m.title " +

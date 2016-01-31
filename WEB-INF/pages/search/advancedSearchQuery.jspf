@@ -1,11 +1,7 @@
 <%
-String loginUser = "testuser";
-String loginPasswd = "testpassword";
-String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
 try {
-  Class.forName("com.mysql.jdbc.Driver").newInstance();
-  Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+  Connection dbcon = ds.getConnection();
 
   int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
   String orderColumn = searchOrder.split(" ")[0];
@@ -58,6 +54,7 @@ try {
   statement.setString(6, "%" + searchDirector + "%");
   statement.setInt(7, Integer.parseInt(searchLimit));
   statement.setInt(8, searchOffset);
+
   ResultSet rs = statement.executeQuery();
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
   String whereInStatementVariables = "";
