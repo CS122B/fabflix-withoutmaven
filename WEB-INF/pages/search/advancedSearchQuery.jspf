@@ -4,14 +4,12 @@ String loginPasswd = "testpassword";
 String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
 try {
-  out.println("<b>" + searchGenre + "</b>");
   Class.forName("com.mysql.jdbc.Driver").newInstance();
   Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
   int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
   String orderColumn = searchOrder.split(" ")[0];
   String orderDirection = searchOrder.split(" ")[1];
-  out.println("here");
 
   String searchStarQuery = "";
   String[] starInputs = searchStar.trim().split(" ");
@@ -53,7 +51,7 @@ try {
   statement.setString(1, "%" + starFirstName + "%");
   statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
   statement.setString(3, "%" + searchGenre + "%");
-  statement.setString(4, "%" + searchTitle + "%");
+  statement.setString(4, ("".equals(browseByTitle) ? "%" : "") + searchTitle + "%");
   statement.setString(5, "%" + searchYear + "%");
   statement.setString(6, "%" + searchDirector + "%");
   statement.setInt(7, Integer.parseInt(searchLimit));

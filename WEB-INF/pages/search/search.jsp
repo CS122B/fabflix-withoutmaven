@@ -13,8 +13,17 @@
       <%@ include file="_variables.jspf" %>
       <%@ include file="searchForm.jspf" %>
 
-      <%@ include file="advancedSearchQuery.jspf" %>
-      <% out.println(pagination); %>
+      <%
+      if ((searchTitle != null && !"".equals(searchTitle))
+        || (searchYear != null && !"".equals(searchYear))
+        || (searchDirector != null && !"".equals(searchDirector))
+        || (searchStar != null && !"".equals(searchStar))
+        || (searchGenre != null && !"".equals(searchGenre))
+      ) {
+      %>
+        <%@ include file="advancedSearchQuery.jspf" %>
+        <% out.println(pagination); %>
+      <% } %>
     </div>
   </div>
 
