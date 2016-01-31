@@ -1,42 +1,52 @@
 $(document).ready(function () {
 
-  // var $form = $('.form-horizontal .form-control');
-  // var $inputs = $form.filter('input');
-  // var $selects = $form.filter('select');
-  // $('#search-reset').click(function () {
-  //   $inputs.val('');
-  //   $selects.val('none');
-  // });
+  var $form = $('.form-horizontal .form-control');
+  var $inputs = $form.filter('input');
+  var $selects = $form.filter('select');
+  $('#search-reset').click(function () {
+    $inputs.val('');
+    $selects.val('none');
+  });
 
-  // var $modalAddMovie = $('#modal-add-movie');
-  // var $modalQuantityAdded = $('#modal-quantity-added');
-  // var $buttonAddMovie = $('#button-add-movie');
+  var $modalAddMovie = $('#modal-add-movie');
+  var $modalMovieMessage = $('#modal-movie-message');
 
-  // $buttonAddMovie.click(function (/* e */) {
-  //   $buttonAddMovie
-  //     .prop('disabled', true)
-  //     .html('Add to Cart');
+  $('.button-add-movie').click(function (/* e */) {
+    var $that = $(this);
 
-  //   var movieId = $buttonAddMovie
-  //     .attr('data-movie-id')
-  //     .replace(/\s/g, '');
+    $that
+      .prop('disabled', true)
+      .html('Add to Cart');
 
-  //   var postData = {
-  //     movieId: movieId,
-  //     quantity: 1
-  //   };
+    var movieId = $that
+      .attr('data-movie-id')
+      .replace(/\s/g, '');
 
-  //   $.post('/TomcatForm/servlet/user/addToCart', postData)
-  //     .done(function (data) {
-  //       var copyNum = (+movieQuantity > 1) ? ' copies ' : ' copy ';
-  //       $modalQuantityAdded.html(movieQuantity + copyNum);
-  //       $modalAddMovie.modal('show');
-  //     })
-  //     .fail(function (err) {
-  //       $buttonAddMovie
-  //         .prop('disabled', false)
-  //         .html('Add failed. Retry?');
-  //     });
-  // });
+    var movieTitle = $that
+      .attr('data-movie-title');
+
+    var movieYear = $that
+      .attr('data-movie-year')
+      .replace(/\s/g, '');
+
+    var postData = {
+      movieId: movieId,
+      quantity: 1
+    };
+
+    $.post('/TomcatForm/servlet/user/addToCart', postData)
+      .done(function (data) {
+        $modalMovieMessage.html(
+          '1 copy of ' + movieTitle +
+          '(' + movieYear + ').'
+        );
+        $modalAddMovie.modal('show');
+      })
+      .fail(function (err) {
+        $that
+          .prop('disabled', false)
+          .html('Add failed. Retry?');
+      });
+  });
 
 });

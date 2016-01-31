@@ -28,9 +28,10 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <button
-              id="button-add-movie"
               data-movie-id="<% out.println(movie.id); %>"
-              class="btn btn-primary"
+              data-movie-title="<% out.println(movie.title); %>"
+              data-movie-year="<% out.println(movie.year); %>"
+              class="btn btn-primary button-add-movie"
               type="button"
             >
             Add to Cart
