@@ -32,7 +32,7 @@
     out.println(
       "<div class=\"col-sm-12 col-md-4\">" +
       "<a href=\"search?genre=" + genreEntry.getKey() +
-      "&title=&year=&director=&star=&numResults=25&orderBy=title+asc&search=advanced&pageNum=1\">" + genreEntry.getValue() + "</a>" +
+      "&title= &year=&director=&star=&numResults=25&orderBy=title+asc&pageNum=1\">" + genreEntry.getValue() + "</a>" +
       "</div>"
     );
   }

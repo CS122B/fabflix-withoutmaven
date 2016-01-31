@@ -7,7 +7,7 @@
   for (char letter : alphabet) {
     out.println(
       "<a href=\"search?title=" + letter +
-      "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">" + letter + "</a>"
+      "&year=&director=&star=&numResults=25&orderBy=title+asc&pageNum=1\">" + letter + "</a>"
     );
   }
   %>

@@ -46,7 +46,6 @@ try {
     "AND a.year LIKE ? " +
     "AND a.director LIKE ? ");
   String queryWithOrder = query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
-  out.println("<b>" + queryWithOrder + "</b>");
   PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
   statement.setString(1, "%" + starFirstName + "%");
   statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
@@ -57,7 +56,7 @@ try {
   statement.setInt(7, Integer.parseInt(searchLimit));
   statement.setInt(8, searchOffset);
   ResultSet rs = statement.executeQuery();
-
+  out.println("<b>" + statement + "</b>");
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
   String whereInStatementVariables = "";
 

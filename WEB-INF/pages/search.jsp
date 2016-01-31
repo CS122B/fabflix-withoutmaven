@@ -75,22 +75,20 @@
 			  <option value="title asc">Title: A-Z</option>
 			  <option value="title desc">Title: Z-A</option>
 			  <option value="year asc">Year: Ascending</option>
-			  <option value="year desc">Year: Descending</option>
+			  <option value="year desc">Year: ASDFASDF</option>
 			</select>
         </div>
-        <input name="search" value="advanced" hidden>
         <input name="pageNum" value="1" hidden>
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
 	
 	<%
-	if (searchType != null && searchType.equals("advanced") && 
-		((searchTitle != null && !"".equals(searchTitle))
+	if ((searchTitle != null && !"".equals(searchTitle))
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
 		|| (searchStar != null && !"".equals(searchStar))
-    || (searchGenre != null && !"".equals(searchGenre)))
+    || (searchGenre != null && !"".equals(searchGenre))
 	) {
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>

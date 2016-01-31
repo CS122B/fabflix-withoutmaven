@@ -31,41 +31,15 @@
       <%@ include file="searchForm.jspf" %>
 
       <%
-      if (searchType != null && searchType.equals("basic")
-        && searchInput != null
-        && !"".equals(searchInput)
-        && searchCriteria != null
-        && (
-          "title".equals(searchCriteria)
-          || "director".equals(searchCriteria)
-          || "year".equals(searchCriteria)
-        )
-        && searchPage != null
-        && searchLimit != null
-      ) {
-      %>
-        <%@ include file="searchQuery.jspf" %>
-      <% } %>
-
-      <%
-      if (searchType != null && searchType.equals("advanced")
-        && ((searchTitle != null && !"".equals(searchTitle))
+      if ((searchTitle != null && !"".equals(searchTitle))
         || (searchYear != null && !"".equals(searchYear))
         || (searchDirector != null && !"".equals(searchDirector))
-        || (searchStar != null && !"".equals(searchStar)))
+        || (searchStar != null && !"".equals(searchStar))
+        || (searchGenre != null && !"".equals(searchGenre))
       ) {
       %>
         <%@ include file="advancedSearchQuery.jspf" %>
         <% out.println(pagination); %>
-      <% } %>
-
-      <%
-      if (searchType != null && searchType.equals("browse")
-        && ((searchTitle != null && !"".equals(searchTitle))
-        || (searchGenre != null && !"".equals(searchGenre)))
-      ) {
-      %>
-        <%@ include file="browseSearchQuery.jspf" %>
       <% } %>
 
     </div>
