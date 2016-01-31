@@ -9,7 +9,7 @@
     <%@ include file="_common/navbar.jspf" %>
 
     <%
-	String searchType = request.getParameter("search");
+    String searchType = request.getParameter("search");
     String searchInput = request.getParameter("input");
     String searchCriteria = request.getParameter("criteria");
     String searchPage = request.getParameter("pageNum");
@@ -20,7 +20,7 @@
   	String searchDirector = request.getParameter("director");
   	String searchStar = request.getParameter("star");
   	String searchOrder = request.getParameter("orderBy");
-	String searchGenre = request.getParameter("genre");
+    String searchGenre = request.getParameter("genre");
     %>
 
   <div class="container">
@@ -83,23 +83,6 @@
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
-	<%
-	if (searchType != null && searchType.equals("basic")
-	  && searchInput != null
-	  && !"".equals(searchInput)
-	  && searchCriteria != null
-	  && (
-		"title".equals(searchCriteria)
-		|| "director".equals(searchCriteria)
-		|| "year".equals(searchCriteria)
-	  )
-	  && searchPage != null
-	  && searchLimit != null
-	) {
-	%>
-      <%@ include file="sql/searchQuery.jspf" %>
-
-    <% } %>
 	
 	<%
 	if (searchType != null && searchType.equals("advanced") && 
@@ -107,7 +90,7 @@
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
 		|| (searchStar != null && !"".equals(searchStar))
-		|| (searchGenre != null && !"".equals(searchGenre)))
+    || (searchGenre != null && !"".equals(searchGenre)))
 	) {
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>

@@ -4,6 +4,7 @@ String loginPasswd = "testpassword";
 String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
 try {
+  out.println("<b>" + searchGenre + "</b>");
   Class.forName("com.mysql.jdbc.Driver").newInstance();
   Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
   
@@ -40,13 +41,12 @@ try {
     "  INNER JOIN stars ON stars_in_movies.star_id = stars.id " +
     "  WHERE stars.first_name LIKE ? " +
     searchStarQuery +
-	searchGenreQuery +
+    searchGenreQuery +
     "WHERE a.title LIKE ? " +
     "AND a.year LIKE ? " +
     "AND a.director LIKE ? ");
-	
-  
   String queryWithOrder = query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
+  out.println("<b>" + queryWithOrder + "</b>");
   PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
   statement.setString(1, "%" + starFirstName + "%");
   statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
@@ -56,7 +56,6 @@ try {
   statement.setString(6, "%" + searchDirector + "%");
   statement.setInt(7, Integer.parseInt(searchLimit));
   statement.setInt(8, searchOffset);
-  out.println("<b>" + statement + "</b>");
   ResultSet rs = statement.executeQuery();
 
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
@@ -67,6 +66,7 @@ try {
     String title = rs.getString("title");
     String year = rs.getString("year");
     String banner = rs.getString("banner_url");
+	
     SearchRow movie = new SearchRow(id, title, year, banner, rootPath);
 
     moviesMap.put(id, movie);
