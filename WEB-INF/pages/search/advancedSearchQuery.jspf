@@ -54,7 +54,6 @@ try {
   statement.setString(6, "%" + searchDirector + "%");
   statement.setInt(7, Integer.parseInt(searchLimit));
   statement.setInt(8, searchOffset);
-
   ResultSet rs = statement.executeQuery();
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
   String whereInStatementVariables = "";
