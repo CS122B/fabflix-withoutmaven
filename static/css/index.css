@@ -107,19 +107,6 @@ body {
   text-align: center;
 }
 
-.star-list-horizontal div {
-  display: inline-block;
-  width: 19%;
-}
-
-.star-list-horizontal div:first-child {
-  padding-left: 0;
-}
-
-.star-list-horizontal div:last-child {
-  padding-right: 0;
-}
-
 .star-list-horizontal img {
   max-width: 125px;
 }
