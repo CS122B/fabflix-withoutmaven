@@ -90,6 +90,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>ProcessOrderServlet</servlet-name>
     <servlet-class>ProcessOrder</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ConnectionPoolingReportServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/poolReport/poolReport.jsp</jsp-file>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -141,6 +145,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>orderConfirmationServlet</servlet-name>
     <url-pattern>/confirm</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ConnectionPoolingReportServlet</servlet-name>
+    <url-pattern>/reports/connection_pooling</url-pattern>
   </servlet-mapping>
 
   <!-- API ROUTES -->

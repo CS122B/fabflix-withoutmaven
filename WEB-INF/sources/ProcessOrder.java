@@ -5,6 +5,9 @@ import java.text.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.naming.InitialContext;
+import javax.naming.Context;
+import javax.sql.DataSource;
 
 public class ProcessOrder extends HttpServlet
 {
@@ -25,11 +28,10 @@ public class ProcessOrder extends HttpServlet
         throw new Exception("Not logged in.");
       }
 
-      String loginUser = "testuser";
-      String loginPasswd = "testpassword";
-      String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
-
-      Class.forName("com.mysql.jdbc.Driver").newInstance();
+      Context initCtx = new InitialContext();
+      Context envCtx = (Context) initCtx.lookup("java:comp/env");
+      DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
+      Connection dbcon = ds.getConnection();
 
       String firstName = request.getParameter("firstName");
       String lastName = request.getParameter("lastName");
@@ -39,7 +41,6 @@ public class ProcessOrder extends HttpServlet
 
       java.util.Date utilExpirationDate = expirationDateFormat.parse(expirationDate);
       java.sql.Date sqlExpirationDate = new java.sql.Date(utilExpirationDate.getTime());
-      Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
       String query = (
         "SELECT * " +
         "FROM creditcards " +
