@@ -222,3 +222,15 @@ body {
   text-align: center;
   font-size: 20px;
 }
+
+/*
+ * SEARCH
+ */
+
+.search-form-buttons {
+  margin-top: 50px;
+}
+
+#movie-title a {
+  font-size: 20px;
+}

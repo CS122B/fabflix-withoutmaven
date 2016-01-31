@@ -1,0 +1,69 @@
+<%!
+public class SearchRow {
+  public String id;
+  public String title;
+  public String year;
+  public String banner;
+  public ArrayList<SearchRowColumn> genres;
+  public ArrayList<SearchRowColumn> actors;
+  public String rootPath;
+
+  public SearchRow(String id, String title, String year, String banner, String rootPath) {
+    this.id = id;
+    this.title = title;
+    this.year = year;
+    this.banner = banner;
+    this.genres = new ArrayList<SearchRowColumn>();
+    this.actors = new ArrayList<SearchRowColumn>();
+    this.rootPath = rootPath;
+  }
+
+  public String printTitle() {
+    return (
+      "<a href=\"" + this.rootPath + "/movies/" + this.id +
+      "\">" + this.title + "</a>"
+    );
+  }
+
+  public String printBanner() {
+    return "<img src=\"" + this.banner + "\">";
+  }
+
+  public String printGenres() {
+    String movieGenres = "";
+    for (int i = 0; i < this.genres.size(); ++i) {
+      SearchRowColumn genre = this.genres.get(i);
+      movieGenres += (
+        "<a href=\"" + this.rootPath + "/search?genre=" + genre.id +
+        "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">" +
+        genre.name + "</a>" +
+        (i == this.genres.size()-1 ? "" : ", ")
+      );
+    }
+
+    return movieGenres;
+  }
+
+  public String printActors() {
+    String movieActors = "";
+    for (int i = 0; i < this.actors.size(); ++i) {
+      SearchRowColumn actor = this.actors.get(i);
+      movieActors += "<a href=\"" + this.rootPath + "/stars/" +
+      actor.id + "\">" + actor.name + "</a>" +
+      (i == this.actors.size()-1 ? "" : ", ");
+    }
+
+    return movieActors;
+  }
+}
+
+public class SearchRowColumn {
+  public String id;
+  public String name;
+
+  public SearchRowColumn(String id, String name) {
+    this.id = id;
+    this.name = name;
+  }
+}
+%>

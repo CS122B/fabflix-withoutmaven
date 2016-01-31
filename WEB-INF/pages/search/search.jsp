@@ -1,6 +1,7 @@
 <%@ include file="../_common/variables.jspf" %>
 <%@ include file="../_common/imports.jspf" %>
 <%@ include file="_functions.jspf" %>
+<%@ include file="_classes.jspf" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,8 @@
     String searchStar = getSearchParam(request, "star");
     String searchOrder = getSearchParam(request, "orderBy");
     String searchGenre = getSearchParam(request, "genre");
+
+    String pagination = "";
     %>
 
     <div class="container">
@@ -53,6 +56,7 @@
       ) {
       %>
         <%@ include file="advancedSearchQuery.jspf" %>
+        <% out.println(pagination); %>
       <% } %>
 
       <%
@@ -69,5 +73,6 @@
 
   <%@ include file="../_common/footer.jspf" %>
   <%@ include file="../_common/scripts.jspf" %>
+  <script src="<% out.println(rootPath); %>/static/js/search.js"></script>
 </body>
 </html>

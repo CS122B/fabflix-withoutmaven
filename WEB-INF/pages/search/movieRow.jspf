@@ -1,0 +1,43 @@
+<div class="search-rows row">
+  <div class="col-sm-12 col-md-2 col-md-offset-2">
+    <img id="movie-image" src="<% out.println(movie.banner); %>">
+  </div>
+  <div class="col-sm-12 col-md-6 detail-main-content">
+    <div class="row">
+      <div id="movie-title">
+        <% out.println(movie.printTitle()); %>
+        <span id="movie-year"><% out.println("(" + movie.year + ")"); %></span>
+      </div>
+      <div>
+        <span>Genres: </span>
+        <% out.println(movie.printGenres()); %>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <span>ID: </span>
+        <span id="movie-id"><% out.println(movie.id); %></span> 
+      </div>
+      <div>
+        <span>Stars: </span>
+        <% out.println(movie.printActors()); %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <button
+              id="button-add-movie"
+              data-movie-id="<% out.println(movie.id); %>"
+              class="btn btn-primary"
+              type="button"
+            >
+            Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

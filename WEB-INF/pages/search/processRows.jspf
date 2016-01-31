@@ -1,0 +1,63 @@
+<%
+Set<String> movieIds = moviesMap.keySet();
+int moviesMapLength = moviesMap.size();
+int currentCount = 1;
+String movieIdsString = "";
+String queryGenre = (
+  "SELECT gim.movie_id, g.id, g.name " +
+  "FROM genres g " +
+  "INNER JOIN genres_in_movies gim " +
+  "ON g.id = gim.genre_id " +
+  "WHERE gim.movie_id IN (" + whereInStatementVariables + ")"
+);
+PreparedStatement statementGenre = dbcon.prepareStatement(queryGenre);
+for (String movieId : movieIds) {
+  statementGenre.setString(currentCount, movieId);
+  ++currentCount;
+}
+ResultSet rsGenre = statementGenre.executeQuery();
+
+while (rsGenre.next()) {
+  String id = rsGenre.getString("movie_id");
+  String genreId = rsGenre.getString("id");
+  String name = rsGenre.getString("name");
+
+  SearchRow movie = moviesMap.get(id);
+  SearchRowColumn genre = new SearchRowColumn(genreId, name);
+  movie.genres.add(genre);
+  moviesMap.put(id, movie);
+}
+
+currentCount = 1;
+String queryStar = (
+  "SELECT sim.movie_id, s.id, s.first_name, s.last_name " +
+  "FROM stars s " +
+  "INNER JOIN stars_in_movies sim " +
+  "ON s.id = sim.star_id " +
+  "WHERE sim.movie_id IN (" + whereInStatementVariables + ")"
+);
+PreparedStatement statementStar = dbcon.prepareStatement(queryStar);
+for (String movieId : movieIds) {
+  statementStar.setString(currentCount, movieId);
+  ++currentCount;
+}
+
+ResultSet rsStars = statementStar.executeQuery();
+while (rsStars.next()) {
+  String id = rsStars.getString("movie_id");
+  String actorId = rsStars.getString("id");
+  String firstName = rsStars.getString("first_name");
+  String lastName = rsStars.getString("last_name");
+
+  SearchRow movie = moviesMap.get(id);
+  SearchRowColumn actor = new SearchRowColumn(actorId, firstName + " " + lastName);
+  movie.actors.add(actor);
+  moviesMap.put(id, movie);
+}
+
+for (SearchRow movie : moviesMap.values()) {
+  %>
+  <%@ include file="movieRow.jspf" %>
+  <%
+}
+%>
