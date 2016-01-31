@@ -23,7 +23,8 @@
     String searchStar = getSearchParam(request, "star");
     String searchOrder = getSearchParam(request, "orderBy");
     String searchGenre = getSearchParam(request, "genre");
-
+    String browseByTitle = getSearchParam(request, "browseByTitle");
+    
     String pagination = "";
     %>
 
