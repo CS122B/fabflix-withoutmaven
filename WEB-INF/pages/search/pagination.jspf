@@ -1,15 +1,11 @@
 <%
-String countQuery = (
-  "SELECT count(*) " +
-  "FROM movies " +
-  "WHERE title LIKE ? " +
-  "AND year LIKE ? " +
-  "AND director LIKE ?"
-);
-PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
-countStatement.setString(1, "%" + searchTitle + "%");
-countStatement.setString(2, "%" + searchYear + "%");
-countStatement.setString(3, "%" + searchDirector + "%");
+PreparedStatement countStatement = dbcon.prepareStatement(query);
+countStatement.setString(1, "%" + starFirstName + "%");
+countStatement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
+countStatement.setString(3, searchGenre);
+countStatement.setString(4, "%" + searchTitle + "%");
+countStatement.setString(5, "%" + searchYear + "%");
+countStatement.setString(6, "%" + searchDirector + "%");
 ResultSet count = countStatement.executeQuery();
 int numResults = 0;
 while (count.next()) {

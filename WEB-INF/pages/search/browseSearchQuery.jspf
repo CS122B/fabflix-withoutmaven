@@ -7,11 +7,6 @@
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 	
-	%>
-    <%@ include file="pagination.jspf" %>
-    <%
-    out.println(pagination);
-	
     int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
 	String orderColumn = searchOrder.split(" ")[0];
 	String orderDirection = searchOrder.split(" ")[1];
