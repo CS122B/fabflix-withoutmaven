@@ -31,6 +31,14 @@ body {
   border-bottom: 1px solid #bbb;
 }
 
+#navbar-search-input {
+  width: initial;
+}
+
+#navbar-search-select {
+  margin-left: -5px;
+}
+
 .page-wrap {
   min-height: 100%;
   margin-bottom: -25px;
