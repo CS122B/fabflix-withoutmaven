@@ -11,7 +11,7 @@ String searchDirector = getSearchParam(request, "director");
 String searchStar = getSearchParam(request, "star");
 String searchOrder = getSearchParam(request, "orderBy");
 String searchGenre = getSearchParam(request, "genre");
-out.println(searchCriteria);
+String browseByTitle = getSearchParam(request, "browseByTitle");
 // basic search
 if ("title".equals(searchCriteria)) {
   searchTitle = searchInput;

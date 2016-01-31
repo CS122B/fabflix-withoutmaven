@@ -45,13 +45,9 @@ try {
     searchGenreQuery +
     "WHERE a.title LIKE ? " +
     "AND a.year LIKE ? " +
-<<<<<<< HEAD
-    "AND a.director LIKE ? ");
-=======
     "AND a.director LIKE ? "
   );
 
->>>>>>> 9cd1151b6aecc233cbd2cc681c4efb0f810ab061
   String queryWithOrder = query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
   PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
   statement.setString(1, "%" + starFirstName + "%");
