@@ -26,11 +26,19 @@
           <input
             class="form-control"
             type="text"
-            name="search"
+            name="input"
             placeholder="Search Fabflix..."
           >
+		  <select class="form-control" name="searchCriteria">
+			<option value="title">Title</option>
+			<option value="title">Year</option>
+			<option value="title">Director</option>
+			<option value="title">Star</option>
+		  </select> 
+		  <input name="search" value="basic" hidden>
+          <input name="pageNum" value="1" hidden>
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">Search</button>
+            <button class="btn btn-primary" type="SUBMIT">Search</button>
           </span>
         </div>
       </form>

@@ -4,6 +4,33 @@
   String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
   try {
+	out.println("<h2>Search results for:</h2>");
+	if (searchTitle != null && !"".equals(searchTitle))
+		out.println("<h2>Title: " + searchTitle + "</h2>");
+	if (searchYear != null && !"".equals(searchYear))
+		out.println("<h2>Year: " + searchYear + "</h2>");
+	if (searchDirector != null && !"".equals(searchDirector))
+		out.println("<h2>Director: " + searchDirector + "</h2>");
+	
+	String sortResults = "search?title=" + searchTitle 
+		 + "&year=" + searchYear
+		 + "&director=" + searchDirector
+		 + "&star=" + searchStar;
+		 
+	out.println(
+		"SORT BY: "+
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=title+asc&search=advanced&pageNum=" + searchPage + "'>TITLE ASCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=title+desc&search=advanced&pageNum=" + searchPage + "'>TITLE DESCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=year+asc&search=advanced&pageNum=" + searchPage + "'>YEAR ASCENDING</a>" +
+		" <a href='" + sortResults + "&numResults=" + searchLimit + "&orderBy=year+desc&search=advanced&pageNum=" + searchPage + "'>YEAR DESCENDING</a>");
+	
+	String changeNumResults = "";
+	out.println(
+		"RESULTS PER PAGE: " +
+		" <a href='" + sortResults + "&numResults=25&orderBy=title+asc&search=advanced&pageNum=1'>25</a>" +
+		" <a href='" + sortResults + "&numResults=50&orderBy=title+asc&search=advanced&pageNum=1'>50</a>" +
+		" <a href='" + sortResults + "&numResults=100&orderBy=title+asc&search=advanced&pageNum=1'>100</a>");
+
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
@@ -15,6 +42,7 @@
 	String[] starInputs = searchStar.trim().split(" ");
 	String starFirstName = "";
 	String starLastName = "";
+	out.println("<b>" + starInputs[0] + "</b>");
 	if (starInputs.length == 1)
 	{
 	  searchStarQuery = "or stars.last_name like ? ) as b ";
