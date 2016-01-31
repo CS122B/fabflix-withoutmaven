@@ -18,7 +18,6 @@ public class ProcessOrder extends HttpServlet
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
 
-
     String contextPath = request.getContextPath();
 
     try {
@@ -57,7 +56,6 @@ public class ProcessOrder extends HttpServlet
       statement.setDate(4, sqlExpirationDate);
 
       ResultSet rs = statement.executeQuery();
-
 
       if (!rs.isBeforeFirst()) {
         throw new Exception("Could not find account with those credentials.");
@@ -108,7 +106,8 @@ public class ProcessOrder extends HttpServlet
     } catch (SQLException ex) {
       response.sendRedirect(contextPath + "/confirm?status=error&message=" + ex.getMessage());
     } catch(Exception ex) {
-      response.sendRedirect(contextPath + "/confirm?status=error&message=" + ex.getMessage());
+      response.sendRedirect(contextPath + "/confirm?status=error&message=Invalid%20Credit%20Card.");
+      // response.sendRedirect(contextPath + "/confirm?status=error&message=" + ex.getMessage());
     }
 
     out.close();

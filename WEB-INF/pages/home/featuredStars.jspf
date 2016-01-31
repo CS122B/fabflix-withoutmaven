@@ -2,31 +2,34 @@
   <h3>Featured Movie Stars</h3>
 
   <div class="star-list-horizontal">
-  <%
+    <%
     String[] starPhotos = {
       "http://www.kidzworld.com/img/upload/article/a957i0_bradpittAw.jpg",
       "http://ia.imdb.com/media/imdb/01/I/66/33/48m.jpg",
       "http://ia.imdb.com/media/imdb/01/I/24/65/38m.jpg",
       "http://ia.imdb.com/media/imdb/01/I/17/05/12m.jpg",
-      "http://ia.imdb.com/media/imdb/01/I/83/17/38m.jpg"
+      "http://ia.imdb.com/media/imdb/01/I/83/17/38m.jpg",
+      "http://ia.imdb.com/media/imdb/01/I/71/82/16m.jpg"
     };
     String[] starNames = {
       "Brad Pitt",
       "Cate Blanchett",
       "Colin Ferrell",
       "Jodie Foster",
-      "Adam Sandler"
+      "Adam Sandler",
+      "Greg Ellis"
     };
     String[] starIds = {
       "855106",
       "693105",
       "217022",
       "631003",
-      "764009"
+      "764009",
+      "140010"
     };
 
     for (int i = 0; i < starIds.length; ++i) { %>
-      <div>
+      <div class="col-sm-12 col-md-2">
         <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><img src="<% out.println(starPhotos[i]); %>" /></a>
         <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><h5><% out.println(starNames[i]); %></h5></a>
       </div>

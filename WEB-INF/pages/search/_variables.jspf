@@ -1,0 +1,37 @@
+<%
+String searchType = getSearchParam(request, "search");
+String searchInput = getSearchParam(request, "input");
+String searchCriteria = getSearchParam(request, "criteria");
+String searchPage = getSearchParam(request, "pageNum");
+String searchLimit = getSearchParam(request, "numResults");
+
+String searchTitle = getSearchParam(request, "title");
+String searchYear = getSearchParam(request, "year");
+String searchDirector = getSearchParam(request, "director");
+String searchStar = getSearchParam(request, "star");
+String searchOrder = getSearchParam(request, "orderBy");
+String searchGenre = getSearchParam(request, "genre");
+out.println(searchCriteria);
+// basic search
+if ("title".equals(searchCriteria)) {
+  searchTitle = searchInput;
+} else if ("year".equals(searchCriteria)) {
+  searchYear = searchInput;
+} else if ("director".equals(searchCriteria)) {
+  searchDirector = searchInput;
+} else if ("star".equals(searchCriteria)) {
+  searchStar = searchInput;
+}
+
+if ("".equals(searchPage)) {
+  searchPage = "1";
+}
+if ("".equals(searchLimit)) {
+  searchLimit = "25";
+}
+if ("".equals(searchOrder)) {
+  searchOrder = "title asc";
+}
+
+String pagination = "";
+%>

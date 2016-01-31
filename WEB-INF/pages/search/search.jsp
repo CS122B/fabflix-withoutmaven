@@ -10,6 +10,7 @@
   <div class="page-wrap">
     <%@ include file="../_common/navbar.jspf" %>
 
+<<<<<<< HEAD
     <%
     String searchType = getSearchParam(request, "search");
     String searchInput = getSearchParam(request, "input");
@@ -28,8 +29,12 @@
     String pagination = "";
     %>
 
+=======
+>>>>>>> 9cd1151b6aecc233cbd2cc681c4efb0f810ab061
     <div class="container">
+      <%@ include file="_variables.jspf" %>
       <%@ include file="searchForm.jspf" %>
+<<<<<<< HEAD
 
       <%
       if ((searchTitle != null && !"".equals(searchTitle))
@@ -43,6 +48,10 @@
         <% out.println(pagination); %>
       <% } %>
 
+=======
+      <%@ include file="advancedSearchQuery.jspf" %>
+      <% out.println(pagination); %>
+>>>>>>> 9cd1151b6aecc233cbd2cc681c4efb0f810ab061
     </div>
   </div>
 
