@@ -55,7 +55,8 @@ while (rsStars.next()) {
   moviesMap.put(id, movie);
 }
 
-for (SearchRow movie : moviesMap.values()) {
+for (String movieId : sortedMovies) {
+  SearchRow movie = moviesMap.get(movieId);
   %>
   <%@ include file="movieRow.jspf" %>
   <%

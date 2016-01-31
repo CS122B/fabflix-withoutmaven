@@ -5,6 +5,9 @@ import java.text.*;
 import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.naming.InitialContext;
+import javax.naming.Context;
+import javax.sql.DataSource;
 
 public class AddToCart extends HttpServlet
 {
@@ -39,12 +42,11 @@ public class AddToCart extends HttpServlet
         throw new Exception();
       }
 
-      String loginUser = "testuser";
-      String loginPasswd = "testpassword";
-      String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+      Context initCtx = new InitialContext();
+      Context envCtx = (Context) initCtx.lookup("java:comp/env");
+      DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
+      Connection dbcon = ds.getConnection();
 
-      Class.forName("com.mysql.jdbc.Driver").newInstance();
-      Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
       String query = (
         "SELECT * " +
         "FROM movies " +

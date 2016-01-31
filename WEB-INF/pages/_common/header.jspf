@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="the sickest movie listing ever made. bless up">
 
-  <title>Fabflix - Login</title>
+  <title>Fabflix</title>
 
   <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/vendor/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/css/index.css">
