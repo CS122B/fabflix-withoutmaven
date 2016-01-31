@@ -12,7 +12,7 @@
         type="text"
         name="firstName"
         id="checkout-first-name"
-        placeholder="i.e. Terry"
+        placeholder="e.g. Terry"
       >
     </div>
   </div>
@@ -24,7 +24,7 @@
         type="text"
         name="lastName"
         id="checkout-last-name"
-        placeholder="i.e. Mitchell"
+        placeholder="e.g. Mitchell"
       >
     </div>
   </div>
@@ -36,7 +36,7 @@
         type="date"
         name="expirationDate"
         id="checkout-exp"
-        placeholder="i.e. 2008-06-12"
+        placeholder="e.g. 2008-06-12"
       >
     </div>
   </div>
@@ -48,7 +48,7 @@
         type="text"
         name="creditCardNumber"
         id="checkout-cc"
-        placeholder="i.e. 107001"
+        placeholder="e.g. 107001"
       >
     </div>
   </div>

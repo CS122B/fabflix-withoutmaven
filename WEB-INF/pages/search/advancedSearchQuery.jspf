@@ -1,173 +1,251 @@
 <%
-  String loginUser = "testuser";
-  String loginPasswd = "testpassword";
-  String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
+String loginUser = "testuser";
+String loginPasswd = "testpassword";
+String loginUrl = "jdbc:mysql://localhost:3306/moviedb";
 
-  try {
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
-    Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
+try {
+  Class.forName("com.mysql.jdbc.Driver").newInstance();
+  Connection dbcon = DriverManager.getConnection(loginUrl, loginUser, loginPasswd);
 
-    int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
-	String orderColumn = searchOrder.split(" ")[0];
-	String orderDirection = searchOrder.split(" ")[1];
-	
-	String searchStarQuery = "";
-	String[] starInputs = searchStar.trim().split(" ");
-	String starFirstName = "";
-	String starLastName = "";
-	if (starInputs.length == 1)
-	{
-	  searchStarQuery = "or stars.last_name like ? ) as b ";
-	  starFirstName = starInputs[0];
-	}
-	else if (starInputs.length == 2)
-	{
-	  searchStarQuery = "and stars.last_name like ? ) as b ";
-	  starFirstName = starInputs[0];
-	  starLastName = starInputs[1];
-	}
-	
-    String query = (
-	  "SELECT * FROM movies as a " + 
-	  "INNER JOIN " + 
-	  "(SELECT DISTINCT movie_id from stars_in_movies " + 
-	  "inner join stars on stars_in_movies.star_id = stars.id " +
-	  "where stars.first_name like ? " +
-	  
-	  searchStarQuery + 
-	  
-	  "on a.id = b.movie_id " +
-	  "WHERE " + 
-	  "a.title LIKE ? AND " +
-	  "a.year LIKE ? AND " +
-	  "a.director LIKE ? " +
-	  "ORDER BY " + searchOrder +
-	  " LIMIT ? OFFSET ?"
-	);	
-	PreparedStatement statement = dbcon.prepareStatement(query);
-	statement.setString(1, "%" + starFirstName + "%");
-	if (starLastName == "") statement.setString(2, "%" + starFirstName + "%");
-	else statement.setString(2, "%" + starLastName + "%");
-    statement.setString(3, "%" + searchTitle + "%");
-	statement.setString(4, "%" + searchYear + "%");
-	statement.setString(5, "%" + searchDirector + "%");
-    statement.setInt(6, Integer.parseInt(searchLimit));
-    statement.setInt(7, searchOffset);
-	ResultSet rs = statement.executeQuery();
-	
-    out.println("<table border>");
-    while (rs.next()) {
-		String id = rs.getString("id");
-		String title = rs.getString("title");
-		String year = rs.getString("year");
-		String banner = rs.getString("banner_url");
+  int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
+  String orderColumn = searchOrder.split(" ")[0];
+  String orderDirection = searchOrder.split(" ")[1];
 
-		String genreQuery = "SELECT * FROM genres " +
-		"INNER JOIN genres_in_movies " + 
-		"ON genres.id = genres_in_movies.genre_id " + 
-		"WHERE genres_in_movies.movie_id = ?";
-		PreparedStatement genreStatement = dbcon.prepareStatement(genreQuery);
-		genreStatement.setString(1, id);
-		ResultSet gs = genreStatement.executeQuery();
-		HashMap<String, String > movieGenres = new HashMap<String, String>();
-		while (gs.next()) {
-			String genreID = gs.getString("id");
-			String genreName = gs.getString("name");
-			movieGenres.put(genreID, genreName);
-		}
-		
-		String starQuery = "SELECT * FROM stars " +
-		"INNER JOIN stars_in_movies " + 
-		"ON stars.id = stars_in_movies.star_id " + 
-		"WHERE stars_in_movies.movie_id = ?";
-		PreparedStatement starStatement = dbcon.prepareStatement(starQuery);
-		starStatement.setString(1, id);
-		ResultSet stars = starStatement.executeQuery();
-		HashMap<String, String > starsInMovie = new HashMap<String, String>();
-		while (stars.next()) {
-			String starID = stars.getString("id");
-			String starFN = stars.getString("first_name");
-			String starLN = stars.getString("last_name");
-			starsInMovie.put(starID, starFN + starLN);
-		}
-		
-		String htmlRow = "<tr>" +
-		"  <td><a href=movies/" + id + ">" + title + " (" + year + ")</a></td>" +
-		"  <td><img src='" + banner + "'></td>";
-		
-		htmlRow += "<td>";
-		for (Map.Entry<String, String> genreEntry : movieGenres.entrySet()) {
-			htmlRow += 		
-			  "<a href='search?genre=" + genreEntry.getKey() +
-			  "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\'>" + genreEntry.getValue() + "</a> ";
-		}
-		htmlRow += "</td>";
-		
-		htmlRow += "<td>";
-		for (Map.Entry<String, String> entry : starsInMovie.entrySet()) {
-			htmlRow += "<a href='stars/" + entry.getKey() + "'>" + entry.getValue() + "</a> ";
-		}
-		htmlRow += "</td>";
-		
-		htmlRow += "</tr>";
-		out.println(htmlRow);
-	}
-    out.println("</table>");
+  String searchStarQuery = "";
+  String[] starInputs = searchStar.trim().split(" ");
+  String starFirstName = "";
+  String starLastName = "";
 
-    rs.close();
-    statement.close();
-	
-	String countQuery = (
-	  "SELECT count(*) " +
-      "FROM movies " +
-      "WHERE " + 
-	  "title LIKE ? AND " +
-	  "year LIKE ? AND " +
-	  "director LIKE ? " 
+  if (starInputs.length == 1) {
+    searchStarQuery = "OR stars.last_name LIKE ? ) AS b ";
+    starFirstName = starInputs[0];
+  } else if (starInputs.length == 2) {
+    searchStarQuery = "AND stars.last_name LIKE ? ) AS b ";
+    starFirstName = starInputs[0];
+    starLastName = starInputs[1];
+  }
+
+  String query = (
+    "SELECT * FROM movies AS a " +
+    "INNER JOIN " +
+    "(" +
+    "  SELECT DISTINCT movie_id FROM stars_in_movies " +
+    "  INNER JOIN stars ON stars_in_movies.star_id = stars.id " +
+    "  WHERE stars.first_name LIKE ? " +
+    searchStarQuery +
+    "ON a.id = b.movie_id " +
+    "WHERE " + 
+    "a.title LIKE ? AND " +
+    "a.year LIKE ? AND " +
+    "a.director LIKE ? " +
+    "ORDER BY " + searchOrder + " " +
+    "LIMIT ? OFFSET ?"
+  );
+  PreparedStatement statement = dbcon.prepareStatement(query);
+  statement.setString(1, "%" + starFirstName + "%");
+  statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName));
+  statement.setString(3, "%" + searchTitle + "%");
+  statement.setString(4, "%" + searchYear + "%");
+  statement.setString(5, "%" + searchDirector + "%");
+  statement.setInt(6, Integer.parseInt(searchLimit));
+  statement.setInt(7, searchOffset);
+
+  ResultSet rs = statement.executeQuery();
+
+  %>
+  <%!
+  public class SearchRow {
+    public String id;
+    public String title;
+    public String year;
+    public String banner;
+    public ArrayList<SearchRowColumn> genres;
+    public ArrayList<SearchRowColumn> actors;
+
+    public SearchRow(String id, String title, String year, String banner) {
+      this.id = id;
+      this.title = title;
+      this.year = year;
+      this.banner = banner;
+      this.genres = new ArrayList<SearchRowColumn>();
+      this.actors = new ArrayList<SearchRowColumn>();
+    }
+  }
+
+  public class SearchRowColumn {
+    public String id;
+    public String name;
+
+    public SearchRowColumn(String id, String name) {
+      this.id = id;
+      this.name = name;
+    }
+  }
+  %>
+  <%
+
+  HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
+  String whereInStatementVariables = "";
+
+  while (rs.next()) {
+    String id = rs.getString("id");
+    String title = rs.getString("title");
+    String year = rs.getString("year");
+    String banner = rs.getString("banner_url");
+    SearchRow movie = new SearchRow(id, title, year, banner);
+
+    moviesMap.put(id, movie);
+    whereInStatementVariables += "?" + (rs.isLast() ? "" : ",");
+  }
+
+  Set<String> movieIds = moviesMap.keySet();
+  int moviesMapLength = moviesMap.size();
+  int currentCount = 1;
+  String movieIdsString = "";
+  String queryGenre = (
+    "SELECT gim.movie_id, g.id, g.name FROM genres g " +
+    "INNER JOIN genres_in_movies gim " +
+    "ON g.id = gim.genre_id " +
+    "WHERE gim.movie_id IN (" + whereInStatementVariables + ")"
+  );
+  PreparedStatement statementGenre = dbcon.prepareStatement(queryGenre);
+  for (String movieId : movieIds) {
+    statementGenre.setString(currentCount, movieId);
+    ++currentCount;
+  }
+  ResultSet rsGenre = statementGenre.executeQuery();
+
+  while (rsGenre.next()) {
+    String id = rsGenre.getString("movie_id");
+    String genreId = rsGenre.getString("id");
+    String name = rsGenre.getString("name");
+
+    SearchRow movie = moviesMap.get(id);
+    SearchRowColumn genre = new SearchRowColumn(genreId, name);
+    movie.genres.add(genre);
+    moviesMap.put(id, movie);
+  }
+
+  currentCount = 1;
+  String queryStar = (
+    "SELECT sim.movie_id, s.id, s.first_name, s.last_name FROM stars s " +
+    "INNER JOIN stars_in_movies sim " +
+    "ON s.id = sim.star_id " +
+    "WHERE sim.movie_id IN (" + whereInStatementVariables + ")"
+  );
+  PreparedStatement statementStar = dbcon.prepareStatement(queryStar);
+  for (String movieId : movieIds) {
+    statementStar.setString(currentCount, movieId);
+    ++currentCount;
+  }
+
+  ResultSet rsStars = statementStar.executeQuery();
+  while (rsStars.next()) {
+    String id = rsStars.getString("movie_id");
+    String actorId = rsStars.getString("id");
+    String firstName = rsStars.getString("first_name");
+    String lastName = rsStars.getString("last_name");
+
+    SearchRow movie = moviesMap.get(id);
+    SearchRowColumn actor = new SearchRowColumn(actorId, firstName + lastName);
+    movie.actors.add(actor);
+    moviesMap.put(id, movie);
+  }
+
+  out.println(
+    "<table class=\"table table-striped\">" +
+    "  <tr>" +
+    "    <th>Title</th>" +
+    "    <th>Banner</th>" +
+    "    <th>Genres</th>" +
+    "    <th>Actors</th>" +
+    "  </tr>"
+  );
+  for (SearchRow movie : moviesMap.values()) {
+    String movieTitle = (
+      "<a href=\"movies/" + movie.id +
+      "\">" + movie.title + " (" + movie.year + ")</a>"
     );
-	PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
-    countStatement.setString(1, "%" + searchTitle + "%");
-	countStatement.setString(2, "%" + searchYear + "%");
-	countStatement.setString(3, "%" + searchDirector + "%");
-	ResultSet count = countStatement.executeQuery();
-	int numResults = 0;
-	while (count.next()) {
-	  numResults = Integer.parseInt(count.getString("count(*)"));
-	}
-	int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
-	
-	String href = "search";
-	href += "?title=" + searchTitle 
-		 + "&year=" + searchYear
-		 + "&director=" + searchDirector
-		 + "&star=" + searchStar
-		 + "&numResults=" + searchLimit
-		 + "&orderBy=" + searchOrder
-		 + "&search=advanced";
-	out.println("<ul class='pagination'>");
-	int currentPage = Integer.parseInt(searchPage);
-	if (currentPage > 1) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage - 1) + "'>&laquo;</a></li>");
-	for (int i = 1;  i <= numPages; i++) {
-		String newHref = href + "&pageNum=" + i;
-		if (i == currentPage)
-			out.println("<li class='active'><a href='" + newHref + "'>" + i + "</a></li>");
-		else
-			out.println("<li><a href='" + newHref + "'>" + i + "</a></li>");
-	}
-	if (currentPage < numPages) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage + 1) + "'>&raquo;</a></li>");
-	out.println("</ul>");
-	
-	count.close();
+    String movieBanner = "<img src=\"" + movie.banner + "\">";
+    String movieGenres = "";
+    String movieActors = "";
+
+    for (SearchRowColumn genre : movie.genres) {
+      movieGenres += (
+        "<a href=\"search?genre=" + genre.id +
+        "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">" +
+        genre.name + "</a>"
+      );
+    }
+
+    for (SearchRowColumn actor : movie.actors) {
+      movieActors += "<a href=\"stars/" + actor.id + "\">" + actor.name + "</a>";
+    }
+    
+    out.println(
+      "<tr>" + 
+      "  <td>" + movieTitle + "</td>" +
+      "  <td>" + movieBanner + "</td>" +
+      "  <td>" + movieGenres + "</td>" +
+      "  <td>" + movieActors + "</td>" +
+      "</tr>"
+    );
+  }
+  out.println("</table>");
+
+  rs.close();
+  statement.close();
+
+  String countQuery = (
+    "SELECT count(*) " +
+    "FROM movies " +
+    "WHERE title LIKE ? " +
+    "AND year LIKE ? " +
+    "AND director LIKE ?"
+  );
+  PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
+  countStatement.setString(1, "%" + searchTitle + "%");
+  countStatement.setString(2, "%" + searchYear + "%");
+  countStatement.setString(3, "%" + searchDirector + "%");
+  ResultSet count = countStatement.executeQuery();
+  int numResults = 0;
+  while (count.next()) {
+    numResults = Integer.parseInt(count.getString("count(*)"));
+  }
+  int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
+
+  String href = "search";
+  href += "?title=" + searchTitle 
+     + "&year=" + searchYear
+     + "&director=" + searchDirector
+     + "&star=" + searchStar
+     + "&numResults=" + searchLimit
+     + "&orderBy=" + searchOrder
+     + "&search=advanced";
+  out.println("<ul class='pagination'>");
+  int currentPage = Integer.parseInt(searchPage);
+  if (currentPage > 1) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage - 1) + "'>&laquo;</a></li>");
+  for (int i = 1;  i <= numPages; i++) {
+    String newHref = href + "&pageNum=" + i;
+    if (i == currentPage)
+      out.println("<li class='active'><a href='" + newHref + "'>" + i + "</a></li>");
+    else
+      out.println("<li><a href='" + newHref + "'>" + i + "</a></li>");
+  }
+  if (currentPage < numPages) out.println("<li><a href = '" + href + "&pageNum=" + (currentPage + 1) + "'>&raquo;</a></li>");
+  out.println("</ul>");
+
+  count.close();
     countStatement.close();
     dbcon.close();
-	
 
-  } catch (SQLException ex) {
-    while (ex != null) {
-      System.out.println ("SQL Exception: " + ex.getMessage());
-      ex = ex.getNextException();
-    }
-  } catch (java.lang.Exception ex) {
-    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+
+} catch (SQLException ex) {
+  while (ex != null) {
+    System.out.println ("SQL Exception: " + ex.getMessage());
+    ex = ex.getNextException();
   }
+} catch (java.lang.Exception ex) {
+  out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+}
 %>
