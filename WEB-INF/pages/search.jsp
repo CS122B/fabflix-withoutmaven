@@ -106,19 +106,11 @@
 		((searchTitle != null && !"".equals(searchTitle))
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
-		|| (searchStar != null && !"".equals(searchStar)))
+		|| (searchStar != null && !"".equals(searchStar))
+		|| (searchGenre != null && !"".equals(searchGenre))
 	) {
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>
-	<% } %>
-	
-	<%
-	if (searchType != null && searchType.equals("browse") && 
-		((searchTitle != null && !"".equals(searchTitle))
-		|| (searchGenre != null && !"".equals(searchGenre)))
-	) {
-	%>
-		<%@ include file="sql/browseSearchQuery.jspf" %>
 	<% } %>
 
     </div>
