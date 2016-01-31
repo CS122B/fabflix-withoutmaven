@@ -34,4 +34,5 @@ if ("".equals(searchOrder)) {
 }
 
 String pagination = "";
+String query = "";
 %>

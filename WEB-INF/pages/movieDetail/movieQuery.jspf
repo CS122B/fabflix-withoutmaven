@@ -35,8 +35,8 @@
     dbcon.close();
 
   } catch (SQLException ex) {
-    out.println("<p>Could not find a movie with that ID.</p>");
+    response.sendError(404);
   } catch (java.lang.Exception ex) {
-    out.println("<p>Could not find a movie with that ID.</p>");
+    response.sendError(404);
   }
 %>
