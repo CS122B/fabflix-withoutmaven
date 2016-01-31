@@ -1,0 +1,40 @@
+<option value="">None Specified</option>
+<%
+Map<String, String> genreMap = new HashMap<String, String>();
+genreMap.put("907000", "Action");
+genreMap.put("48008", "Adventure");
+genreMap.put("764003", "Animation");
+genreMap.put("48001", "Classic");
+genreMap.put("907003", "Comedy");
+genreMap.put("150005", "Coming-Of-Age Drama");
+genreMap.put("855203", "Crime / Gangster");
+genreMap.put("788009", "Documentary");
+genreMap.put("907002", "Drama");
+genreMap.put("872006", "Epics / Historical");
+genreMap.put("872012", "Family");
+genreMap.put("907009", "Fantasy");
+genreMap.put("907006", "Foreign");
+genreMap.put("907004", "Horror");
+genreMap.put("422610", "Indie");
+genreMap.put("525210", "James Bond");
+genreMap.put("48013", "Musical");
+genreMap.put("764014", "Mystery");
+genreMap.put("631003", "Romance");
+genreMap.put("907007", "Sci-Fi");
+genreMap.put("525208", "Spy");
+genreMap.put("422607", "Suspense");
+genreMap.put("907005", "Thriller");
+genreMap.put("872010", "War");
+
+Set<Map.Entry<String, String>> genreSet = genreMap.entrySet();
+for (Map.Entry<String, String> genreEntry : genreSet) {
+  String isSelected = searchGenre.equals(genreEntry.getKey())
+    ? "selected"
+    : "";
+  out.println(isSelected);
+  out.println(
+    "<option value=\"" + genreEntry.getKey() + "\" " + isSelected +
+    ">" + genreEntry.getValue() + "</option>"
+  );
+}
+%>

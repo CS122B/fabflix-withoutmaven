@@ -112,6 +112,15 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label class="control-label col-sm-3">Genre</label>
+        <div class="col-sm-9">
+          <select class="form-control" name="genre">
+            <%@ include file="selectGenre.jspf" %>
+          </select>
+        </div>
+      </div>
+
       <div class="col-sm-6 search-form-buttons">
         <button id="search-reset" class="btn btn-success btn-block" type="reset">Reset</button>
       </div>
