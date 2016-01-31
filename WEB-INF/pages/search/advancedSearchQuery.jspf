@@ -58,6 +58,7 @@ try {
   ResultSet rs = statement.executeQuery();
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
   String whereInStatementVariables = "";
+  ArrayList<String> sortedMovies = new ArrayList<String>();
 
   while (rs.next()) {
     String id = rs.getString("id");
@@ -68,6 +69,7 @@ try {
     SearchRow movie = new SearchRow(id, title, year, banner, rootPath);
 
     moviesMap.put(id, movie);
+    sortedMovies.add(id);
     whereInStatementVariables += "?" + (rs.isLast() ? "" : ",");
   }
 
