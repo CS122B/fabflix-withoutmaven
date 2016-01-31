@@ -21,16 +21,24 @@
         <li><a href="<% out.println(rootPath); %>/search">Search</a></li>
         <li><a href="<% out.println(rootPath); %>/browse">Browse</a></li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" action="search" method="GET">
         <div class="input-group">
           <input
             class="form-control"
             type="text"
-            name="search"
+            name="input"
             placeholder="Search Fabflix..."
           >
+		  <select class="form-control" name="searchCriteria">
+			<option value="title">Title</option>
+			<option value="year">Year</option>
+			<option value="director">Director</option>
+			<option value="star">Star</option>
+		  </select> 
+		  <input name="search" value="basic" hidden>
+          <input name="pageNum" value="1" hidden>
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="button">Search</button>
+            <button class="btn btn-primary" type="submit">Search</button>
           </span>
         </div>
       </form>
