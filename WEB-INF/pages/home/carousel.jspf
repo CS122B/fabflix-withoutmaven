@@ -12,22 +12,22 @@
     <div class="carousel-inner" role="listbox">
     <%
       String[] movieBanners = {
-        "http://ia.imdb.com/media/imdb/01/I/29/26/31m.jpg",
-        "http://tecfa.unige.ch/etu/LME/0001/fernandez-trueba/projet/images/amelie.jpg",
-        "http://images.amazon.com/images/P/B00005JMJG.01.LZZZZZZZ.jpg",
-        "http://ia.imdb.com/media/imdb/01/I/19/65/68m.jpg"
+        "http://2.bp.blogspot.com/-kkFjMvwQGhk/TYJTAVvonDI/AAAAAAAAEgM/7sHGFPEbkr8/s1600/amelie_1%255B1%255D.jpg",
+        "http://selimbay.files.wordpress.com/2011/09/eternal-sunshine-of-the-spotless-mind.jpg",
+        "http://posterwire.com/wp-content/uploads/batman_begins_teaser_c.jpg",
+        "http://images.gtcarlot.com/pictures/55325469.jpg"
       };
       String[] movieTitles = {
-        "2001: A Space Odyssey (1968)",
         "Amelie (2001)",
         "Eternal Sunshine of the Spotless Mind (2004)",
-        "Batman Begins (2005)"
+        "Batman Begins (2005)",
+        "2001: Odyssey (1968)"
       };
       String[] movieIds = {
-        "907003",
         "755001",
         "422102",
-        "907007"
+        "907007",
+        "907003"
       };
 
       for (int i = 0; i < movieIds.length; ++i) { %>

@@ -78,30 +78,23 @@ body {
   width: 100%;
 }
 
-.featured-genres ul {
-  padding-left: 0;
+.featured-genres {
+  text-align: center;
 }
 
-.featured-genres li {
-  font-size: 18px;
-  list-style-type: none;
-  width: 100%;
-  background-color: #e7e7e7;
-  border: 1px solid black;
-  padding: 20px 0;
+.featured-genre {
+  padding: 10px;
 }
 
-.featured-genres li:hover {
-  background-color: #66ffff;
+.featured-genre img {
+  width: auto;
+  max-height: 150px;
 }
 
-.featured-genres li a {
+.featured-genre a {
   display: block;
-  width: 100%;
-  height: 100%;
 }
 
-.featured-genres,
 .star-list-horizontal {
   text-align: center;
 }

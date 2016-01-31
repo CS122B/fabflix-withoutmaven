@@ -1,13 +1,33 @@
+<%
+String[] genreBanners = {
+  "http://www.movieposter.com/posters/archive/main/7/MPW-3576",
+  "http://4.bp.blogspot.com/-9R1VyC8KG1I/T_MhhCAStRI/AAAAAAAAATw/Uq1D3aq60Rw/s1600/spider-man-2-original.jpg",
+  "https://sp.yimg.com/xj/th?id=OIP.M6e92a01bd0a9168a8cacc28cb0e49140H0&pid=15.1&P=0&w=300&h=300"
+};
+String[] genreTitles = {
+  "Lord of the Rings: The Two Towers (2002)",
+  "Spiderman 2 (2005)",
+  "The Ring 2 (2005)"
+};
+String[] genreIds = {
+  "927",
+  "217016",
+  "217007"
+};
+String[] genreHeaders = {
+  "Fantasy",
+  "Action",
+  "Horror"
+};
+%>
+
 <div class="row featured-genres">
-  <h3>Genres</h3>
-  <a href="#" class="btn btn-primary btn-lg btn-block">which</a>
-  <a href="#" class="btn btn-primary btn-lg btn-block">genre</a>
-  <a href="#" class="btn btn-primary btn-lg btn-block">group</a>
-  <a href="#" class="btn btn-primary btn-lg btn-block">looks</a>
-  <ul>
-    <li><a href="#">better?</a></li>
-    <li><a href="#">hihi</a></li>
-    <li><a href="#">hihi</a></li>
-    <li><a href="#">hihi</a></li>
-  </ul>
+  <h3>Featured Genres</h3>
+  <% for (int i = 0; i < genreIds.length; ++i) { %>
+  <div class="featured-genre">
+    <h4><% out.println(genreHeaders[i]); %></h4>
+    <img src="<% out.println(genreBanners[i]); %>" />
+    <a href="<% out.println(genreIds[i]); %>"><% out.println(genreTitles[i]); %></a>
+  </div>
+  <% } %>
 </div>
