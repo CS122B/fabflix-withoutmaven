@@ -107,7 +107,7 @@
 		|| (searchYear != null && !"".equals(searchYear))
 		|| (searchDirector != null && !"".equals(searchDirector))
 		|| (searchStar != null && !"".equals(searchStar))
-		|| (searchGenre != null && !"".equals(searchGenre))
+		|| (searchGenre != null && !"".equals(searchGenre)))
 	) {
 	%>
 		<%@ include file="sql/advancedSearchQuery.jspf" %>
