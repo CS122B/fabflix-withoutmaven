@@ -6,5 +6,9 @@
     javax.sql.*,
     java.io.IOException,
     javax.servlet.http.*,
-    javax.servlet.*"
+    javax.servlet.*,
+    javax.naming.InitialContext,
+    javax.naming.Context,
+    javax.sql.DataSource
+  "
 %>
