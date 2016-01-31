@@ -31,8 +31,7 @@ try {
     "WHERE genres_in_movies.genre_id LIKE ? ) AS movie_genres " + 
     "ON movie_genres.movie_id = a.id ";
 
-  String query = (
-    "SELECT * " +
+  query += (
     "FROM movies AS a " +
     "INNER JOIN " +
     "(" +
@@ -45,8 +44,11 @@ try {
     "AND a.year LIKE ? " +
     "AND a.director LIKE ? "
   );
-
-  String queryWithOrder = query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
+  String queryWithOrder = "SELECT * " + query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
+  %>
+  <%@ include file="pagination.jspf" %>
+  <%
+  out.println(pagination);
   PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
   statement.setString(1, "%" + starFirstName + "%");
   statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
@@ -57,7 +59,6 @@ try {
   statement.setInt(7, Integer.parseInt(searchLimit));
   statement.setInt(8, searchOffset);
   ResultSet rs = statement.executeQuery();
-  out.println("<b>" + statement + "</b>");
   HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
   String whereInStatementVariables = "";
 

@@ -149,5 +149,26 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>ProcessOrderServlet</servlet-name>
     <url-pattern>/servlet/processOrder</url-pattern>
   </servlet-mapping>
+  
+<!--   <servlet>
+    <servlet-name>ErrorServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/notFound.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ErrorServlet</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping> -->
+  <error-page>  
+     <error-code>404</error-code>  
+     <location>/WEB-INF/pages/notFound.jsp</location>  
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/WEB-INF/pages/notFound.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>SQLException</exception-type>
+    <location>/WEB-INF/pages/notFound.jsp</location>
+  </error-page>
 
 </web-app>

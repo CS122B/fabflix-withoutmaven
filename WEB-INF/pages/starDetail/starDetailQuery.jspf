@@ -46,7 +46,8 @@
       System.out.println ("SQL Exception: " + ex.getMessage());
       ex = ex.getNextException();
     }
+    response.sendError(404);
   } catch (java.lang.Exception ex) {
-    out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+    response.sendError(404);
   }
 %>

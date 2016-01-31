@@ -1,47 +1,47 @@
-<%
-PreparedStatement countStatement = dbcon.prepareStatement(query);
-countStatement.setString(1, "%" + starFirstName + "%");
-countStatement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
-countStatement.setString(3, searchGenre);
-countStatement.setString(4, "%" + searchTitle + "%");
-countStatement.setString(5, "%" + searchYear + "%");
-countStatement.setString(6, "%" + searchDirector + "%");
-ResultSet count = countStatement.executeQuery();
-int numResults = 0;
-while (count.next()) {
-  numResults = Integer.parseInt(count.getString("count(*)"));
-}
-int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
+  <%
+  String countQuery = "SELECT COUNT(*) " + query;
+  PreparedStatement countStatement = dbcon.prepareStatement(countQuery);
+  countStatement.setString(1, "%" + starFirstName + "%");
+  countStatement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
+  countStatement.setString(3, "%" + searchGenre + "%");
+  countStatement.setString(4, "%" + searchTitle + "%");
+  countStatement.setString(5, "%" + searchYear + "%");
+  countStatement.setString(6, "%" + searchDirector + "%");
+  ResultSet count = countStatement.executeQuery();
+  int numResults = 0;
+  while (count.next()) {
+    numResults = Integer.parseInt(count.getString("count(*)"));
+  }
+  int numPages = (numResults + Integer.parseInt(searchLimit) - 1) / Integer.parseInt(searchLimit);
 
-String href = (
-  "search" +
-  "?title=" + searchTitle  +
-  "&year=" + searchYear +
-  "&director=" + searchDirector +
-  "&star=" + searchStar +
-  "&numResults=" + searchLimit +
-  "&orderBy=" + searchOrder +
-  "&search=advanced"
-);
-pagination += "<div class=\"text-center\">";
-pagination += "<ul class=\"pagination\">";
-int currentPage = Integer.parseInt(searchPage);
+  String href = (
+    "search" +
+    "?title=" + searchTitle  +
+    "&year=" + searchYear +
+    "&director=" + searchDirector +
+    "&star=" + searchStar +
+    "&numResults=" + searchLimit +
+    "&orderBy=" + searchOrder +
+    "&search=advanced"
+  );
+  pagination += "<div class=\"text-center\">";
+  pagination += "<ul class=\"pagination\">";
+  int currentPage = Integer.parseInt(searchPage);
 
-if (currentPage > 1) {
-  pagination += "<li><a href=\"" + href + "&pageNum=" + (currentPage - 1) + "\">&laquo;</a></li>";
-}
-for (int i = 1;  i <= numPages; i++) {
-  String newHref = href + "&pageNum=" + i;
-  pagination += (i == currentPage)
-    ? "<li class=\"active\"><a href=\"" + newHref + "\">" + i + "</a></li>"
-    : "<li><a href=\"" + newHref + "\">" + i + "</a></li>";
-}
-if (currentPage < numPages) {
-  pagination += "<li><a href=\"" + href + "&pageNum=" + (currentPage + 1) + "\">&raquo;</a></li>";
-}
-pagination += "</ul>";
-pagination += "</div>";
-
-count.close();
-countStatement.close();
-%>
+  if (currentPage > 1) {
+    pagination += "<li><a href=\"" + href + "&pageNum=" + (currentPage - 1) + "\">&laquo;</a></li>";
+  }
+  for (int i = 1;  i <= numPages; i++) {
+    String newHref = href + "&pageNum=" + i;
+    pagination += (i == currentPage)
+      ? "<li class=\"active\"><a href=\"" + newHref + "\">" + i + "</a></li>"
+      : "<li><a href=\"" + newHref + "\">" + i + "</a></li>";
+  }
+  if (currentPage < numPages) {
+    pagination += "<li><a href=\"" + href + "&pageNum=" + (currentPage + 1) + "\">&raquo;</a></li>";
+  }
+  pagination += "</ul>";
+  pagination += "</div>";
+  count.close();
+  countStatement.close();
+  %>
