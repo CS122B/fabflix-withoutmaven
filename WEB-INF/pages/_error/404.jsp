@@ -10,7 +10,7 @@
 
     <div class="container confirmation-container">
       <b>Requested Resource Not Found</b>
-      <a class="btn btn-primary" href="/TomcatForm">Back to Home Page</a>
+      <a class="btn btn-primary" href="<% out.println(rootPath + "/"); %>">Back to Home Page</a>
     </div>
   </div>
 
