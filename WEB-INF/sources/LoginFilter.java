@@ -25,7 +25,7 @@ public class LoginFilter implements Filter {
     String URI = request.getRequestURI();
     String contextPath = request.getContextPath();
 
-    boolean isHomePage = URI.equals(contextPath);
+    boolean isHomePage = URI.equals(contextPath) || URI.equals("") || URI.equals("/");
     boolean isLoginPath = (contextPath + "/login").equals(URI);
     boolean isServletPath = URI.startsWith("/servlet/", contextPath.length());
     boolean isStaticDir = URI.startsWith("/static/", contextPath.length());
