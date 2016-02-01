@@ -22,7 +22,7 @@
         <% } %>
     <%
       } catch (Exception ex) {
-        out.println(ex);
+        response.sendError(404);
       }
     %>
     </div>
