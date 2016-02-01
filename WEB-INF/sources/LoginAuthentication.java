@@ -54,26 +54,16 @@ public class LoginAuthentication extends HttpServlet
       statement.close();
       dbcon.close();
 
-      String redirectURL = request.getParameter("redirect") == null
-        ? request.getContextPath()
+      String redirectURL = (request.getParameter("redirect") == null)
+        ? request.getContextPath() + "/"
         : request.getParameter("redirect");
 
       response.sendRedirect(redirectURL);
     }
     catch (SQLException ex) {
-      while (ex != null) {
-        System.out.println ("SQL Exception:  " + ex.getMessage ());
-        ex = ex.getNextException();
-      }
-    } catch(java.lang.Exception ex) {
-      out.println(
-        "<HTML>" +
-        "<HEAD><TITLE>" +
-        "MovieDB: Error" +
-        "</TITLE></HEAD>\n<BODY>" +
-        "<P>SQL error in doGet: " +
-        ex.getMessage() + "</P></BODY></HTML>");
-      return;
+      response.sendError(400, "No results");
+    } catch (java.lang.Exception ex) {
+      response.sendError(401, "Not validated");
     }
     out.close();
   }
