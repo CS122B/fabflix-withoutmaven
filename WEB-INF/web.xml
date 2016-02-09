@@ -75,6 +75,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-class>LogoutPage</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>LogoutEmployeePageServlet</servlet-name>
+    <servlet-class>LogoutEmployeePage</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>AddToCartServlet</servlet-name>
     <servlet-class>AddToCart</servlet-class>
   </servlet>
@@ -149,6 +153,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>LogoutPageServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutEmployeePageServlet</servlet-name>
+    <url-pattern>/servlet/logoutEmployee</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>checkoutServlet</servlet-name>

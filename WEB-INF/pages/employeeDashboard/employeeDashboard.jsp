@@ -10,7 +10,6 @@
 
     <div class="container">
     <%
-      out.println(session.getAttribute("employeeEmail"));
       if (session == null || session.getAttribute("employeeEmail") == null) { %>
         <%@ include file="loginForm.jspf" %>
       <% } else { %>

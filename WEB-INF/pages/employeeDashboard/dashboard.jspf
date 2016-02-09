@@ -1,1 +1,7 @@
-<h1>you are logged in breh</h1>
+<%
+String employeeName = (String)session.getAttribute("employeeFullName");
+%>
+
+<h1>you are logged in, <% out.println(employeeName); %></h1>
+
+<a href="<% out.println(rootPath); %>/servlet/logoutEmployee">Logout Employee</a>
