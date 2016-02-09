@@ -54,7 +54,7 @@ public class LoginEmployeeAuthentication extends HttpServlet
       statement.close();
       dbcon.close();
 
-      response.sendRedirect(redirectURL + "?poop=" + employeeEmail);
+      response.sendRedirect(redirectURL);
     }
     catch (SQLException ex) {
       response.sendRedirect(redirectURL + "?error=400");
