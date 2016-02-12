@@ -4,19 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../_common/header.jspf" %>
-<body class="login-page">
-  <div class="page-wrap">
-    <%@ include file="../_common/navbar.jspf" %>
 
-    <div class="container">
-    <%
-      if (session == null || session.getAttribute("employeeEmail") == null) { %>
-        <%@ include file="loginForm.jspf" %>
-      <% } else { %>
-        <%@ include file="dashboard.jspf" %>
-      <% } %>
-    </div>
-  </div>
+<% if (session == null || session.getAttribute("employeeEmail") == null) { %>
+  <%@ include file="loginForm.jspf" %>
+<% } else { %>
+  <%@ include file="dashboard.jspf" %>
+<% } %>
 
   <%@ include file="../_common/footer.jspf" %>
   <%@ include file="../_common/scripts.jspf" %>

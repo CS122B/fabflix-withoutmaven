@@ -2,6 +2,24 @@
 String employeeName = (String)session.getAttribute("employeeFullName");
 %>
 
-<h1>you are logged in, <% out.println(employeeName); %></h1>
-
-<a href="<% out.println(rootPath); %>/servlet/logoutEmployee">Logout Employee</a>
+<body>
+  <div class="page-wrap">
+    <%@ include file="../_common/navbar.jspf" %>
+    <div class="container">
+      <div class="row">
+        <h1 class="col-sm-12 text-center">Employee Dashboard</h1>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <h1>Hello, <% out.println(employeeName); %></h1>
+          <a href="<% out.println(rootPath); %>/servlet/logoutEmployee">Logout Employee</a>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <%@ include file="addStarForm.jspf" %>
+          <%@ include file="databaseMetadata.jspf" %>
+          <%@ include file="addMovie.jspf" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

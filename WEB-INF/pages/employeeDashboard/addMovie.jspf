@@ -1,0 +1,50 @@
+<form
+  method="POST"
+  action="servlet/addNewStar"
+>
+  <h2>Add Movie</h2>
+  <label for="input-movie-title" class="sr-only">Movie Title</label>
+  <input
+    id="input-movie-title"
+    class="form-control"
+    type="text"
+    name="movieTitle"
+    placeholder="Movie Title"
+    required
+    autofocus
+  >
+  <label for="input-movie-year" class="sr-only">Movie Release Year</label>
+  <input
+    id="input-movie-year"
+    class="form-control"
+    type="text"
+    name="movieYear"
+    placeholder="Movie Release Year"
+    required
+  >
+  <label for="input-movie-director" class="sr-only">Movie Director</label>
+  <input
+    id="input-movie-director"
+    class="form-control"
+    type="text"
+    name="movieDirector"
+    placeholder="Movie Director"
+  >
+  <label for="input-movie-banner-url" class="sr-only">Movie Banner URL</label>
+  <input
+    id="input-movie-banner-url"
+    class="form-control"
+    type="text"
+    name="movieBannerUrl"
+    placeholder="Movie Banner URL"
+  >
+  <label for="input-movie-trailer-url" class="sr-only">Movie Trailer URL</label>
+  <input
+    id="input-movie-trailer-url"
+    class="form-control"
+    type="text"
+    name="movieTrailerUrl"
+    placeholder="Movie Trailer URL"
+  >
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Add Movie</button>
+</form>
