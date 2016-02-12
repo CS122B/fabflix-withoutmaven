@@ -110,6 +110,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>LoginEmployeeAuthenticationServlet</servlet-name>
     <servlet-class>LoginEmployeeAuthentication</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddStarServlet</servlet-name>
+    <servlet-class>AddStar</servlet-class>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -196,7 +200,12 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>ProcessOrderServlet</servlet-name>
     <url-pattern>/servlet/processOrder</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddStarServlet</servlet-name>
+    <url-pattern>/servlet/star</url-pattern>
+  </servlet-mapping>
 
+  <!-- ERROR ROUTES -->
   <error-page>  
      <error-code>404</error-code>  
      <location>/WEB-INF/pages/_error/404.jsp</location>  

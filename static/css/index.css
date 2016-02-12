@@ -59,6 +59,10 @@ body {
   text-align: center;
 }
 
+.form-status > * {
+  padding: 15px;
+}
+
 /*
  * HOME
  */

@@ -1,6 +1,6 @@
 <form
   method="POST"
-  action="servlet/addNewStar"
+  action="servlet/addNewMovie"
 >
   <h2>Add Movie</h2>
   <label for="input-movie-title" class="sr-only">Movie Title</label>

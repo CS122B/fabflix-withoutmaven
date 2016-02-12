@@ -1,34 +1,62 @@
-<form
-  method="POST"
-  action="servlet/addNewStar"
->
-  <h2>Add New Star</h2>
-  <label for="input-actor-name" class="sr-only">Actor Name</label>
-  <input
-    id="input-actor-name"
-    class="form-control"
-    type="text"
-    name="actorName"
-    placeholder="Actor Name"
-    required
-    autofocus
+<div class="row">
+  <form
+    id="form-add-star"
+    class="form-horizontal"
+    method="POST"
+    action="servlet/star"
   >
-  <label for="input-actor-dob" class="sr-only">Date of Birth</label>
-  <input
-    id="input-actor-dob"
-    class="form-control"
-    type="date"
-    name="actorDob"
-    placeholder="Date of Birth"
-    required
-  >
-  <label for="input-actor-photo-url" class="sr-only">Photo URL</label>
-  <input
-    id="input-actor-photo-url"
-    class="form-control"
-    type="text"
-    name="actorPhotoUrl"
-    placeholder="Photo URL"
-  >
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Add New Star</button>
-</form>
+    <div class="col-sm-12">
+      <h3>Add New Star</h3>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label class="control-label col-sm-3">Actor Name</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="actorName"
+            placeholder="Actor Name"
+            required
+            autofocus
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Date of Birth</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="date"
+            name="actorDob"
+            placeholder="Date of Birth"
+            required
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Photo URL</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="actorPhotoUrl"
+            placeholder="Photo URL"
+          >
+        </div>
+      </div>
+      <div class="col-sm-12 form-status">
+        <h4 id="status-add-star"></h4>
+      </div>
+      <div class="col-sm-12">
+        <button
+          id="button-add-star"
+          class="btn btn-lg btn-primary btn-block"
+          type="submit"
+        >
+          Add New Star
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -17,9 +17,8 @@ String employeeName = (String)session.getAttribute("employeeFullName");
         <div class="col-sm-12 col-md-6">
           <%@ include file="addStarForm.jspf" %>
           <%@ include file="databaseMetadata.jspf" %>
-          <%@ include file="addMovie.jspf" %>
+          <%@ include file="addMovieForm.jspf" %>
         </div>
       </div>
     </div>
   </div>
-</body>

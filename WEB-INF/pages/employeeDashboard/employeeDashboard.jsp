@@ -13,5 +13,6 @@
 
   <%@ include file="../_common/footer.jspf" %>
   <%@ include file="../_common/scripts.jspf" %>
+  <script src="<% out.println(rootPath); %>/static/js/employeeDashboard.js"></script>
 </body>
 </html>
