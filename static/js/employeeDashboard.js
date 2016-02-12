@@ -4,6 +4,10 @@ $(document).ready(function () {
   var $formAddStar = $('#form-add-star');
   var $statusAddStar = $('#status-add-star');
 
+  var $divMetadata = $('#div-metadata');
+  var $formMetadata = $('#form-metadata');
+  var $statusMetadata = $('#status-metadata');
+
   $formAddStar.on('submit', function (e) {
     e.preventDefault();
 
@@ -26,6 +30,21 @@ $(document).ready(function () {
       })
       .always(function () {
         $buttonAddStar.prop('disabled', false);
+      });
+  });
+
+  $formMetadata.on('submit', function(e) {
+    e.preventDefault();
+
+    $.get($formMetadata.attr('action'))
+      .done(function (data) {
+        $divMetadata.html(data);
+      })
+      .fail(function (err) {
+        $statusMetadata
+          .removeClass('bg-success')
+          .addClass('bg-danger')
+          .html(err);
       });
   });
 });
