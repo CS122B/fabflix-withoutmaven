@@ -17,7 +17,6 @@ public class LoginEmployeeAuthentication extends HttpServlet
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
-    HttpSession session = request.getSession();
     String redirectURL = request.getContextPath() + "/_dashboard";
 
     try {
@@ -26,37 +25,46 @@ public class LoginEmployeeAuthentication extends HttpServlet
       DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
       Connection dbcon = ds.getConnection();
 
-      String email = request.getParameter("email");
-      String password = request.getParameter("password");
-      String query = (
-        "SELECT email, fullname " +
-        "FROM employees " +
-        "WHERE email = ? AND password = ?"
-      );
+      try {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String query = (
+          "SELECT email, fullname " +
+          "FROM employees " +
+          "WHERE email = ? AND password = ?"
+        );
 
-      PreparedStatement statement = dbcon.prepareStatement(query);
-      statement.setString(1, email);
-      statement.setString(2, password);
+        PreparedStatement statement = dbcon.prepareStatement(query);
 
-      ResultSet rs = statement.executeQuery();
-      String employeeEmail = "";
-      String employeeFullName;
-      session = request.getSession(); 
+        try {
+          statement.setString(1, email);
+          statement.setString(2, password);
 
-      while (rs.next()) {
-        employeeEmail = rs.getString("email");
-        employeeFullName = rs.getString("fullname");
-        session.setAttribute("employeeFullName", employeeFullName);
-        session.setAttribute("employeeEmail", employeeEmail);
+          ResultSet rs = statement.executeQuery();
+
+          try {
+            String employeeEmail = "";
+            String employeeFullName;
+            HttpSession session = request.getSession();
+
+            while (rs.next()) {
+              employeeEmail = rs.getString("email");
+              employeeFullName = rs.getString("fullname");
+              session.setAttribute("employeeFullName", employeeFullName);
+              session.setAttribute("employeeEmail", employeeEmail);
+            }
+
+            response.sendRedirect(redirectURL);
+          } finally {
+            rs.close();
+          }
+        } finally {
+          statement.close();
+        }
+      } finally {
+        dbcon.close();
       }
-
-      rs.close();
-      statement.close();
-      dbcon.close();
-
-      response.sendRedirect(redirectURL);
-    }
-    catch (SQLException ex) {
+    } catch (SQLException ex) {
       response.sendRedirect(redirectURL + "?error=400");
     } catch (java.lang.Exception ex) {
       response.sendRedirect(redirectURL + "?error=401");

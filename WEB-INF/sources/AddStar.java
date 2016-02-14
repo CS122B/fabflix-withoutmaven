@@ -14,7 +14,10 @@ public class AddStar extends HttpServlet
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
-    HttpSession session = request.getSession();
+    PrintWriter out = response.getWriter();
+
+    response.setContentType("text/plain");
+    response.setCharacterEncoding("utf-8");
 
     try {
       Context initCtx = new InitialContext();
@@ -22,56 +25,65 @@ public class AddStar extends HttpServlet
       DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
       Connection dbcon = ds.getConnection();
 
-      String nameRaw = request.getParameter("actorName");
-      String[] nameSplit = nameRaw.split(" ");
-      String firstName = "";
-      String lastName = "";
-      String dob = request.getParameter("actorDob");
-      String photoUrl = request.getParameter("actorPhotoUrl");
+      try {
+        String nameRaw = request.getParameter("actorName");
+        String[] nameSplit = nameRaw.split(" ");
+        String firstName = "";
+        String lastName = "";
+        String dob = request.getParameter("actorDob");
+        String photoUrl = request.getParameter("actorPhotoUrl");
 
-      if (nameRaw.equals("")) {
-        response.sendError(400, "Missing required fields");
+        if (nameRaw.equals("")) {
+          response.setStatus(400);
+          out.write("Missing required fields.");
+          return;
+        }
+
+        // add actor only with last name
+        if (nameSplit.length == 1) {
+          lastName = nameSplit[0];
+        } else {
+          firstName = nameSplit[0];
+          lastName = nameSplit[1];
+        }
+
+        String query = (
+          "INSERT INTO stars " +
+          "(" +
+          "  first_name, " +
+          "  last_name, " +
+          "  dob, " +
+          "  photo_url" +
+          ") " +
+          "VALUES (?,?,?,?)"
+        );
+
+        PreparedStatement statement = dbcon.prepareStatement(query);
+
+        try {
+          statement.setString(1, firstName);
+          statement.setString(2, lastName);
+          statement.setString(3, dob);
+          statement.setString(4, photoUrl);
+
+          statement.executeUpdate();
+
+          response.setStatus(200);
+          out.write(nameRaw + " has been added.");
+        } finally {
+          statement.close();
+        }
+      } finally {
+        dbcon.close();
       }
-
-      // add actor only with last name
-      if (nameSplit.length == 1) {
-        lastName = nameSplit[0];
-      } else {
-        firstName = nameSplit[0];
-        lastName = nameSplit[1];
-      }
-
-      String query = (
-        "INSERT INTO stars " +
-        "(" +
-        "  first_name, " +
-        "  last_name, " +
-        "  dob, " +
-        "  photo_url" +
-        ") " +
-        "VALUES (?,?,?,?)"
-      );
-
-      PreparedStatement statement = dbcon.prepareStatement(query);
-      statement.setString(1, firstName);
-      statement.setString(2, lastName);
-      statement.setString(3, dob);
-      statement.setString(4, photoUrl);
-
-      statement.executeUpdate();
-
-      response.setContentType("text/plain");
-      response.setCharacterEncoding("utf-8");
-      response.setStatus(200);
-      response.getWriter().write(nameRaw + " has been added.");
-
-      statement.close();
-      dbcon.close();
-
     } catch (SQLException ex) {
-      response.sendError(400, "No results");
+      response.setStatus(400);
+      out.write(ex.getMessage());
     } catch (java.lang.Exception ex) {
-      response.sendError(401, "Not validated");
+      response.setStatus(401);
+      out.write(ex.getMessage());
+    } finally {
+      out.close();
     }
   }
 }

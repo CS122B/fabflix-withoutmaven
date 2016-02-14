@@ -42,7 +42,7 @@ $(document).ready(function () {
       });
   });
 
-  $formMetadata.on('submit', function(e) {
+  $formMetadata.on('submit', function (e) {
     e.preventDefault();
 
     $.get($formMetadata.attr('action'))

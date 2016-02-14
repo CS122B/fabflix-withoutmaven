@@ -31,13 +31,14 @@ public class AddToCart extends HttpServlet
       return;
     }
 
-    HttpSession session = request.getSession(false);
     PrintWriter out = response.getWriter();
 
     response.setContentType("text/plain");
     response.setCharacterEncoding("UTF-8");
 
     try {
+      HttpSession session = request.getSession(false);
+
       if (session == null || session.getAttribute("userFirstName") == null) {
         throw new Exception();
       }
@@ -47,46 +48,56 @@ public class AddToCart extends HttpServlet
       DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
       Connection dbcon = ds.getConnection();
 
-      String query = (
-        "SELECT * " +
-        "FROM movies " +
-        "WHERE id = ?"
-      );
+      try {
+        String query = (
+          "SELECT * " +
+          "FROM movies " +
+          "WHERE id = ?"
+        );
 
-      PreparedStatement statement = dbcon.prepareStatement(query);
-      String movieId = request.getParameter("movieId");
-      statement.setString(1, movieId);
+        PreparedStatement statement = dbcon.prepareStatement(query);
 
-      ResultSet rs = statement.executeQuery();
+        try {
+          String movieId = request.getParameter("movieId");
+          statement.setString(1, movieId);
 
-      if (!rs.isBeforeFirst()) {
-        throw new SQLException();
+          ResultSet rs = statement.executeQuery();
+
+          try {
+            if (!rs.isBeforeFirst()) {
+              throw new SQLException();
+            }
+
+            Map<Integer, Integer> shoppingCart = getShoppingCart(session);
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            int intMovieId = Integer.parseInt(movieId);
+
+            shoppingCart.put(intMovieId, quantity);
+            session.setAttribute("shoppingCart", shoppingCart);
+
+            String hasRedirect = request.getParameter("redirect");
+            if (hasRedirect != null) {
+              response.sendRedirect(request.getContextPath() + "/" + hasRedirect);
+            }
+          } finally {
+            rs.close();
+          }
+        } finally {
+          statement.close();
+        }
+      } finally {
+        dbcon.close();
       }
-
-      Map<Integer, Integer> shoppingCart = getShoppingCart(session);
-      int quantity = Integer.parseInt(request.getParameter("quantity"));
-      int intMovieId = Integer.parseInt(movieId);
-
-      shoppingCart.put(intMovieId, quantity);
-      session.setAttribute("shoppingCart", shoppingCart);
-
-      rs.close();
-      statement.close();
-      dbcon.close();
-
-      String hasRedirect = request.getParameter("redirect");
-      if (hasRedirect != null) {
-        response.sendRedirect(request.getContextPath() + "/" + hasRedirect);
-      }
-
     }
     catch (SQLException ex) {
-      response.sendError(400, "No results");
+      response.setStatus(400);
+      out.write(ex.getMessage());
     } catch(java.lang.Exception ex) {
-      response.sendError(401, "Not validated");
+      response.setStatus(401);
+      out.write(ex.getMessage());
+    } finally {
+      out.close();
     }
-
-    out.close();
   }
 
   public void doDelete(HttpServletRequest request, HttpServletResponse response)
