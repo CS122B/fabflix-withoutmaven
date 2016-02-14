@@ -29,7 +29,7 @@ public class AddStar extends HttpServlet
       String dob = request.getParameter("actorDob");
       String photoUrl = request.getParameter("actorPhotoUrl");
 
-      if (nameRaw.equals("") || dob.equals("")) {
+      if (nameRaw.equals("")) {
         response.sendError(400, "Missing required fields");
       }
 

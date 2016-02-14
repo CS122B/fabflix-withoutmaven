@@ -115,6 +115,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-class>AddStar</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>AddMovieServlet</servlet-name>
+    <servlet-class>AddMovie</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>DBMetadataServlet</servlet-name>
     <servlet-class>DBMetadata</servlet-class>
   </servlet>
@@ -209,6 +213,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <url-pattern>/servlet/star</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>AddMovieServlet</servlet-name>
+    <url-pattern>/servlet/movie</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>DBMetadataServlet</servlet-name>
     <url-pattern>/servlet/dbmeta</url-pattern>
   </servlet-mapping>
@@ -217,14 +225,6 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <error-page>  
      <error-code>404</error-code>  
      <location>/WEB-INF/pages/_error/404.jsp</location>  
-  </error-page>
-  <error-page>
-    <exception-type>java.lang.Exception</exception-type>
-    <location>/WEB-INF/pages/_error/404.jsp</location>  
-  </error-page>
-  <error-page>
-    <exception-type>SQLException</exception-type>
-    <location>/WEB-INF/pages/_error/404.jsp</location>  
   </error-page>
 
 </web-app>

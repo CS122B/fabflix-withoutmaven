@@ -18,7 +18,6 @@
             name="actorName"
             placeholder="Actor Name"
             required
-            autofocus
           >
         </div>
       </div>
@@ -30,7 +29,6 @@
             type="date"
             name="actorDob"
             placeholder="Date of Birth"
-            required
           >
         </div>
       </div>
@@ -48,15 +46,15 @@
       <div class="col-sm-12 form-status">
         <h4 id="status-add-star"></h4>
       </div>
-      <div class="col-sm-12">
-        <button
-          id="button-add-star"
-          class="btn btn-lg btn-primary btn-block"
-          type="submit"
-        >
-          Add New Star
-        </button>
-      </div>
+    </div>
+    <div class="col-sm-12">
+      <button
+        id="button-add-star"
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+      >
+        Add New Star
+      </button>
     </div>
   </form>
 </div>

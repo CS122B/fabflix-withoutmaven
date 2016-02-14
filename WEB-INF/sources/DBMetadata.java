@@ -23,7 +23,6 @@ public class DBMetadata extends HttpServlet
     Statement statement = dbcon.createStatement();
     ResultSet rs = statement.executeQuery(query);
     ResultSetMetaData metadata = rs.getMetaData();
-
     String toReturn = (
       "<table class=\"table table-bordered\">" +
       "  <caption>" + tableName + "</caption>" +
@@ -35,6 +34,7 @@ public class DBMetadata extends HttpServlet
       "  </thead>" +
       "  <tbody>"
     );
+
     for (int i=1; i <= metadata.getColumnCount(); ++i) {
       String colAttribute = metadata.getColumnName(i);
       String colType = metadata.getColumnTypeName(i);
@@ -54,6 +54,7 @@ public class DBMetadata extends HttpServlet
     rs.close();
     statement.close();
     dbcon.close();
+
     return toReturn;
   }
 

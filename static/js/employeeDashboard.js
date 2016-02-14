@@ -8,11 +8,15 @@ $(document).ready(function () {
   var $formMetadata = $('#form-metadata');
   var $statusMetadata = $('#status-metadata');
 
+  var $buttonAddMovie = $('#button-add-movie');
+  var $formAddMovie = $('#form-add-movie');
+  var $statusAddMovie = $('#status-add-movie');
+
   $formAddStar.on('submit', function (e) {
     e.preventDefault();
 
     $buttonAddStar.prop('disabled', true);
-    $statusAddStar.html('');
+    $statusAddStar.hide();
 
     $.post($formAddStar.attr('action'), $formAddStar.serialize())
       .done(function (data) {
@@ -20,13 +24,15 @@ $(document).ready(function () {
         $statusAddStar
           .removeClass('bg-danger')
           .addClass('bg-success')
-          .html(data);
+          .html(data)
+          .show();
       })
       .fail(function (err) {
         $statusAddStar
           .removeClass('bg-success')
           .addClass('bg-danger')
-          .html(err);
+          .html(err)
+          .show();
       })
       .always(function () {
         $buttonAddStar.prop('disabled', false);
@@ -45,6 +51,33 @@ $(document).ready(function () {
           .removeClass('bg-success')
           .addClass('bg-danger')
           .html(err);
+      });
+  });
+
+  $formAddMovie.on('submit', function (e) {
+    e.preventDefault();
+
+    $buttonAddMovie.prop('disabled', true);
+    $statusAddMovie.hide();
+
+    $.post($formAddMovie.attr('action'), $formAddMovie.serialize())
+      .done(function (data) {
+        $formAddMovie.trigger('reset');
+        $statusAddMovie
+          .removeClass('bg-danger')
+          .addClass('bg-success')
+          .html(data)
+          .show();
+      })
+      .fail(function (err) {
+        $statusAddMovie
+          .removeClass('bg-success')
+          .addClass('bg-danger')
+          .html(err.responseText)
+          .show();
+      })
+      .always(function () {
+        $buttonAddMovie.prop('disabled', false);
       });
   });
 });

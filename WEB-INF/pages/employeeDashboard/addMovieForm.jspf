@@ -1,50 +1,106 @@
-<form
-  method="POST"
-  action="servlet/addNewMovie"
->
-  <h2>Add Movie</h2>
-  <label for="input-movie-title" class="sr-only">Movie Title</label>
-  <input
-    id="input-movie-title"
-    class="form-control"
-    type="text"
-    name="movieTitle"
-    placeholder="Movie Title"
-    required
-    autofocus
+<div class="row">
+  <form
+    id="form-add-movie"
+    class="form-horizontal"
+    method="POST"
+    action="servlet/movie"
   >
-  <label for="input-movie-year" class="sr-only">Movie Release Year</label>
-  <input
-    id="input-movie-year"
-    class="form-control"
-    type="text"
-    name="movieYear"
-    placeholder="Movie Release Year"
-    required
-  >
-  <label for="input-movie-director" class="sr-only">Movie Director</label>
-  <input
-    id="input-movie-director"
-    class="form-control"
-    type="text"
-    name="movieDirector"
-    placeholder="Movie Director"
-  >
-  <label for="input-movie-banner-url" class="sr-only">Movie Banner URL</label>
-  <input
-    id="input-movie-banner-url"
-    class="form-control"
-    type="text"
-    name="movieBannerUrl"
-    placeholder="Movie Banner URL"
-  >
-  <label for="input-movie-trailer-url" class="sr-only">Movie Trailer URL</label>
-  <input
-    id="input-movie-trailer-url"
-    class="form-control"
-    type="text"
-    name="movieTrailerUrl"
-    placeholder="Movie Trailer URL"
-  >
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Add Movie</button>
-</form>
+    <div class="col-sm-12">
+      <h3>Add Movie</h3>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label class="control-label col-sm-3">Movie Title*</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="movieTitle"
+            placeholder="Title i.e. Blade Walker"
+            required
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Release Year*</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="movieYear"
+            placeholder="Release Year i.e. 2015"
+            required
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Director*</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="movieDirector"
+            placeholder="Director i.e. Christopher Nolan"
+            required
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Banner URL</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="movieBanner"
+            placeholder="Banner URL"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Trailer URL</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="movieTrailer"
+            placeholder="Trailer URL"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Star In Movie*</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="star"
+            placeholder="Star i.e. Van Nguyen"
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-3">Movie Genre*</label>
+        <div class="col-sm-9">
+          <input
+            class="form-control"
+            type="text"
+            name="genre"
+            placeholder="Genre i.e. Romance"
+          >
+        </div>
+      </div>
+      <div class="col-sm-12 form-status">
+        <h4 id="status-add-movie"></h4>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <button
+        id="button-add-movie"
+        class="btn btn-lg btn-primary btn-block"
+        type="submit"
+      >
+        Add Movie
+      </button>
+    </div>
+  </form>
+</div>

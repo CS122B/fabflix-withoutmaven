@@ -37,6 +37,7 @@ body {
 
 #navbar-search-select {
   margin-left: -5px;
+  width: inherit;
 }
 
 .page-wrap {
@@ -221,4 +222,18 @@ body {
 
 #movie-title a {
   font-size: 20px;
+}
+
+/*
+ * DASHBOARD
+ */
+
+#div-metadata caption {
+  font-size: 20px;
+}
+
+#status-add-star,
+#status-metadata,
+#status-add-movie {
+  display: none;
 }
