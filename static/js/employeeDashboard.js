@@ -12,6 +12,9 @@ $(document).ready(function () {
   var $formAddMovie = $('#form-add-movie');
   var $statusAddMovie = $('#status-add-movie');
 
+  var $functionSelect = $('#dashboard-fn-select');
+  var $dashboardFunctions = $('#dashboard-fns').children();
+
   $formAddStar.on('submit', function (e) {
     e.preventDefault();
 
@@ -80,4 +83,13 @@ $(document).ready(function () {
         $buttonAddMovie.prop('disabled', false);
       });
   });
+
+  $functionSelect.change(function (e) {
+    $dashboardFunctions
+      .hide()
+      .eq(e.target.value)
+      .show();
+  });
+
+  $functionSelect.change();
 });

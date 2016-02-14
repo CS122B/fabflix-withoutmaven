@@ -237,3 +237,21 @@ body {
 #status-add-movie {
   display: none;
 }
+
+.dashboard-borders {
+  padding: 15px;
+  border: 1px solid #bbb;
+  background-color: #efefef;
+}
+
+.dashboard-logout {
+  margin-top: 50px;
+}
+
+#div-metadata table {
+  background-color: white;
+}
+
+#div-metadata table caption {
+  color: #444;
+}

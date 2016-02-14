@@ -7,10 +7,11 @@
   >
     <div class="col-sm-12">
       <h3>Add New Star</h3>
+      <h4 class="text-right">* = required</h4>
     </div>
     <div class="col-sm-12">
       <div class="form-group">
-        <label class="control-label col-sm-3">Actor Name</label>
+        <label class="control-label col-sm-3">Actor Name*</label>
         <div class="col-sm-9">
           <input
             class="form-control"
