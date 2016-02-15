@@ -10,14 +10,13 @@
     out.println(
       "<a class=\"btn btn-primary\" href=\"" + rootPath + "\">Return to Home</a>"
     );
-  } else { // error
+  } else {
     String errMessage = request.getParameter("message");
     out.println(
       "<p>Your order could not be completed: " +
-      errMessage + "</p>"
-    );
-    out.println(
-      "<a class=\"btn btn-primary\" href=\"" + rootPath + "/cart\">Back to Shopping Cart</a>"
+      errMessage + "</p>" +
+      "<a class=\"btn btn-primary\" href=\"" +
+      rootPath + "/cart\">Back to Shopping Cart</a>"
     );
   }
 %>

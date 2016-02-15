@@ -1,8 +1,8 @@
 <%
 
-try {
-  Connection dbcon = ds.getConnection();
+Connection dbcon = ds.getConnection();
 
+try {
   int searchOffset = (Integer.parseInt(searchPage) - 1) * Integer.parseInt(searchLimit);
   String orderColumn = searchOrder.split(" ")[0];
   String orderDirection = searchOrder.split(" ")[1];
@@ -41,46 +41,52 @@ try {
     "AND a.director LIKE ? "
   );
   String queryWithOrder = "SELECT * " + query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
-  %>
-  <%@ include file="pagination.jspf" %>
-  <%
+
+  %><%@ include file="pagination.jspf" %><%
+
   out.println(pagination);
-  PreparedStatement statement = dbcon.prepareStatement(queryWithOrder);
-  statement.setString(1, "%" + starFirstName + "%");
-  statement.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
-  statement.setString(3, "%" + searchGenre + "%");
-  statement.setString(4, ("".equals(browseByTitle) ? "%" : "") + searchTitle + "%");
-  statement.setString(5, "%" + searchYear + "%");
-  statement.setString(6, "%" + searchDirector + "%");
-  statement.setInt(7, Integer.parseInt(searchLimit));
-  statement.setInt(8, searchOffset);
-  ResultSet rs = statement.executeQuery();
-  HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
-  String whereInStatementVariables = "";
-  ArrayList<String> sortedMovies = new ArrayList<String>();
 
-  while (rs.next()) {
-    String id = rs.getString("id");
-    String title = rs.getString("title");
-    String year = rs.getString("year");
-    String banner = rs.getString("banner_url");
-	
-    SearchRow movie = new SearchRow(id, title, year, banner, rootPath);
+  PreparedStatement statementWithOrder = dbcon.prepareStatement(queryWithOrder);
 
-    moviesMap.put(id, movie);
-    sortedMovies.add(id);
-    whereInStatementVariables += "?" + (rs.isLast() ? "" : ",");
+  try {
+    statementWithOrder.setString(1, "%" + starFirstName + "%");
+    statementWithOrder.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
+    statementWithOrder.setString(3, "%" + searchGenre + "%");
+    statementWithOrder.setString(4, ("".equals(browseByTitle) ? "%" : "") + searchTitle + "%");
+    statementWithOrder.setString(5, "%" + searchYear + "%");
+    statementWithOrder.setString(6, "%" + searchDirector + "%");
+    statementWithOrder.setInt(7, Integer.parseInt(searchLimit));
+    statementWithOrder.setInt(8, searchOffset);
+
+    ResultSet rsWithOrder = statementWithOrder.executeQuery();
+
+    try {
+      HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
+      String whereInStatementVariables = "";
+      ArrayList<String> sortedMovies = new ArrayList<String>();
+
+      while (rsWithOrder.next()) {
+        String id = rsWithOrder.getString("id");
+        String title = rsWithOrder.getString("title");
+        String year = rsWithOrder.getString("year");
+        String banner = rsWithOrder.getString("banner_url");
+        SearchRow movie = new SearchRow(id, title, year, banner, rootPath);
+
+        moviesMap.put(id, movie);
+        sortedMovies.add(id);
+        whereInStatementVariables += "?" + (rsWithOrder.isLast() ? "" : ",");
+      }
+
+      %>
+      <%@ include file="processRows.jspf" %>
+      <%@ include file="shoppingCartModal.jspf" %>
+      <%
+    } finally {
+      rsWithOrder.close();
+    }
+  } finally {
+    statementWithOrder.close();
   }
-
-  %>
-  <%@ include file="processRows.jspf" %>
-  <%@ include file="shoppingCartModal.jspf" %>
-  <%
-
-  rs.close();
-  statement.close();
-  dbcon.close();
-
 } catch (SQLException ex) {
   while (ex != null) {
     System.out.println ("SQL Exception: " + ex.getMessage());
@@ -88,5 +94,7 @@ try {
   }
 } catch (java.lang.Exception ex) {
   out.println("<p>SQL error: " + ex.getMessage() + "</p>");
+} finally {
+  dbcon.close();
 }
 %>

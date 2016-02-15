@@ -3,39 +3,42 @@
   String lastName = "";
   String starDOBString = "";
   String starPhoto = "";
+  Connection dbconStar = ds.getConnection();
 
   try {
-    Connection dbcon = ds.getConnection();
-
     String query = (
       "SELECT * " +
       "FROM stars " +
       "WHERE id = ?"
     );
+    PreparedStatement statement = dbconStar.prepareStatement(query);
 
-    PreparedStatement statement = dbcon.prepareStatement(query);
-    statement.setInt(1, starId);
+    try {
+      statement.setInt(1, starId);
 
-    ResultSet rs = statement.executeQuery();
+      ResultSet rs = statement.executeQuery();
 
-    if (!rs.isBeforeFirst()) {
-      throw new Exception("Invalid Movie");
+      try {
+        if (!rs.isBeforeFirst()) {
+          throw new Exception("Invalid Movie");
+        }
+
+        rs.next();
+
+        firstName = rs.getString("first_name");
+        lastName = rs.getString("last_name");
+        String starDOB = rs.getString("dob");
+        starPhoto = rs.getString("photo_url");
+        DateFormat starDOBDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat starDOBStringFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        java.util.Date starDOBDate = starDOBDateFormat.parse(starDOB);
+        starDOBString = starDOBStringFormat.format(starDOBDate);
+      } finally {
+        rs.close();
+      }
+    } finally {
+      statement.close();
     }
-
-    rs.next();
-    firstName = rs.getString("first_name");
-    lastName = rs.getString("last_name");
-    String starDOB = rs.getString("dob");
-    starPhoto = rs.getString("photo_url");
-    DateFormat starDOBDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    DateFormat starDOBStringFormat = new SimpleDateFormat("MMMM dd, yyyy");
-    java.util.Date starDOBDate = starDOBDateFormat.parse(starDOB);
-    starDOBString = starDOBStringFormat.format(starDOBDate);
-
-    rs.close();
-    statement.close();
-    dbcon.close();
-
   } catch (SQLException ex) {
     while (ex != null) {
       System.out.println ("SQL Exception: " + ex.getMessage());
@@ -44,5 +47,7 @@
     response.sendError(404);
   } catch (java.lang.Exception ex) {
     response.sendError(404);
+  } finally {
+    dbconStar.close();
   }
 %>

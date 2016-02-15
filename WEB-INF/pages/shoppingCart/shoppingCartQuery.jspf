@@ -4,15 +4,14 @@
   final int MEDIUM_BATCH = 11;
   final int LARGE_BATCH = 51;
 
-  try {
-    Connection dbcon = ds.getConnection();
+  Connection dbcon = ds.getConnection();
 
+  try {
     Set<Integer> cartKeys = shoppingCart.keySet();
     Integer[] shoppingCartMovies = cartKeys.toArray(new Integer[cartKeys.size()]);
-
     int remainingMovies = shoppingCart.size();
-    while (remainingMovies > 0) {
 
+    while (remainingMovies > 0) {
       int batchSize = SINGLE_BATCH;
 
       if (remainingMovies >= LARGE_BATCH) {
@@ -36,63 +35,67 @@
         inClause.append('?');
       }
 
-      PreparedStatement statement = dbcon.prepareStatement(
+      String query = (
         "SELECT * " +
         "FROM movies " +
         "WHERE id in (" + inClause.toString() + ")"
       );
+      PreparedStatement statement = dbcon.prepareStatement(query);
 
-      int insertCount = 1;
-      for (int i = remainingMovies; i < remainingMovies + batchSize; ++i) {
-        statement.setInt(insertCount, shoppingCartMovies[i]);
-        ++insertCount;
+      try {
+        int insertCount = 1;
+        for (int i = remainingMovies; i < remainingMovies + batchSize; ++i) {
+          statement.setInt(insertCount, shoppingCartMovies[i]);
+          ++insertCount;
+        }
+
+        ResultSet rs = statement.executeQuery();
+
+        try {
+          insertCount = remainingMovies;
+
+          while (rs.next()) {
+            String movieId = rs.getString("id");
+            String year = rs.getString("year");
+            String banner = rs.getString("banner_url");
+            String title = rs.getString("title");
+            Integer quantity = shoppingCart.get(shoppingCartMovies[insertCount]);
+
+            out.println(
+              "<tr>" +
+              "  <td><img src=\"" + banner + "\" /></td>" +
+              "  <td>" +
+              "    <a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a>" +
+              "    <span>(" + year + ")</span>" +
+              "    <h5># " + movieId + "</h5>" +
+              "  </td>" +
+              "  <td>" +
+              "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
+              "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
+              "      <input name=\"redirect\" value=\"cart\" hidden>" +
+              "      <input name=\"quantity\" type=\"number\" value=\"" + quantity + "\" />" +
+              "      <button type=\"submit\" class=\"btn btn-primary\">Update Quantity</td>" +
+              "    </form>" +
+              "  </td>" +
+              "  <td>" +
+              "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
+              "      <input name=\"method\" value=\"DELETE\" hidden>" +
+              "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
+              "      <button type=\"submit\" class=\"btn btn-danger\">Delete</td>" +
+              "    </form>" +
+              "  </td>" +
+              "</tr>"
+            );
+
+            ++insertCount;
+          }
+        } finally {
+          rs.close();
+        }
+      } finally {
+        statement.close();
       }
-
-      ResultSet rs = statement.executeQuery();
-
-      insertCount = remainingMovies;
-      while (rs.next()) {
-        String movieId = rs.getString("id");
-        String year = rs.getString("year");
-        String banner = rs.getString("banner_url");
-        String title = rs.getString("title");
-        Integer quantity = shoppingCart.get(shoppingCartMovies[insertCount]);
-
-        out.println(
-          "<tr>" +
-          "  <td><img src=\"" + banner + "\" /></td>" +
-          "  <td>" +
-          "    <a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a>" +
-          "    <span>(" + year + ")</span>" +
-          "    <h5># " + movieId + "</h5>" +
-          "  </td>" +
-          "  <td>" +
-          "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
-          "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
-          "      <input name=\"redirect\" value=\"cart\" hidden>" +
-          "      <input name=\"quantity\" type=\"number\" value=\"" + quantity + "\" />" +
-          "      <button type=\"submit\" class=\"btn btn-primary\">Update Quantity</td>" +
-          "    </form>" +
-          "  </td>" +
-          "  <td>" +
-          "    <form action=\"servlet/user/addToCart\" method=\"POST\">" +
-          "      <input name=\"method\" value=\"DELETE\" hidden>" +
-          "      <input name=\"movieId\" value=\"" + movieId + "\" hidden>" +
-          "      <button type=\"submit\" class=\"btn btn-danger\">Delete</td>" +
-          "    </form>" +
-          "  </td>" +
-          "</tr>"
-        );
-
-        ++insertCount;
-      }
-
-      statement.close();
-      rs.close();
     }
-
-    dbcon.close();
-
   } catch (SQLException ex) {
     while (ex != null) {
       out.println ("SQL Exception: " + ex.getMessage());
@@ -100,6 +103,8 @@
     }
   } catch (java.lang.Exception ex) {
     out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  } finally {
+    dbcon.close();
   }
 %>
  

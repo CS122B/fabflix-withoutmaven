@@ -1,7 +1,7 @@
 <%
-  try {
-    Connection dbcon = ds.getConnection();
+  Connection dbconGenres = ds.getConnection();
 
+  try {
     String query = (
       "SELECT id, name " +
       "FROM genres_in_movies gin " +
@@ -10,26 +10,31 @@
       "  AND gin.movie_id = ?"
     );
 
-    PreparedStatement statement = dbcon.prepareStatement(query);
-    statement.setInt(1, movieId);
+    PreparedStatement statement = dbconGenres.prepareStatement(query);
 
-    ResultSet rs = statement.executeQuery();
+    try {
+      statement.setInt(1, movieId);
 
-    while (rs.next()) {
-      String genreId = rs.getString("id");
-      String genre = rs.getString("name");
-      String hasComma = rs.isLast() ? "" : ",";
-      out.println(
-        "<a href=\"" + rootPath + "/search?genre=" + genreId +
-        "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">"+
-        genre + "</a>" + hasComma
-      );
+      ResultSet rs = statement.executeQuery();
+
+      try {
+        while (rs.next()) {
+          String genreId = rs.getString("id");
+          String genre = rs.getString("name");
+          String hasComma = rs.isLast() ? "" : ",";
+
+          out.println(
+            "<a href=\"" + rootPath + "/search?genre=" + genreId +
+            "&numResults=25&orderBy=title+asc&search=browse&pageNum=1\">" +
+            genre + "</a>" + hasComma
+          );
+        }
+      } finally {
+        rs.close();
+      }
+    } finally {
+      statement.close();
     }
-
-    rs.close();
-    statement.close();
-    dbcon.close();
-
   } catch (SQLException ex) {
     while (ex != null) {
       System.out.println ("SQL Exception: " + ex.getMessage());
@@ -37,5 +42,7 @@
     }
   } catch (java.lang.Exception ex) {
     out.println("<p>SQL error: " +ex.getMessage() + "</p>");
+  } finally {
+    dbconGenres.close();
   }
 %>
