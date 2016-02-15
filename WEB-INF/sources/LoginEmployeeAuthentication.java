@@ -14,16 +14,33 @@ import javax.sql.DataSource;
 
 public class LoginEmployeeAuthentication extends HttpServlet
 {
+  public DataSource datasource;
+
+  public void init(ServletConfig config)
+    throws ServletException
+  {
+    try {
+      Context initCtx = new InitialContext();
+      Context envCtx = (Context) initCtx.lookup("java:comp/env");
+      datasource = (DataSource) envCtx.lookup("jdbc/movieDB");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Connection getConnection()
+    throws SQLException
+  {
+    return datasource.getConnection();
+  }
+
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
     String redirectURL = request.getContextPath() + "/_dashboard";
 
     try {
-      Context initCtx = new InitialContext();
-      Context envCtx = (Context) initCtx.lookup("java:comp/env");
-      DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
-      Connection dbcon = ds.getConnection();
+      Connection dbcon = getConnection();
 
       try {
         String email = request.getParameter("email");

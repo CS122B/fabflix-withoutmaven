@@ -12,13 +12,30 @@ import javax.sql.DataSource;
 
 public class DBMetadata extends HttpServlet
 {
+  public DataSource datasource;
+
+  public void init(ServletConfig config)
+    throws ServletException
+  {
+    try {
+      Context initCtx = new InitialContext();
+      Context envCtx = (Context) initCtx.lookup("java:comp/env");
+      datasource = (DataSource) envCtx.lookup("jdbc/movieDB");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Connection getConnection()
+    throws SQLException
+  {
+    return datasource.getConnection();
+  }
+
   private String getTableMetadata(String tableName)
     throws SQLException, NamingException
   {
-    Context initCtx = new InitialContext();
-    Context envCtx = (Context) initCtx.lookup("java:comp/env");
-    DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
-    Connection dbcon = ds.getConnection();
+    Connection dbcon = getConnection();
     String toReturn = "";
 
     try {
@@ -80,10 +97,7 @@ public class DBMetadata extends HttpServlet
 
     try {
       String tableData = "";
-      Context initCtx = new InitialContext();
-      Context envCtx = (Context) initCtx.lookup("java:comp/env");
-      DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
-      Connection dbcon = ds.getConnection();
+      Connection dbcon = getConnection();
 
       try {
         DatabaseMetaData metadata = dbcon.getMetaData();

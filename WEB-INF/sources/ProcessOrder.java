@@ -11,6 +11,25 @@ import javax.sql.DataSource;
 
 public class ProcessOrder extends HttpServlet
 {
+  public DataSource datasource;
+
+  public void init(ServletConfig config)
+    throws ServletException
+  {
+    try {
+      Context initCtx = new InitialContext();
+      Context envCtx = (Context) initCtx.lookup("java:comp/env");
+      datasource = (DataSource) envCtx.lookup("jdbc/movieDB");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private Connection getConnection()
+    throws SQLException
+  {
+    return datasource.getConnection();
+  }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
@@ -27,10 +46,7 @@ public class ProcessOrder extends HttpServlet
         throw new Exception("Not logged in.");
       }
 
-      Context initCtx = new InitialContext();
-      Context envCtx = (Context) initCtx.lookup("java:comp/env");
-      DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
-      Connection dbcon = ds.getConnection();
+      Connection dbcon = getConnection();
 
       try {
         String firstName = request.getParameter("firstName");

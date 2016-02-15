@@ -5,8 +5,8 @@
     <div class="col-sm-9">
       <select id="dashboard-fn-select" class="form-control">
         <option value="0" selected>Add Star</option>
-        <option value="1">Add Movie</option>
-        <option value="2">Get Table Metadata</option>
+        <option value="1">Get Table Metadata</option>
+        <option value="2">Add Movie</option>
       </select>
     </div>
   </div>
