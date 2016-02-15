@@ -30,8 +30,15 @@
 
     for (int i = 0; i < starIds.length; ++i) { %>
       <div class="col-sm-12 col-md-2">
-        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><img src="<% out.println(starPhotos[i]); %>" /></a>
-        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>"><h5><% out.println(starNames[i]); %></h5></a>
+        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>">
+          <img
+            src="<% out.println(starPhotos[i]); %>"
+            onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_actor.jpg"); %>'"
+          />
+        </a>
+        <a href="<% out.println(rootPath + "/stars/" + starIds[i]); %>">
+          <h5><% out.println(starNames[i]); %></h5>
+        </a>
       </div>
     <% } %>
   </div>

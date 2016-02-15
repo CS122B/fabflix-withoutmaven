@@ -1,5 +1,9 @@
 <div class="col-sm-12 col-md-3">
-    <img id="movie-image" src="<% out.println(banner); %>">
+    <img
+      id="movie-image"
+      src="<% out.println(banner); %>"
+      onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_poster.jpg"); %>'"
+    />
 </div>
 <div class="col-sm-12 col-md-9 detail-main-content">
   <div class="row">

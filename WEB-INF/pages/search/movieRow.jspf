@@ -1,6 +1,10 @@
 <div class="search-rows row">
   <div class="col-sm-12 col-md-2 col-md-offset-2">
-    <img id="movie-image" src="<% out.println(movie.banner); %>">
+    <img
+      id="movie-image"
+      src="<% out.print(movie.banner); %>"
+      onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_poster.jpg"); %>'"
+    />
   </div>
   <div class="col-sm-12 col-md-6 detail-main-content">
     <div class="row">
@@ -28,9 +32,9 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <button
-              data-movie-id="<% out.println(movie.id); %>"
-              data-movie-title="<% out.println(movie.title); %>"
-              data-movie-year="<% out.println(movie.year); %>"
+              data-movie-id="<% out.print(movie.id); %>"
+              data-movie-title="<% out.print(movie.title); %>"
+              data-movie-year="<% out.print(movie.year); %>"
               class="btn btn-primary button-add-movie"
               type="button"
             >

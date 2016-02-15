@@ -1,6 +1,10 @@
 <div class="row">
   <div class="col-sm-12 col-md-3">
-      <img id="star-image" src="<% out.println(starPhoto); %>">
+    <img
+      id="star-image"
+      src="<% out.println(starPhoto); %>"
+      onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_actor.jpg"); %>'"
+    />
   </div>
   <div class="col-sm-12 col-md-9 detail-main-content">
     <div class="row">

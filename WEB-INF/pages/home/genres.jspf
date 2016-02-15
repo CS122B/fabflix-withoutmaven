@@ -26,8 +26,15 @@ String[] genreHeaders = {
   <% for (int i = 0; i < genreIds.length; ++i) { %>
   <div class="featured-genre">
     <h4><% out.println(genreHeaders[i]); %></h4>
-    <a href="<% out.println(rootPath + "/movies/" + genreIds[i]); %>"><img src="<% out.println(genreBanners[i]); %>" /></a>
-    <a href="<% out.println(rootPath + "/movies/" + genreIds[i]); %>"><% out.println(genreTitles[i]); %></a>
+    <a href="<% out.print(rootPath + "/movies/" + genreIds[i]); %>">
+      <img
+        src="<% out.print(genreBanners[i]); %>"
+        onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_poster.jpg"); %>'"
+      />
+    </a>
+    <a href="<% out.print(rootPath + "/movies/" + genreIds[i]); %>">
+      <% out.println(genreTitles[i]); %>
+    </a>
   </div>
   <% } %>
 </div>
