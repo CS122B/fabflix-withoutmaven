@@ -27,6 +27,17 @@ public class LoginAuthentication extends HttpServlet
       Context envCtx = (Context) initCtx.lookup("java:comp/env");
       DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
       Connection dbcon = ds.getConnection();
+      
+      String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+      boolean valid = VerifyUtils.verify(gRecaptchaResponse);
+      if (!valid) {
+        out.println("<HTML>" +
+                    "<HEAD><TITLE>" +
+                    "MovieDB: Error" +
+                    "</TITLE></HEAD>\n<BODY>" +
+                    "<P>Invalid Recaptcha</P></BODY></HTML");
+        return;
+      }
 
       try {
         String email = request.getParameter("email");

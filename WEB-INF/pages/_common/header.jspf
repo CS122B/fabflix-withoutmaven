@@ -8,4 +8,6 @@
 
   <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/vendor/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<% out.println(rootPath); %>/static/css/index.css">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
