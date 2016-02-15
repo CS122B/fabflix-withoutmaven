@@ -21,11 +21,12 @@ try {
     starLastName = starInputs[1];
   }
 
-  String searchGenreQuery = 
+  String searchGenreQuery = (
     "INNER JOIN " +
     "(SELECT DISTINCT movie_id from genres_in_movies " +
-    "WHERE genres_in_movies.genre_id LIKE ? ) AS movie_genres " + 
-    "ON movie_genres.movie_id = a.id ";
+    "WHERE genres_in_movies.genre_id LIKE ? ) AS movie_genres " +
+    "ON movie_genres.movie_id = a.id "
+  );
 
   query += (
     "FROM movies AS a " +
@@ -40,15 +41,30 @@ try {
     "AND a.year LIKE ? " +
     "AND a.director LIKE ? "
   );
-  String queryWithOrder = "SELECT * " + query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
+  // String queryWithOrder = "SELECT * " + query + "ORDER BY " + searchOrder + " LIMIT ? OFFSET ?";
+  String nonPreparedQuery = (
+    "SELECT * " +
+    "FROM movies AS a " +
+    "INNER JOIN " +
+    "(" +
+    "  SELECT DISTINCT movie_id " +
+    "  FROM stars_in_movies " +
+    "  INNER JOIN stars " +
+    "  ON stars_in_movies.star_id = stars.id " +
+    ") AS b ON a.id = b.movie_id " +
+    "WHERE a.title LIKE " + ("".equals(browseByTitle) ? "'%" : "") + searchTitle + "%'"
+  );
 
   %><%@ include file="pagination.jspf" %><%
 
   out.println(pagination);
 
-  PreparedStatement statementWithOrder = dbcon.prepareStatement(queryWithOrder);
+  //PreparedStatement statementWithOrder = dbcon.prepareStatement(queryWithOrder);
+  // Testing use of non-prepared statements
+  Statement statementWithOrder = dbcon.createStatement();
 
   try {
+    /*
     statementWithOrder.setString(1, "%" + starFirstName + "%");
     statementWithOrder.setString(2, "%" + ("".equals(starLastName) ? starFirstName : starLastName) + "%");
     statementWithOrder.setString(3, "%" + searchGenre + "%");
@@ -59,6 +75,10 @@ try {
     statementWithOrder.setInt(8, searchOffset);
 
     ResultSet rsWithOrder = statementWithOrder.executeQuery();
+    */
+
+    // Testing use of non-prepared statements
+    ResultSet rsWithOrder = statementWithOrder.executeQuery(nonPreparedQuery);
 
     try {
       HashMap<String, SearchRow> moviesMap = new HashMap<String, SearchRow>();
