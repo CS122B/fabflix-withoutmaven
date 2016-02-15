@@ -1,42 +1,46 @@
 <%
-    String title = "";
-    String year = "";
-    String director = "";
-    String banner = "";
-    String trailer = "";
+String title = "";
+String year = "";
+String director = "";
+String banner = "";
+String trailer = "";
+
+Connection dbconMovie = ds.getConnection();
+try {
+  String query = (
+    "SELECT * " +
+    "FROM movies " +
+    "WHERE id = ?"
+  );
+  PreparedStatement statement = dbconMovie.prepareStatement(query);
 
   try {
-    Connection dbcon = ds.getConnection();
-
-    String query = (
-      "SELECT * " +
-      "FROM movies " +
-      "WHERE id = ?"
-    );
-
-    PreparedStatement statement = dbcon.prepareStatement(query);
     statement.setInt(1, movieId);
 
     ResultSet rs = statement.executeQuery();
 
-    if (!rs.isBeforeFirst()) {
-      throw new Exception("Invalid Movie");
+    try {
+      if (!rs.isBeforeFirst()) {
+        throw new Exception("Invalid Movie");
+      }
+
+      rs.next();
+      title = rs.getString("title");
+      year = rs.getString("year");
+      director = rs.getString("director");
+      banner = rs.getString("banner_url");
+      trailer = rs.getString("trailer_url");
+    } finally {
+      rs.close();
     }
-
-    rs.next();
-    title = rs.getString("title");
-    year = rs.getString("year");
-    director = rs.getString("director");
-    banner = rs.getString("banner_url");
-    trailer = rs.getString("trailer_url");
-
-    rs.close();
+  } finally {
     statement.close();
-    dbcon.close();
-
-  } catch (SQLException ex) {
-    response.sendError(404);
-  } catch (java.lang.Exception ex) {
-    response.sendError(404);
   }
+} catch (SQLException ex) {
+  response.sendError(404);
+} catch (java.lang.Exception ex) {
+  response.sendError(404);
+} finally {
+  dbconMovie.close();
+}
 %>

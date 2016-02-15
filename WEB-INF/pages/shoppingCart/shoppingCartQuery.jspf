@@ -63,7 +63,12 @@
 
             out.println(
               "<tr>" +
-              "  <td><img src=\"" + banner + "\" /></td>" +
+              "  <td>" +
+              "    <img" +
+              "      src=\"" + banner + "\"" +
+              "      onerror=\"this.onerror=null; this.src='" + rootPath +  "/static/images/default_poster.jpg'\"" +
+              "    />" +
+              "  </td>" +
               "  <td>" +
               "    <a href=\"" + rootPath + "/movies/" + movieId + "\">" + title + "</a>" +
               "    <span>(" + year + ")</span>" +
