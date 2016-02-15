@@ -1,6 +1,3 @@
-
-/* A servlet to display the contents of the MySQL movieDB database */
-
 import java.io.*;
 import java.net.*;
 import java.sql.*;
@@ -12,32 +9,34 @@ import javax.naming.InitialContext;
 import javax.naming.Context;
 import javax.sql.DataSource;
 
-public class LoginAuthentication extends HttpServlet
-{
+public class LoginAuthentication extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
   {
     PrintWriter out = response.getWriter();
+    String isRedirect = request.getParameter("redirect");
+    String redirectURL;
 
     response.setContentType("text/plain");
     response.setCharacterEncoding("utf-8");
 
     try {
+      String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+      boolean isValidRecaptcha = VerifyUtils.verify(gRecaptchaResponse);
+
+      // if (!isValidRecaptcha) {
+      //   redirectURL =
+      //     request.getContextPath() + "/login?error=recaptcha" +
+      //     (isRedirect == null ? "" : "&redirect=" + isRedirect);
+
+      //   response.sendRedirect(redirectURL);
+      //   return;
+      // }
+
       Context initCtx = new InitialContext();
       Context envCtx = (Context) initCtx.lookup("java:comp/env");
       DataSource ds = (DataSource) envCtx.lookup("jdbc/movieDB");
       Connection dbcon = ds.getConnection();
-      
-      String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-      boolean valid = VerifyUtils.verify(gRecaptchaResponse);
-      if (!valid) {
-        out.println("<HTML>" +
-                    "<HEAD><TITLE>" +
-                    "MovieDB: Error" +
-                    "</TITLE></HEAD>\n<BODY>" +
-                    "<P>Invalid Recaptcha</P></BODY></HTML");
-        return;
-      }
 
       try {
         String email = request.getParameter("email");
@@ -61,18 +60,20 @@ public class LoginAuthentication extends HttpServlet
             String userId;
             HttpSession session = request.getSession();
 
-            while (rs.next()) {
-              firstName = rs.getString("first_name");
-              userId = rs.getString("id");
-              session.setAttribute("userFirstName", firstName);
-              session.setAttribute("userId", userId);
+            if (!rs.isBeforeFirst()) {
+              throw new SQLException();
             }
 
-            String isRedirect = request.getParameter("redirect");
-            String redirectURL = isRedirect == null
+            rs.next();
+
+            firstName = rs.getString("first_name");
+            userId = rs.getString("id");
+            session.setAttribute("userFirstName", firstName);
+            session.setAttribute("userId", userId);
+
+            redirectURL = isRedirect == null
               ? request.getContextPath() + "/"
               : isRedirect;
-
             response.sendRedirect(redirectURL);
           } finally {
             rs.close();
@@ -84,7 +85,10 @@ public class LoginAuthentication extends HttpServlet
         dbcon.close();
       }
     } catch (SQLException ex) {
-      response.sendError(400, "No results");
+      redirectURL =
+        request.getContextPath() + "/login?error=noUser" +
+        (isRedirect == null ? "" : "&redirect=" + isRedirect);
+      response.sendRedirect(redirectURL);
     } catch (java.lang.Exception ex) {
       response.sendError(401, "Not validated");
     } finally {

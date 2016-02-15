@@ -37,5 +37,22 @@
   }
   %>
   <div class="g-recaptcha" data-sitekey="6LdlExgTAAAAADJM89JSxYvTCTg2u65FOR3dlwi_"></div>
+  <%
+    String error = request.getParameter("error");
+    if (error != null) {
+  %>
+  <div class="bg-danger">
+    <h4 class="login-error">
+      Error:
+      <%
+      if ("recaptcha".equals(error)) {
+        out.print("Recaptcha did not validate.");
+      } else if ("noUser".equals(error)) {
+        out.print("Incorrect username or password.");
+      }
+      %>
+    </h4>
+  </div>
+  <% } %>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </form>
