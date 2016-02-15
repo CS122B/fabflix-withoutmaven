@@ -220,6 +220,13 @@ body {
  * SEARCH
  */
 
+.search-borders {
+  padding: 15px;
+  border: 1px solid #bbb;
+  border-top: 0;
+  background-color: #efefef;
+}
+
 #movie-title a {
   font-size: 20px;
 }

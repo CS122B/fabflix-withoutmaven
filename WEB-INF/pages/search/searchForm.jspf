@@ -1,133 +1,135 @@
-<div class="row">
-  <form class="form-horizontal" action="search" method="GET">
-    <div class="col-sm-12">
-      <h3>Advanced Search</h3>
-    </div>
-    <div class="col-sm-12 col-md-6">
-      <h4>Queries</h4>
-      <div class="form-group">
-        <label class="control-label col-sm-3">Title</label>
-        <div class="col-sm-9">
-          <input
-            class="form-control"
-            type="text"
-            name="title"
-            placeholder="e.g. Blade Runner"
-            value="<% out.println(searchTitle); %>"
-          >
-        </div>
+<div class="search-borders">
+  <div class="row">
+    <form class="form-horizontal" action="search" method="GET">
+      <div class="col-sm-12">
+        <h3>Advanced Search</h3>
       </div>
-      <div class="form-group">
-        <label class="control-label col-sm-3">Release Year</label>
-        <div class="col-sm-9">
-          <input
-            class="form-control"
-            type="text"
-            name="year"
-            placeholder="e.g. 1982"
-            value="<% out.println(searchYear); %>"
-          >
+      <div class="col-sm-12 col-md-6">
+        <h4>Queries</h4>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Title</label>
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              type="text"
+              name="title"
+              placeholder="e.g. Blade Runner"
+              value="<% out.println(searchTitle); %>"
+            >
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-3">Director</label>
-        <div class="col-sm-9">
-          <input
-            class="form-control"
-            type="text"
-            name="director"
-            placeholder="e.g. Ridley Scott"
-            value="<% out.println(searchDirector); %>"
-          >
+        <div class="form-group">
+          <label class="control-label col-sm-3">Release Year</label>
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              type="text"
+              name="year"
+              placeholder="e.g. 1982"
+              value="<% out.println(searchYear); %>"
+            >
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label col-sm-3">Star</label>
-        <div class="col-sm-9">
-          <input
-            class="form-control"
-            type="text"
-            name="star"
-            placeholder="e.g. Harrison Ford"
-            value="<% out.println(searchStar); %>"
-          >
+        <div class="form-group">
+          <label class="control-label col-sm-3">Director</label>
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              type="text"
+              name="director"
+              placeholder="e.g. Ridley Scott"
+              value="<% out.println(searchDirector); %>"
+            >
+          </div>
         </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-md-6">
-      <h4>Options</h4>
-      <div class="form-group">
-        <label class="control-label col-sm-3">Display</label>
-        <div class="col-sm-9">
-          <select class="form-control" name="numResults">
-            <%
-            String[] numToDisplayValues = {
-              "10",
-              "25",
-              "50",
-              "100"
-            };
-            for (int i = 0; i < numToDisplayValues.length; ++i) {
-              String displayValue = numToDisplayValues[i];
-              String selectedOrder = displayValue.equals(searchLimit) ? "selected" : "";
-
-              out.println(
-                "<option " + selectedOrder + ">" + displayValue + "</option>"
-              );
-            }
-            %>
-          </select>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Star</label>
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              type="text"
+              name="star"
+              placeholder="e.g. Harrison Ford"
+              value="<% out.println(searchStar); %>"
+            >
+          </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="control-label col-sm-3">Sort By</label>
-        <div class="col-sm-9">
-          <select class="form-control" name="orderBy">
-            <%
-            String[] orderValues = {
-              "title asc",
-              "title desc",
-              "year asc",
-              "year desc"
-            };
-            String[] orderNames = {
-              "Title: A-Z",
-              "Title: Z-A",
-              "Year: Ascending",
-              "Year: Descending"
-            };
-            for (int i = 0; i < orderValues.length; ++i) {
-              String orderValue = orderValues[i];
-              String selectedOrder = orderValue.equals(searchOrder) ? "selected" : "";
+      <div class="col-sm-12 col-md-6">
+        <h4>Options</h4>
+        <div class="form-group">
+          <label class="control-label col-sm-3">Display</label>
+          <div class="col-sm-9">
+            <select class="form-control" name="numResults">
+              <%
+              String[] numToDisplayValues = {
+                "10",
+                "25",
+                "50",
+                "100"
+              };
+              for (int i = 0; i < numToDisplayValues.length; ++i) {
+                String displayValue = numToDisplayValues[i];
+                String selectedOrder = displayValue.equals(searchLimit) ? "selected" : "";
 
-              out.println(
-                "<option value=\"" + orderValue + "\" "+
-                selectedOrder + ">" + orderNames[i] + "</option>"
-              );
-            }
-            %>
-          </select>
+                out.println(
+                  "<option " + selectedOrder + ">" + displayValue + "</option>"
+                );
+              }
+              %>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-3">Sort By</label>
+          <div class="col-sm-9">
+            <select class="form-control" name="orderBy">
+              <%
+              String[] orderValues = {
+                "title asc",
+                "title desc",
+                "year asc",
+                "year desc"
+              };
+              String[] orderNames = {
+                "Title: A-Z",
+                "Title: Z-A",
+                "Year: Ascending",
+                "Year: Descending"
+              };
+              for (int i = 0; i < orderValues.length; ++i) {
+                String orderValue = orderValues[i];
+                String selectedOrder = orderValue.equals(searchOrder) ? "selected" : "";
+
+                out.println(
+                  "<option value=\"" + orderValue + "\" "+
+                  selectedOrder + ">" + orderNames[i] + "</option>"
+                );
+              }
+              %>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-sm-3">Genre</label>
+          <div class="col-sm-9">
+            <select class="form-control" name="genre">
+              <%@ include file="selectGenre.jspf" %>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-sm-6 search-form-buttons">
+          <button id="search-reset" class="btn btn-success btn-block" type="reset">Reset</button>
+        </div>
+        <div class="col-sm-6 search-form-buttons">
+          <button type="submit" class="btn btn-primary btn-block">Search</button>
         </div>
       </div>
-
-      <div class="form-group">
-        <label class="control-label col-sm-3">Genre</label>
-        <div class="col-sm-9">
-          <select class="form-control" name="genre">
-            <%@ include file="selectGenre.jspf" %>
-          </select>
-        </div>
-      </div>
-
-      <div class="col-sm-6 search-form-buttons">
-        <button id="search-reset" class="btn btn-success btn-block" type="reset">Reset</button>
-      </div>
-      <div class="col-sm-6 search-form-buttons">
-        <button type="submit" class="btn btn-primary btn-block">Search</button>
-      </div>
-    </div>
-    <input name="pageNum" value="1" hidden>
-  </form>
+      <input name="pageNum" value="1" hidden>
+    </form>
+  </div>
 </div>
