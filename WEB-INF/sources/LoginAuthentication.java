@@ -44,14 +44,14 @@ public class LoginAuthentication extends HttpServlet {
       String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
       boolean isValidRecaptcha = VerifyUtils.verify(gRecaptchaResponse);
 
-      // if (!isValidRecaptcha) {
-      //   redirectURL =
-      //     request.getContextPath() + "/login?error=recaptcha" +
-      //     (isRedirect == null ? "" : "&redirect=" + isRedirect);
+      if (!isValidRecaptcha) {
+        redirectURL =
+          request.getContextPath() + "/login?error=recaptcha" +
+          (isRedirect == null ? "" : "&redirect=" + isRedirect);
 
-      //   response.sendRedirect(redirectURL);
-      //   return;
-      // }
+        response.sendRedirect(redirectURL);
+        return;
+      }
 
       Connection dbcon = getConnection();
 
