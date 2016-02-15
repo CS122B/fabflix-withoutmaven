@@ -1,5 +1,6 @@
 <%@ include file="../_common/imports.jspf" %>
 <%@ include file="../_common/variables.jspf" %>
+<%@ include file="../_common/db.jspf" %>
 
 <!DOCTYPE html>
 <html lang="en">
