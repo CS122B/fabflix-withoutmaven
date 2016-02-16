@@ -96,7 +96,11 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   </servlet>
   <servlet>
     <servlet-name>ConnectionPoolingReportServlet</servlet-name>
-    <jsp-file>/WEB-INF/pages/poolReport/poolReport.jsp</jsp-file>
+    <jsp-file>/WEB-INF/pages/reports/poolReport.jsp</jsp-file>
+  </servlet>
+  <servlet>
+    <servlet-name>JMeterReportServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/reports/jmeter.jsp</jsp-file>
   </servlet>
   <servlet>
     <servlet-name>ReportSignatureReaderServlet</servlet-name>
@@ -185,6 +189,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>ReportSignatureReaderServlet</servlet-name>
     <url-pattern>/reports/signature</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JMeterReportServlet</servlet-name>
+    <url-pattern>/reports/jmeter_report</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>employeeDashboardServlet</servlet-name>
