@@ -126,6 +126,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>DBMetadataServlet</servlet-name>
     <servlet-class>DBMetadata</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>MovieHoverServlet</servlet-name>
+    <servlet-class>MovieHover</servlet-class>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -227,6 +231,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>DBMetadataServlet</servlet-name>
     <url-pattern>/servlet/dbmeta</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MovieHoverServlet</servlet-name>
+    <url-pattern>/servlet/movieHover/*</url-pattern>
   </servlet-mapping>
 
   <!-- ERROR ROUTES -->

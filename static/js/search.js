@@ -38,7 +38,7 @@ $(document).ready(function () {
       .done(function (data) {
         $modalMovieMessage.html(
           '1 copy of ' + movieTitle +
-          '(' + movieYear + ').'
+          ' (' + movieYear + ').'
         );
         $modalAddMovie.modal('show');
       })
