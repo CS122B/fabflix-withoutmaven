@@ -23,6 +23,7 @@
       ) {
       %>
         <%@ include file="advancedSearchQuery.jspf" %>
+        <%@ include file="movieHoverCard.jspf" %>
         <% out.println(pagination); %>
       <% } %>
     </div>

@@ -20,8 +20,10 @@ public class SearchRow {
 
   public String printTitle() {
     return (
-      "<a href=\"" + this.rootPath + "/movies/" + this.id +
-      "\">" + this.title + "</a>"
+      "<a " +
+      "  class=\"movie-title-link\"" +
+      "  href=\"" + this.rootPath + "/movies/" + this.id + "\" " +
+      "  data-movie-id=\"" + this.id + "\">" + this.title + "</a>"
     );
   }
 

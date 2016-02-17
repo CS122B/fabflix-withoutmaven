@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+  var ROOT_PATH = '/fabflix';
   var $form = $('.form-horizontal .form-control');
   var $inputs = $form.filter('input');
   var $selects = $form.filter('select');
@@ -10,6 +11,15 @@ $(document).ready(function () {
 
   var $modalAddMovie = $('#modal-add-movie');
   var $modalMovieMessage = $('#modal-movie-message');
+
+  var $movieTitleLinks = $('.movie-title-link');
+
+  var $movieHoverImage = $('#movie-hover-image');
+  var $movieHoverTitle = $('#movie-hover-title');
+  var $movieHoverYear = $('#movie-hover-year');
+  var $movieHoverId = $('#movie-hover-id');
+  var $movieHoverActors = $('#movie-hover-actors');
+  var $movieHoverTrailer = $('#movie-hover-trailer');
 
   $('.button-add-movie').click(function (/* e */) {
     var $that = $(this);
@@ -34,7 +44,7 @@ $(document).ready(function () {
       quantity: 1
     };
 
-    $.post('/fabflix/servlet/user/addToCart', postData)
+    $.post(ROOT_PATH + '/servlet/user/addToCart', postData)
       .done(function (data) {
         $modalMovieMessage.html(
           '1 copy of ' + movieTitle +
@@ -47,6 +57,34 @@ $(document).ready(function () {
           .prop('disabled', false)
           .html('Add failed. Retry?');
       });
+  });
+
+  $movieTitleLinks.mouseenter(function (e) {
+    $.get(ROOT_PATH + '/servlet/movieHover/' + $(this).attr('data-movie-id'))
+      .done(function (data) {
+        var dataParsed = JSON.parse(data);
+        var actors = dataParsed.actors.reduce(function (prev, curr, index) {
+          var actorLink = '<a href="' + ROOT_PATH + '/stars/' +
+            curr.id + '">' + curr.first_name + ' ' + curr.last_name + '</a>' +
+            (index === dataParsed.actors.length-1 ? '' : ', ');
+
+          return prev + actorLink;
+        }, '');
+
+        $movieHoverImage
+          .attr('src', dataParsed.banner_url)
+          .error(function () {
+            $('#movie-hover-image').attr('src', ROOT_PATH + '/static/images/default_poster.jpg')
+          });
+        $movieHoverTitle.text(dataParsed.title);
+        $movieHoverYear.text(dataParsed.year);
+        $movieHoverId.text(dataParsed.id);
+        $movieHoverActors.html(actors);
+        $movieHoverTrailer.attr('href', dataParsed.trailer_url);
+      })
+      .fail(function (err) {
+        console.log(err);
+      })
   });
 
 });

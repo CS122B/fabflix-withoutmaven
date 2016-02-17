@@ -4,7 +4,7 @@
       id="movie-image"
       src="<% out.print(movie.banner); %>"
       onerror="this.onerror=null; this.src='<% out.print(rootPath + "/static/images/default_poster.jpg"); %>'"
-    />
+    >
   </div>
   <div class="col-sm-12 col-md-6 detail-main-content">
     <div class="row">

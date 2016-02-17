@@ -1,0 +1,36 @@
+<div id="movie-hover-card">
+  <div class="col-sm-12 col-md-4">
+    <img id="movie-hover-image">
+  </div>
+  <div class="col-sm-12 col-md-8 detail-main-content">
+    <div class="row">
+      <div id="movie-hover-title"></div>
+      <span id="movie-hover-year"></span>
+    </div>
+    <div class="row">
+      <div>
+        <span>ID: </span>
+        <span id="movie-hover-id"></span> 
+      </div>
+      <div>
+        <span>Stars: </span>
+        <div id="movie-hover-actors"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <a
+              id="movie-hover-trailer"
+              class="btn btn-primary"
+              target="_blank"
+            >
+              Watch Trailer
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

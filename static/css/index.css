@@ -235,6 +235,20 @@ body {
   font-size: 20px;
 }
 
+#movie-hover-card {
+  position: absolute;
+  background-color: gray;
+  top: 500px;
+}
+
+#movie-hover-image {
+  width: 100%;
+}
+
+#movie-hover-actors {
+  display: inline-block;
+}
+
 /*
  * DASHBOARD
  */
