@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-12 col-md-8 detail-main-content">
     <div class="row">
-      <div id="movie-hover-title"></div>
+      <h3 id="movie-hover-title"></h3>
       <span id="movie-hover-year"></span>
     </div>
     <div class="row">
