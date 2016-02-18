@@ -1,2 +1,3 @@
-<script src="<% out.println(rootPath); %>/static/vendor/jquery-2.2.0.min.js"></script>
-<script src="<% out.println(rootPath); %>/static/vendor/bootstrap.min.js"></script>
+<script src="<% out.print(rootPath + "/static/vendor/jquery-2.2.0.min.js"); %>"></script>
+<script src="<% out.print(rootPath + "/static/vendor/bootstrap.min.js"); %>"></script>
+<script src="<% out.print(rootPath + "/static/js/navbar.js"); %>"></script>

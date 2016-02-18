@@ -28,8 +28,13 @@
             class="form-control"
             type="text"
             name="input"
+            autocomplete="off"
             placeholder="Search Fabflix..."
-          >
+          />
+          <div id="navbar-search-results-container">
+            <h5>Search Results</h5>
+            <ul id="navbar-search-results"></ul>
+          </div>
           <select
             id="navbar-search-select"
             class="form-control"

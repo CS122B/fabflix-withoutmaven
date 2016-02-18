@@ -31,6 +31,6 @@
 
   <%@ include file="../_common/footer.jspf" %>
   <%@ include file="../_common/scripts.jspf" %>
-  <script src="<% out.println(rootPath); %>/static/js/search.js"></script>
+  <script src="<% out.print(rootPath + "/static/js/search.js"); %>"></script>
 </body>
 </html>

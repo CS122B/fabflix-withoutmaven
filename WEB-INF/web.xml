@@ -130,6 +130,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <servlet-name>MovieHoverServlet</servlet-name>
     <servlet-class>MovieHover</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AutocompleteSearchServlet</servlet-name>
+    <servlet-class>AutocompleteSearch</servlet-class>
+  </servlet>
 
   <!-- FILTERS -->
   <filter-mapping>
@@ -235,6 +239,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>MovieHoverServlet</servlet-name>
     <url-pattern>/servlet/movieHover/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AutocompleteSearchServlet</servlet-name>
+    <url-pattern>/servlet/autocompleteSearch/*</url-pattern>
   </servlet-mapping>
 
   <!-- ERROR ROUTES -->

@@ -40,6 +40,50 @@ body {
   width: inherit;
 }
 
+#navbar-search-results-container {
+  top: 500px;
+  width: 400px;
+  background-color: white;
+  z-index: 999;
+  position: fixed;
+  display: none;
+  border: 1px solid #ccc;
+  border-top: 0;
+}
+
+#navbar-search-results-container > h5 {
+  background-color: #efefef;
+  padding: 8px;
+  margin: 0;
+  color: #666;
+  font-weight: 600;
+}
+
+#navbar-search-results {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+#navbar-search-results > li:hover {
+  background-color: #337ab7;
+}
+
+#navbar-search-results a {
+  display: block;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#navbar-search-results > li:hover a {
+  color: white;
+}
+
+.navbar-suggestion img {
+  width: 50px;
+  padding: 10px;
+}
+
 .page-wrap {
   min-height: 100%;
   margin-bottom: -25px;
