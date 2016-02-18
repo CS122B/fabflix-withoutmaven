@@ -35,12 +35,12 @@ $(document).ready(function () {
   }
 
   function clearHoverInterval() {
-      $currentLinkHover = null;
-      clearInterval(hoverInterval);
-      $movieHoverCard.hide();
+    clearInterval(hoverInterval);
+    $currentLinkHover = null;
+    $movieHoverCard.hide();
   }
 
-  $('#search-reset').click(function () {
+  $('#search-reset').click(function (/* e */) {
     $inputs.val('');
     $selects.val('none');
   });
@@ -83,7 +83,7 @@ $(document).ready(function () {
       });
   });
 
-  $movieTitleLinks.mouseenter(function (e) {
+  $movieTitleLinks.mouseenter(function (/* e */) {
     // clear previous interval if any
     clearHoverInterval();
 
@@ -112,7 +112,7 @@ $(document).ready(function () {
         $movieHoverImage
           .attr('src', dataParsed.banner_url)
           .error(function () {
-            $('#movie-hover-image').attr('src', ROOT_PATH + '/static/images/default_poster.jpg')
+            $movieHoverImage.attr('src', ROOT_PATH + '/static/images/default_poster.jpg');
           });
         $movieHoverCard
           .css({
