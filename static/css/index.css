@@ -45,10 +45,9 @@ body {
   width: 400px;
   background-color: white;
   z-index: 999;
-  position: fixed;
+  position: absolute;
   display: none;
   border: 1px solid #ccc;
-  border-top: 0;
 }
 
 #navbar-search-results-container > h5 {
