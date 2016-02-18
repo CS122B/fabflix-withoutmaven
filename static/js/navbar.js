@@ -73,7 +73,7 @@ $(document).ready(function () {
         );
       }, '');
     } else {
-      resultsHTML = '<h5>No results found.</h5>'
+      resultsHTML = '<h5>No results found.</h5>';
     }
 
     $searchResults.html(resultsHTML);

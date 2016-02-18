@@ -50,12 +50,15 @@ body {
   border: 1px solid #ccc;
 }
 
+#navbar-search-results-container h5 {
+  padding: 8px;
+  font-weight: 600;
+}
+
 #navbar-search-results-container > h5 {
   background-color: #efefef;
-  padding: 8px;
   margin: 0;
   color: #666;
-  font-weight: 600;
 }
 
 #navbar-search-results {
@@ -285,6 +288,7 @@ body {
   width: 600px;
   border: 1px solid #bbb;
   background-color: #e7e7e7;
+  box-shadow: 2px 2px 8px #999;
   z-index: 999;
 }
 
