@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
   var ROOT_PATH = '/fabflix';
+  var TITLE_MAX_LENGTH = 35;
 
   var $searchInput = $('#navbar-search-input');
   var $searchResults = $('#navbar-search-results');
@@ -54,15 +55,19 @@ $(document).ready(function () {
 
     if (parsed.suggestions.length) {
       resultsHTML = parsed.suggestions.reduce(function (prev, curr) {
+        var movieTitle = curr.title.length > TITLE_MAX_LENGTH
+          ? curr.title.substring(0, TITLE_MAX_LENGTH) + '...'
+          : curr.title;
+
         return prev + (
           '<li class="navbar-suggestion">' +
           '  <a href="' + ROOT_PATH + '/movies/' + curr.id + '">' +
           '    <img ' +
           '      src="' + curr.banner + '" ' +
-          '      onerror="this.onerror=null; this.src=\'' + ROOT_PATH + '/static/images/default_poster.jpg\'"' +
+          '      onerror="this.onerror=null; this.src=\'' + ROOT_PATH +
+          '        /static/images/default_poster.jpg\'"' +
           '    />' +
-          '    <span>' + curr.title + '</span>' +
-          '    <span>(' + curr.year + ')</span>' +
+          '    <span>' + movieTitle + ' (' + curr.year + ')</span>' +
           '  </a>' +
           '</li>'
         );
