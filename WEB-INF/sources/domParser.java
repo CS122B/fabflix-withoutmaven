@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,7 +44,7 @@ public class DOMParser
 		parseDocument();
     
     // todo: replace this step with one that adds items to appropriate database
-		printData();
+		//printData();
 		
 	}
 	
@@ -69,20 +70,8 @@ public class DOMParser
 			ioe.printStackTrace();
 		}
 	}
-  
-  private void addToContentList(NodeList parentList) {
-    for(int i = 0 ; i < parentList.getLength();i++) {		
-      //get the employee element
-      Element el = (Element)parentList.item(i);				
-      //get the Employee object. TODO: replace with individual functions to "get" specific objects e.g. getActor or getFilm
-      Employee e = getEmployee(el);				
-      //add it to list
-      xmlContent.add(e);
-    }
-  }
-	
+
 	private void parseDocument(){
-		//get the root elememt
 		Element docEle = dom.getDocumentElement();
 		
     NodeList moviesList = docEle.getElementsByTagName("directorfilms");
@@ -97,14 +86,24 @@ public class DOMParser
       addToContentList(castList);
     }
 	}
-
-
-	/**
-	 * I take an employee element and read the values in, create
-	 * an Employee object and return it
-	 * @param empEl
-	 * @return
-	 */
+  
+  private void addToContentList(NodeList parentList) {
+    for(int i = 0 ; i < parentList.getLength();i++) {		
+      //get the employee element
+      Element el = (Element)parentList.item(i);				
+      //get the Employee object. TODO: replace with individual functions to "get" specific objects e.g. getActor or getFilm
+      Employee e = getEmployee(el);				
+      //add it to list
+      xmlContent.add(e);
+    }
+  }
+	
+  // todo: instead of returning an "Employee" object, return a hashmap of the values to input
+  // to the DB e.g. {"title": "Blade Runner", "year": "1982", "director" : "Ridley Scott"}
+  private HashMap getMovie (Element el) {
+    HashMap<String, String> movieObject = new HashMap<String, String>();
+  }
+  
 	private Employee getEmployee(Element empEl) {
 		
 		//for each <employee> element get text or int values of 
@@ -152,20 +151,6 @@ public class DOMParser
 	private int getIntValue(Element ele, String tagName) {
 		//in production application you would catch the exception
 		return Integer.parseInt(getTextValue(ele,tagName));
-	}
-	
-	/**
-	 * Iterate through the list and print the 
-	 * content to console
-	 */
-	private void printData(){
-		
-		System.out.println("No of Employees '" + myEmpls.size() + "'.");
-		
-		Iterator it = xmlContent.iterator();
-		while(it.hasNext()) {
-			System.out.println(it.next().toString());
-		}
 	}
 
 	
