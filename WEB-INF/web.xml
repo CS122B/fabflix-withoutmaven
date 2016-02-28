@@ -103,6 +103,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     <jsp-file>/WEB-INF/pages/reports/jmeter.jsp</jsp-file>
   </servlet>
   <servlet>
+    <servlet-name>ParsingOptimizationServlet</servlet-name>
+    <jsp-file>/WEB-INF/pages/reports/parsingOptimization.jsp</jsp-file>
+  </servlet>
+  <servlet>
     <servlet-name>ReportSignatureReaderServlet</servlet-name>
     <servlet-class>ReportSignatureReader</servlet-class>
   </servlet>
@@ -201,6 +205,10 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
   <servlet-mapping>
     <servlet-name>JMeterReportServlet</servlet-name>
     <url-pattern>/reports/jmeter_report</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ParsingOptimizationServlet</servlet-name>
+    <url-pattern>/reports/xml_parsing_optimization</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>employeeDashboardServlet</servlet-name>
