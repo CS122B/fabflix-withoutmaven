@@ -1,8 +1,8 @@
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `XML_parse_movies`(
   IN mTitle VARCHAR(100),
-  IN mYear VARCHAR(50),
   IN mDirector VARCHAR(100),
+  IN mYear VARCHAR(50),
     IN mGenre VARCHAR(32)
 )
 BEGIN
@@ -18,7 +18,7 @@ BEGIN
     `director`
   ) VALUES (
     mTitle,
-    str_to_date(mYear, '%Y/%m/%d'),
+    mYear,
     mDirector
   );
     
