@@ -12,18 +12,18 @@ BEGIN
 
   START TRANSACTION;
 
-  SELECT @movieId := 
+  SELECT  
     id
         FROM movies
         WHERE title = mTitle
-        LIMIT 1;
+        LIMIT 1 INTO @movieId;
 
-  SELECT @starId :=
+  SELECT 
     id
         FROM stars
         WHERE first_name = sFirstName
       AND last_name = sLastName
-        LIMIT 1;
+        LIMIT 1 INTO @starId;
         
   IF (@movieId IS NOT NULL AND @starId IS NOT NULL) THEN
     INSERT INTO `moviedb`.`stars_in_movies` (

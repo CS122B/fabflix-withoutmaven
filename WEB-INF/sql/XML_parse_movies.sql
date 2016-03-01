@@ -22,7 +22,7 @@ BEGIN
     mDirector
   );
     
-  SELECT @movieId := LAST_INSERT_ID();
+  SELECT LAST_INSERT_ID() INTO @movieId;
     
     IF NOT EXISTS (SELECT (1) FROM genres WHERE name = mGenre) THEN
     INSERT INTO `moviedb`.`genres`
