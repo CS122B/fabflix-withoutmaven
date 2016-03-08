@@ -41,16 +41,20 @@ public class LoginAuthentication extends HttpServlet {
     response.setCharacterEncoding("utf-8");
 
     try {
-      String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-      boolean isValidRecaptcha = VerifyUtils.verify(gRecaptchaResponse);
+      String isMobileLogin = request.getParameter("mobileLogin");
 
-      if (!isValidRecaptcha) {
-        redirectURL =
-          request.getContextPath() + "/login?error=recaptcha" +
-          (isRedirect == null ? "" : "&redirect=" + isRedirect);
+      if (!"true".equals(isMobileLogin)) {
+        String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+        boolean isValidRecaptcha = VerifyUtils.verify(gRecaptchaResponse);
 
-        response.sendRedirect(redirectURL);
-        return;
+        if (!isValidRecaptcha) {
+          redirectURL =
+            request.getContextPath() + "/login?error=recaptcha" +
+            (isRedirect == null ? "" : "&redirect=" + isRedirect);
+
+          response.sendRedirect(redirectURL);
+          return;
+        }
       }
 
       Connection dbcon = getConnection();
